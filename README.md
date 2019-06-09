@@ -1,4 +1,4 @@
-# Libo Su's Blog  
+# Ruoyun Lin's Blog  
 
 This is the code of my personal blog using Jekyll and Leonids Jekyll Themes. This project is under MIT license, so feel free to make it your own.
 
