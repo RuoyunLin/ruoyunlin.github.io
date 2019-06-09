@@ -1,0 +1,77 @@
+#
+###################################
+# Site wide configuration
+####################################
+#
+title: Ruoyun Lin's Blog 
+email: ritalinruoyun@gmail.com
+description: Welcome to my blog.
+url: "https://RuoyunLin.github.io" # the base hostname & protocol for your site
+keywords: ["Data Analyst", "User Researcher", "Quantitative Research", "Business Analyst"]
+
+#
+###################################
+# Jekyll configuration
+####################################
+#
+timezone:          Europe/Paris
+markdown:          kramdown
+highlighter:       rouge
+excerpt_separator: <!--more-->
+permalink:         /articles/:year-:month/:title
+
+kramdown:
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  enable_coderay: false
+
+# Plugins  
+plugins: ['jekyll/scholar']
+
+# Jekyll Scholar 
+scholar: 
+  style: apa
+  source: ./_data/bibliography
+  bibliography: references.bib
+  bibliography_list_tag: ul 
+
+#
+###################################
+# Site Owner configuration
+####################################
+#
+owner:
+  name: Ruoyun Lin
+  avatar: avatar.jpg
+  job: " "
+  bio: "A PhD Graduate at Tuebingen University, Germany"
+  email: ritalinruoyun@gmail.com
+  disqus-shortname: RuoyunLin
+  twitter: RuoyunLin #username
+  facebook: #username
+  google:
+    plus: #116672468031938485533 #username
+    analytics: UA-42887873-1
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
+  github: RuoyunLin #username
+  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  Linkedin: ruoyun-lin #username
+  xing: #username
+  instagram: #username
+  lastfm: #username
+  tumblr: #username
+  pinterest: #username
+  foursquare: #username
+  steam: #username
+  dribbble: #username
+  youtube: #username
+  soundcloud: #username
+  weibo: #username
+  flickr: #username
+  codepen: #username
+  telegram: #username
