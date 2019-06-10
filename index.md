@@ -4,7 +4,7 @@ permalink: /
 ---
 
 ----
-Hi, welcome to my personal blog! This is an online place for me to keep some relatively random stuffs: thoughts about research, reflections on my life and work during my PhD journey, and beyond. I am [Libo Su](https://sulibo.github.io/about), a PhD student at KU Leuven, working on partial synchronization of delay coupled network in the Marie Curie project called [UCoCoS](http://ucocos.cs.kuleuven.be).
+Hi, welcome to my personal blog! I am [Ruoyun Lin](https://ruoyunlin.github.io/about), a user researcher at trivago. This is an online place for me to keep some relatively random stuffs: thoughts and reflections on my life and work, and beyond.
 
 ----
 

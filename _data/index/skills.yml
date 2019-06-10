@@ -1,6 +1,6 @@
 # skills section data
 
 label: Ability
-id : cs
-aspects: MATLAB, LaTeX, C/C++, Python 
-percentage: 100, 85, 60, 55
+id : general
+aspects: Research, Data analysis, Machine Learning, Project management
+percentage: 90, 90, 50, 70
