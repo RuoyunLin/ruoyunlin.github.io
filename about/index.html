@@ -235,7 +235,7 @@ I am currently a user researcher at trivago, who are interested in data analysis
 <script>
     var ctx = document.getElementById("general");
     var data = {
-    labels: "Data analysis, Machine Learning, Project management, Research".split(","),
+    labels: "Machine Learning, Data analysis, Project management, Research".split(","),
     datasets: [{
         label: "Ability",
         backgroundColor: "rgba(179,181,198,0.2)",
@@ -244,7 +244,7 @@ I am currently a user researcher at trivago, who are interested in data analysis
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#3385FF",
         pointHoverBorderColor: "#3385FF",
-        data: [90, 70, 50, 90]
+        data: [70, 90, 60, 90]
         }]
     };
     var myRadarChart = new Chart(ctx, {
@@ -255,13 +255,14 @@ I am currently a user researcher at trivago, who are interested in data analysis
             responsive: true,
             ticks: {min: 0, max: 100},
             lineArc: false,
-            pointLabels: {fontSize: 14},
+            pointLabels: {fontSize: 12},
         },
         scaleFontSize: 0,
         legend: {display: false},
     }
     });
-</script>    
+</script>
+    
         </div>
     </div>
     
