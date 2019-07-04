@@ -2,5 +2,5 @@
 
 label: Ability
 id : general
-aspects: Research, Data analysis, Machine Learning, Project management
-percentage: 90, 90, 50, 70
+aspects:  Machine Learning, Data analysis, Project management, Research
+percentage: 70, 90, 60, 90
