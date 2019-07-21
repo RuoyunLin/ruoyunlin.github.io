@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 18:30:42 +0200</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 18:30:42 +0200</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 18:53:33 +0200</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 18:53:33 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;p&gt;Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_1.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_1.png&quot; alt=&quot;alt_text&quot; title=&quot;surveymonkey_visualization&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;However, if we want to compare the same question across several different surveys, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using Python.&lt;/p&gt;
 
@@ -41,11 +41,11 @@
 
 &lt;p&gt;I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data look like after exporting from Survey Monkey.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_2.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_2.png&quot; alt=&quot;alt_text&quot; title=&quot;example_survey&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”…”All response data”. It is recommended to download the “Actual answer text” so that you do not need to prepare the codebook manually.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_3.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_3.png&quot; alt=&quot;alt_text&quot; title=&quot;download_data&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Please export all the survey data that you want to merge later in Python from Survey Monkey, rename the csv files inside the zip file, and move them into the working directory.&lt;/p&gt;
 
@@ -53,13 +53,13 @@
 
 &lt;p&gt;We can use the pandas package to import the data as dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_4.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_4.png&quot; alt=&quot;alt_text&quot; title=&quot;read_surveymonkey_data_with_header&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;As we can see from the picture above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”.&lt;/p&gt;
 
 &lt;p&gt;In the following screenshot, you can see that I imported two datasets from two Surveys that share the same question and merged them together into one dataframe.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_5.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_5.png&quot; alt=&quot;alt_text&quot; title=&quot;read_surveymonkey_data_without_header&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;data-visualization-by-group&quot;&gt;Data visualization by group&lt;/h2&gt;
 
@@ -124,7 +124,7 @@
 
 &lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_6.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_6.png&quot; alt=&quot;alt_text&quot; title=&quot;output_checkboxes&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;how-to-visualize-the-single-answer-question-by-group&quot;&gt;How to visualize the single-answer question by group?&lt;/h3&gt;
 
@@ -163,7 +163,7 @@
 
 &lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_7.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_7.png&quot; alt=&quot;alt_text&quot; title=&quot;output_multi_choice&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;how-to-visualize-the-matrix-table-by-group&quot;&gt;How to visualize the matrix table by group?&lt;/h3&gt;
 
@@ -228,7 +228,7 @@
 
 &lt;p&gt;&lt;strong&gt;Output:&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/1_8.png&quot; alt=&quot;alt_text&quot; title=&quot;image_tooltip&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/1_8.png&quot; alt=&quot;alt_text&quot; title=&quot;output_compare_matrix&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 21 Jul 2019 18:22:25 +0200</pubDate>
         <link>https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis</link>
