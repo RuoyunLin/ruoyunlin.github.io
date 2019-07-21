@@ -176,7 +176,7 @@
 
 <p>Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey).</p>
 
-<p><img src="assets/1_1.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_1.png" alt="alt_text" title="image_tooltip" /></p>
 
 <p>However, if we want to compare the same question across several different surveys, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using Python.</p>
 
@@ -202,11 +202,11 @@
 
 <p>I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data look like after exporting from Survey Monkey.</p>
 
-<p><img src="assets/1_2.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_2.png" alt="alt_text" title="image_tooltip" /></p>
 
 <p>You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”…”All response data”. It is recommended to download the “Actual answer text” so that you do not need to prepare the codebook manually.</p>
 
-<p><img src="assets/1_3.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_3.png" alt="alt_text" title="image_tooltip" /></p>
 
 <p>Please export all the survey data that you want to merge later in Python from Survey Monkey, rename the csv files inside the zip file, and move them into the working directory.</p>
 
@@ -214,13 +214,13 @@
 
 <p>We can use the pandas package to import the data as dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.</p>
 
-<p><img src="assets/1_4.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_4.png" alt="alt_text" title="image_tooltip" /></p>
 
 <p>As we can see from the picture above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”.</p>
 
 <p>In the following screenshot, you can see that I imported two datasets from two Surveys that share the same question and merged them together into one dataframe.</p>
 
-<p><img src="assets/1_5.png&quot;image_tooltip&quot;" alt="alt_text" /></p>
+<p><img src="/assets/1_5.png" alt="alt_text" title="image_tooltip" /></p>
 
 <h2 id="data-visualization-by-group">Data visualization by group</h2>
 
@@ -285,7 +285,7 @@
 
 <p><strong>Output:</strong></p>
 
-<p><img src="assets/1_7.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_6.png" alt="alt_text" title="image_tooltip" /></p>
 
 <h3 id="how-to-visualize-the-single-answer-question-by-group">How to visualize the single-answer question by group?</h3>
 
@@ -324,7 +324,7 @@
 
 <p><strong>Output:</strong></p>
 
-<p><img src="assets/1_7.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_7.png" alt="alt_text" title="image_tooltip" /></p>
 
 <h3 id="how-to-visualize-the-matrix-table-by-group">How to visualize the matrix table by group?</h3>
 
@@ -389,7 +389,7 @@
 
 <p><strong>Output:</strong></p>
 
-<p><img src="assets/1_8.png" alt="alt_text" title="image_tooltip" /></p>
+<p><img src="/assets/1_8.png" alt="alt_text" title="image_tooltip" /></p>
 
   </article>
 </div>
