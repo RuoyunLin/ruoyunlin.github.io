@@ -5,12 +5,12 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 21 Jul 2019 18:53:33 +0200</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2019 18:53:33 +0200</lastBuildDate>
+    <pubDate>Sun, 21 Jul 2019 18:55:54 +0200</pubDate>
+    <lastBuildDate>Sun, 21 Jul 2019 18:55:54 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
-        <title>Surveymonkey Python Analysis</title>
+        <title>Analyze Survey Monkey data using Python</title>
         <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey).&lt;/p&gt;
