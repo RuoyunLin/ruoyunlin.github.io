@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Ruoyun Lin's Blog">
   <meta name="twitter:description" content="Welcome to my blog.">
-  <meta name="twitter:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta name="twitter:image" content="http://localhost:4000/img/leonids-logo.png">
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="https://RuoyunLin.github.io">
+  <meta property="og:url" content="http://localhost:4000">
   <meta property="og:title" content="Ruoyun Lin's Blog">
   <meta property="og:description" content="Welcome to my blog.">
-  <meta property="og:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta property="og:image" content="http://localhost:4000/img/leonids-logo.png">
   <title>Ruoyun Lin's Blog</title>
 
   <!-- CSS files -->
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/main.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
 
-  <link rel="canonical" href="https://RuoyunLin.github.io/">
-  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="https://RuoyunLin.github.io /feed.xml " />
+  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="http://localhost:4000 /feed.xml " />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.ico">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
   <!-- 32x32 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.png">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.png">
 </head>
 
 
@@ -51,41 +51,41 @@
 
 <div class="cover-card table-cell table-middle">
   
-  <img src="https://RuoyunLin.github.io/img/avatar.jpg" alt="" class="avatar">
+  <img src="http://localhost:4000/img/avatar.jpg" alt="" class="avatar">
   
-  <a href="https://RuoyunLin.github.io/" class="author_name">Ruoyun Lin</a>
+  <a href="http://localhost:4000/" class="author_name">Ruoyun Lin</a>
   <span class="author_job"> </span>
   <span class="author_bio mbm">A user researcher at trivago, Germany</span>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/">home</a>
+        <a href="http://localhost:4000/">home</a>
         <span>/</span>
       </li>
          
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/about/">About</a>
+        <a href="http://localhost:4000/about/">About</a>
         
           <span>/</span>
         
       </li>
         
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/archive/">Archive</a>
+        <a href="http://localhost:4000/archive/">Archive</a>
         
           <span>/</span>
         
       </li>
           
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/categories/">Categories</a>
+        <a href="http://localhost:4000/categories/">Categories</a>
         
           <span>/</span>
         
       </li>
             
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/tags/">Tags</a>
+        <a href="http://localhost:4000/tags/">Tags</a>
         
           <span>/</span>
         
@@ -158,18 +158,18 @@
       
       •
       
-        <a class="post-cat" href="https://RuoyunLin.github.io/categories/#User Experience">User Experience</a>
+        <a class="post-cat" href="http://localhost:4000/categories/#User Experience">User Experience</a>
         
         <span>/</span>
         
       
-        <a class="post-cat" href="https://RuoyunLin.github.io/categories/#Data Science">Data Science</a>
+        <a class="post-cat" href="http://localhost:4000/categories/#Data Science">Data Science</a>
         
       
       
     </p>
     <h1>
-      <a href="https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis" class="post-title" title="Analyze Survey Monkey data using Python">Analyze Survey Monkey data using Python</a>
+      <a href="http://localhost:4000/articles/2019-07/surveymonkey-python-analysis" class="post-title" title="Analyze Survey Monkey data using Python">Analyze Survey Monkey data using Python</a>
       
     </h1>
 
@@ -188,7 +188,7 @@
 
 <p>However, if we want to compare the same question across several different surveys, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using Python.</p>
 
-<p>This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain show how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 1) checkboxes (multi-answer question), 2) multiple choice (single-answer question), and 3) matrix table.</p>
+<p>This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 1) checkboxes (multi-answer question), 2) multiple choice (single-answer question), and 3) matrix table.</p>
 
 <p>For all the codes below, I used python 3.7 and imported the following packages:</p>
 
@@ -208,7 +208,7 @@
 
 <h3 id="step-1-download-from-survey-monkey">Step 1: Download from Survey Monkey</h3>
 
-<p>I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data look like after exporting from Survey Monkey.</p>
+<p>I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data looks like after exporting from Survey Monkey.</p>
 
 <p><img src="/assets/1_2.png" alt="alt_text" title="example_survey" width="60%" /></p>
 
@@ -216,72 +216,55 @@
 
 <p><img src="/assets/1_3.png" alt="alt_text" title="download_data" /></p>
 
-<p>Please export all the survey data that you want to merge later in Python from Survey Monkey, rename the csv files inside the zip file, and move them into the working directory.</p>
+<p>Please export all the survey data that you want to merge later in Python from Survey Monkey, rename the CSV files inside the zip file, and move them into the working directory.</p>
 
 <h3 id="step-2-import-survey-monkey-data-into-python">Step 2: Import Survey Monkey data into Python</h3>
 
-<p>We can use the pandas package to import the data as dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.</p>
+<p>We can use the pandas package to import the data as a dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.</p>
 
 <p><img src="/assets/1_4.png" alt="alt_text" title="read_surveymonkey_data_with_header" width="80%" /></p>
 
-<p>As we can see from the picture above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”.</p>
+<p>As we can see from the screenshot above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”.</p>
 
-<p>In the following screenshot, you can see that I imported two datasets from two Surveys that share the same question and merged them together into one dataframe.</p>
+<p>In the following screenshot, you can see that I imported two datasets from two surveys that share the same question and merged them together into one dataframe.</p>
 
 <p><img src="/assets/1_5.png" alt="alt_text" title="read_surveymonkey_data_without_header" width="80%" /></p>
 
 <h2 id="data-visualization-by-group">Data visualization by group</h2>
 
-<p>In order to demonstrate the use of the following functions, I created more fake data with the python library of <a href="https://github.com/joke2k/faker">Faker</a>. You can see the complete code for all my analysis in this <a href="https://github.com/RuoyunLin/code_snippets/blob/master/survey_monkey_python_analysis/CodeExamples_ForSurveyMonkeyData.ipynb">notebook</a>.</p>
+<p>In order to demonstrate the use of the following functions, I created more fake data with the python library <a href="https://github.com/joke2k/faker">Faker</a>. You can see the complete code for all my analysis in this <a href="https://github.com/RuoyunLin/code_snippets/blob/master/survey_monkey_python_analysis/CodeExamples_ForSurveyMonkeyData.ipynb">notebook</a>.</p>
 
 <h3 id="how-to-visualize-the-multi-answer-question-by-group">How to visualize the multi-answer question by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Please customize the manual coding here
-</span><span class="k">def</span> <span class="nf">score_to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly agree'</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">5</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Agree'</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">4</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Undecided'</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">3</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Disagree'</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">2</span>
-    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly disagree'</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
+    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">listOfGroup</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">listOfGroup</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">'options'</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">hue_order</span> <span class="o">=</span> <span class="n">listOfGroup</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">table_sum</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">column_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'group'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">numerical_describe</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="nb">float</span><span class="p">)</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="s">"</span><span class="si">%.2</span><span class="s">f"</span> <span class="o">%</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s">"</span><span class="si">%.2</span><span class="s">f"</span> <span class="o">%</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">()])</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'variable'</span><span class="p">,</span><span class="s">'mean'</span><span class="p">,</span><span class="s">'std'</span><span class="p">,</span><span class="s">'n'</span><span class="p">],</span> 
-                        <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'variable'</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'mean'</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
+    <span class="n">first_group</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span> <span class="o">=</span> <span class="n">groups</span>
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">first_group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
+        <span class="n">table_sum</span> <span class="o">=</span> <span class="n">table_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">table_sum</span>
 
-<span class="k">def</span> <span class="nf">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
-    
-    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'group'</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">col_range</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'all'</span><span class="p">)</span>
-    
-    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">score_to_numeric</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">data_sub</span>
-
-<span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
-    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">)</span>
-       
-    <span class="n">data_describe</span> <span class="o">=</span> <span class="n">numerical_describe</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span>
-    
-    <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">data_describe</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-        <span class="n">i</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-    
-    <span class="n">data_describe</span><span class="p">[</span><span class="s">'item'</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
-    
-    <span class="k">return</span> <span class="n">data_describe</span>
+<span class="k">def</span> <span class="nf">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="n">codebook</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">column_list</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">column_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span> 
+    <span class="n">s_count</span> <span class="o">=</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+    <span class="n">s_per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">s_count</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s">" Answered: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)))</span>
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s_per</span><span class="p">,</span> <span class="n">col_name</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">table_sum</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
+    <span class="k">return</span> <span class="n">table_sum</span>
 </code></pre></div></div>
 
 <p><strong>Input:</strong></p>
@@ -337,34 +320,51 @@
 <h3 id="how-to-visualize-the-matrix-table-by-group">How to visualize the matrix table by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
-    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-    <span class="n">listOfGroup</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">listOfGroup</span><span class="p">)</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="s">'options'</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">hue_order</span> <span class="o">=</span> <span class="n">listOfGroup</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">table_sum</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlim</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">''</span><span class="p">)</span> 
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">column_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'group'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Please customize the conversion here
+</span><span class="k">def</span> <span class="nf">score_to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly agree'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">5</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Agree'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">4</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Undecided'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Disagree'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly disagree'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
-    <span class="n">first_group</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span> <span class="o">=</span> <span class="n">groups</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">first_group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
-        <span class="n">table_sum</span> <span class="o">=</span> <span class="n">table_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">table_sum</span>
+<span class="k">def</span> <span class="nf">numerical_describe</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="s">"</span><span class="si">%.2</span><span class="s">f"</span> <span class="o">%</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s">"</span><span class="si">%.2</span><span class="s">f"</span> <span class="o">%</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">count</span><span class="p">()])</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'variable'</span><span class="p">,</span><span class="s">'mean'</span><span class="p">,</span><span class="s">'std'</span><span class="p">,</span><span class="s">'n'</span><span class="p">],</span> 
+                        <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'variable'</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'mean'</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
-    <span class="n">col_name</span> <span class="o">=</span> <span class="n">codebook</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">column_list</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">column_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span> 
-    <span class="n">s_count</span> <span class="o">=</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
-    <span class="n">s_per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">s_count</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s">" Answered: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)))</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s_per</span><span class="p">,</span> <span class="n">col_name</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">table_sum</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
-    <span class="k">return</span> <span class="n">table_sum</span>
+<span class="k">def</span> <span class="nf">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
+    
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'group'</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">col_range</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'all'</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">score_to_numeric</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data_sub</span>
+
+<span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">)</span>
+       
+    <span class="n">data_describe</span> <span class="o">=</span> <span class="n">numerical_describe</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span>
+    
+    <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">data_describe</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="n">data_describe</span><span class="p">[</span><span class="s">'item'</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+    
+    <span class="k">return</span> <span class="n">data_describe</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#Generate a chart to compare the importance of missing features across two groups
@@ -415,8 +415,8 @@
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="https://RuoyunLin.github.io/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://RuoyunLin.github.io/js/main.js"></script>
+  <script type="text/javascript" src="http://localhost:4000/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="http://localhost:4000/js/main.js"></script>
 
 <!-- Asynchronous Google Analytics snippet -->
 <script>
