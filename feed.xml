@@ -3,10 +3,10 @@
   <channel>
     <title>Ruoyun Lin's Blog</title>
     <description>Welcome to my blog.</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 22 Jul 2019 20:26:16 +0200</pubDate>
-    <lastBuildDate>Mon, 22 Jul 2019 20:26:16 +0200</lastBuildDate>
+    <link>https://RuoyunLin.github.io/</link>
+    <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 22 Jul 2019 20:42:43 +0200</pubDate>
+    <lastBuildDate>Mon, 22 Jul 2019 20:42:43 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -231,8 +231,8 @@
 &lt;p&gt;&lt;img src=&quot;/assets/1_8.png&quot; alt=&quot;alt_text&quot; title=&quot;output_compare_matrix&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 21 Jul 2019 18:22:25 +0200</pubDate>
-        <link>http://localhost:4000/articles/2019-07/surveymonkey-python-analysis</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2019-07/surveymonkey-python-analysis</guid>
+        <link>https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis</guid>
         
         <category>Survey Monkey</category>
         
