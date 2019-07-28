@@ -83,6 +83,26 @@ In order to demonstrate the use of the following functions, I created more fake 
 
 **Example code:**
 ```python
+# Merge the percentage table from each group into one summary table
+def prepare_data_summary(data, column_list, groups):
+    first_group, *other_groups = groups
+    table_sum = prepare_sub_data(data, codebook, 'group', first_group, column_list)
+    for group in other_groups:
+        table_sum = table_sum.append(prepare_sub_data(data, codebook, 'group', group, column_list))
+    return table_sum
+
+# A function to generate the percentage table for each group
+def prepare_sub_data(data, codebook, group, group_name, column_list):
+    col_name = codebook.options[list(column_list)].reset_index(drop = True)
+    data_sub = data[data[group]==group_name].iloc[:,column_list].dropna(how = 'all') 
+    s_count = data_sub.notnull().sum()
+    s_per = pd.Series(s_count.to_numpy()/len(data_sub)*100, name="percentage(%)")
+    print(group_name + " Answered: " + str(len(data_sub)))
+    table_sum = pd.concat([s_per, col_name], axis=1)
+    table_sum[group] = group_name
+    return table_sum
+
+#Generate the checkbox chart based on the summary table
 def gen_chart_checkbox(data, column_list):
     listOfGroup = list(data.group.unique())
     listOfGroup.sort()
@@ -94,23 +114,6 @@ def gen_chart_checkbox(data, column_list):
     plt.title(codebook.iloc[column_list[0],0],fontsize=15)
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0., title='group')
     return plt.show()
-
-def prepare_data_summary(data, column_list, groups):
-    first_group, *other_groups = groups
-    table_sum = prepare_sub_data(data, codebook, 'group', first_group, column_list)
-    for group in other_groups:
-        table_sum = table_sum.append(prepare_sub_data(data, codebook, 'group', group, column_list))
-    return table_sum
-
-def prepare_sub_data(data, codebook, group, group_name, column_list):
-    col_name = codebook.options[list(column_list)].reset_index(drop = True)
-    data_sub = data[data[group]==group_name].iloc[:,column_list].dropna(how = 'all') 
-    s_count = data_sub.notnull().sum()
-    s_per = pd.Series(s_count.to_numpy()/len(data_sub)*100, name="percentage(%)")
-    print(group_name + " Answered: " + str(len(data_sub)))
-    table_sum = pd.concat([s_per, col_name], axis=1)
-    table_sum[group] = group_name
-    return table_sum
 ```
 
 
@@ -130,6 +133,7 @@ def prepare_sub_data(data, codebook, group, group_name, column_list):
 
 **Example code:**
 ```python
+# Generate a chart to visualize single-answer questions
 def gen_chart_radiobutton(data, question_name, index):
     print("Number of answers in each group: ")
     print(data[[question_name,'group']].groupby('group').count())
@@ -173,7 +177,7 @@ def gen_chart_radiobutton(data, question_name, index):
 
 **Example code:**
 ```python
-# Please customize the conversion here
+# Recode categorical answers into numbers. Please customize the conversion here
 def score_to_numeric(x):
     if x=='Strongly agree':
         return 5
@@ -186,6 +190,7 @@ def score_to_numeric(x):
     if x=='Strongly disagree':
         return 1
 
+# Generate the descriptive summary data for a list of numerical variables 
 def numerical_describe(data):
     res = []
     cols = data.columns
@@ -195,6 +200,7 @@ def numerical_describe(data):
     return pd.DataFrame(columns=['variable','mean','std','n'], 
                         data=res).set_index('variable').sort_values(by=['mean'],ascending=False)
 
+# Prepare a dataframe with numerical variables for each group
 def gen_sub_table(data, group_name, col_range):
     
     data_sub = data[data['group']==group_name].iloc[:,col_range].dropna(how='all')
@@ -204,6 +210,7 @@ def gen_sub_table(data, group_name, col_range):
 
     return data_sub
 
+# Generate summary data for each group
 def gen_table(data, group_name, col_range):
     data_sub = gen_sub_table(data, group_name, col_range)
        
