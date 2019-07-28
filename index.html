@@ -237,7 +237,27 @@
 <h3 id="how-to-visualize-the-multi-answer-question-by-group">How to visualize the multi-answer question by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Merge the percentage table from each group into one summary table
+</span><span class="k">def</span> <span class="nf">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
+    <span class="n">first_group</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span> <span class="o">=</span> <span class="n">groups</span>
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">first_group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
+        <span class="n">table_sum</span> <span class="o">=</span> <span class="n">table_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">table_sum</span>
+
+<span class="c1"># A function to generate the percentage table for each group
+</span><span class="k">def</span> <span class="nf">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
+    <span class="n">col_name</span> <span class="o">=</span> <span class="n">codebook</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">column_list</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">column_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span> 
+    <span class="n">s_count</span> <span class="o">=</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+    <span class="n">s_per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">s_count</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s">" Answered: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)))</span>
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s_per</span><span class="p">,</span> <span class="n">col_name</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">table_sum</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
+    <span class="k">return</span> <span class="n">table_sum</span>
+
+<span class="c1">#Generate the checkbox chart based on the summary table
+</span><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
     <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
     <span class="n">listOfGroup</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
     <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">listOfGroup</span><span class="p">)</span>
@@ -248,23 +268,6 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">column_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'group'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">prepare_data_summary</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_list</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
-    <span class="n">first_group</span><span class="p">,</span> <span class="o">*</span><span class="n">other_groups</span> <span class="o">=</span> <span class="n">groups</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">first_group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">other_groups</span><span class="p">:</span>
-        <span class="n">table_sum</span> <span class="o">=</span> <span class="n">table_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="s">'group'</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">column_list</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">table_sum</span>
-
-<span class="k">def</span> <span class="nf">prepare_sub_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">codebook</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">column_list</span><span class="p">):</span>
-    <span class="n">col_name</span> <span class="o">=</span> <span class="n">codebook</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">column_list</span><span class="p">)]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">column_list</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span> <span class="o">=</span> <span class="s">'all'</span><span class="p">)</span> 
-    <span class="n">s_count</span> <span class="o">=</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
-    <span class="n">s_per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">s_count</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">group_name</span> <span class="o">+</span> <span class="s">" Answered: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)))</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">s_per</span><span class="p">,</span> <span class="n">col_name</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">table_sum</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_name</span>
-    <span class="k">return</span> <span class="n">table_sum</span>
 </code></pre></div></div>
 
 <p><strong>Input:</strong></p>
@@ -281,7 +284,8 @@
 <h3 id="how-to-visualize-the-single-answer-question-by-group">How to visualize the single-answer question by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate a chart to visualize single-answer questions
+</span><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"Number of answers in each group: "</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="n">question_name</span><span class="p">,</span><span class="s">'group'</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'group'</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
     <span class="n">i_counts</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'group'</span><span class="p">])[</span><span class="n">question_name</span><span class="p">]</span>
@@ -320,7 +324,7 @@
 <h3 id="how-to-visualize-the-matrix-table-by-group">How to visualize the matrix table by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Please customize the conversion here
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Recode categorical answers into numbers. Please customize the conversion here
 </span><span class="k">def</span> <span class="nf">score_to_numeric</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly agree'</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">5</span>
@@ -333,7 +337,8 @@
     <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="s">'Strongly disagree'</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">numerical_describe</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="c1"># Generate the descriptive summary data for a list of numerical variables 
+</span><span class="k">def</span> <span class="nf">numerical_describe</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">cols</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
@@ -342,7 +347,8 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">'variable'</span><span class="p">,</span><span class="s">'mean'</span><span class="p">,</span><span class="s">'std'</span><span class="p">,</span><span class="s">'n'</span><span class="p">],</span> 
                         <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'variable'</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'mean'</span><span class="p">],</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
+<span class="c1"># Prepare a dataframe with numerical variables for each group
+</span><span class="k">def</span> <span class="nf">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
     
     <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">'group'</span><span class="p">]</span><span class="o">==</span><span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="n">col_range</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">'all'</span><span class="p">)</span>
     
@@ -351,7 +357,8 @@
 
     <span class="k">return</span> <span class="n">data_sub</span>
 
-<span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
+<span class="c1"># Generate summary data for each group
+</span><span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
     <span class="n">data_sub</span> <span class="o">=</span> <span class="n">gen_sub_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">)</span>
        
     <span class="n">data_describe</span> <span class="o">=</span> <span class="n">numerical_describe</span><span class="p">(</span><span class="n">data_sub</span><span class="p">)</span>
