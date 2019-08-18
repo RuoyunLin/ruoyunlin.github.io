@@ -285,7 +285,8 @@
 <h3 id="how-to-visualize-the-single-answer-question-by-group">How to visualize the single-answer question by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate a chart to visualize single-answer questions
+</span><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"Number of answers in each group: "</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="n">question_name</span><span class="p">,</span> <span class="s">"group"</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"group"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
     <span class="n">i_counts</span> <span class="o">=</span> <span class="p">(</span>
