@@ -141,6 +141,7 @@ def gen_chart_checkbox(data, column_range):
 
 **Example code:**
 ```python
+# Generate a chart to visualize single-answer questions
 def gen_chart_radiobutton(data, question_name, index):
     print("Number of answers in each group: ")
     print(data[[question_name, "group"]].groupby("group").count())
