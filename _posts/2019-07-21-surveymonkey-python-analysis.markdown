@@ -222,11 +222,12 @@ def gen_table(data, group_name, col_range):
 ```
 
 ```python
-# Generate a chart to compare the importance of missing features across two groups
+## Generate a chart to compare the importance of missing features across two groups
 def compare_importance(data, groups, col_range):
 
     group_name_to_describe_data = {}
 
+    #Create a dictionary to save the summary data for each group
     for i, group_name in enumerate(groups):
         group_name_to_describe_data[group_name] = "data_describe_%s" % i
 
@@ -234,10 +235,15 @@ def compare_importance(data, groups, col_range):
         table = gen_table(data, group_name, col_range)
         group_name_to_describe_data[group_name] = table
 
+    #Get the item list and index
+    items = table.item.tolist()
+    item_n = table.item_n.tolist()
+    
     # Visualize the mean value with the 95% confidence interval
     # Change the figsize if you have more yticks
     plt.figure(num=None, figsize=(12, 6), dpi=90, facecolor="w", edgecolor="k")
     ax = plt.axes()
+    # print(group_name_to_describe_data)
 
     for i, group_name in enumerate(groups):
         plt.errorbar(
@@ -257,20 +263,11 @@ def compare_importance(data, groups, col_range):
         )
 
     ax.set_xlim(1, 5)
-
-    table = gen_table(df, "Group 1", range(15, 19))
-
-    list_ytick = []
-    for i in range(0, len(table.item) * 2):
-        if i % 2 == 0:
-            list_ytick.append(" ")
-        else:
-            list_ytick.append(table.item[i // 2])
-
-    ax.set_yticklabels(list_ytick, fontsize=14)
+    
+    ax.set_yticks(item_n)
+    ax.set_yticklabels(labels=items, fontdict={'fontsize':16})
 
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0, title="group")
-
     plt.title("Compare the mean values across groups (scale 1-5)", fontsize=16)
 
     return plt.show()
