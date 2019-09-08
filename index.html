@@ -182,13 +182,18 @@
       <p>
         <h2 id="introduction">Introduction</h2>
 
-<p>Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey). However, if we want to compare the <em>same question across several different surveys</em>, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by programming languages like Python.</p>
+<p>Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey). However, if we want to compare the <em>same question across several different surveys</em>, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using programming languages like Python.</p>
 
 <p><img src="/assets/1_1.png" alt="alt_text" title="surveymonkey_visualization" /></p>
 
 <p>The reason why I wrote this blog post is to share knowledge. I am still at the stage of learning python for data analysis. When I first encountered this problem of analyzing survey monkey data in python, I tried to google if there is anyone else who has shared a solution. I failed to find any direct answers on the first page of google. After trials and errors, I finally came up with some tricks and useful functions to solve the problem. Therefore, I want to share my knowledge and python functions which might help others to save some time.</p>
 
-<p>This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 1) checkboxes (multi-answer question), 2) multiple choice (single-answer question), and 3) matrix table.</p>
+<p>This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions:</p>
+<ul>
+  <li>checkboxes (multi-answer question)</li>
+  <li>multiple choice (single-answer question)</li>
+  <li>matrix table</li>
+</ul>
 
 <p>For all the codes below, I used python 3.7 and imported the following packages:</p>
 
@@ -238,38 +243,39 @@
 <h3 id="how-to-visualize-the-multi-answer-question-by-group">How to visualize the multi-answer question by group?</h3>
 
 <p><strong>Example code:</strong></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Prepare the summary table (please clean the data before pass in)
-</span><span class="k">def</span> <span class="nf">prepare_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_range</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Prepare the summary table (please clean the data beforehand)
+</span><span class="k">def</span> <span class="nf">prepare_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">column_range</span><span class="p">)</span>
-    <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">series</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">a</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">"group"</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+    <span class="n">col_range_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">column_range</span><span class="p">)</span>
+    <span class="n">group_index</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">group_column_name</span><span class="p">)</span>
+    <span class="n">col_range_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group_index</span><span class="p">)</span>
+    <span class="n">series</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_range_index</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">group_column_name</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">levels</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                 <span class="p">[</span>
-                    <span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="n">group</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="n">group</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">series</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="n">group</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">group_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[</span><span class="n">group</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
                     <span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">var</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="mi">1</span><span class="p">],</span>
                     <span class="n">group</span><span class="p">,</span>
                 <span class="p">]</span>
             <span class="p">)</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span> <span class="s">"options"</span><span class="p">,</span> <span class="s">"group"</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span> <span class="s">"options"</span><span class="p">,</span> <span class="n">group_column_name</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
 
 <span class="c1"># Generate the checkbox chart based on the summary table
-</span><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_range</span><span class="p">):</span>
-    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</span><span class="k">def</span> <span class="nf">gen_chart_checkbox</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">column_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">):</span>
+    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">group_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
     <span class="n">listOfGroup</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_range</span><span class="p">)</span>
-    
+    <span class="n">table_sum</span> <span class="o">=</span> <span class="n">prepare_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="p">)</span>
+
     <span class="k">print</span><span class="p">(</span><span class="s">"Number of answers in each group: "</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s">"group"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-    
+    <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">group_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="s">"options"</span><span class="p">,</span>
-        <span class="n">hue</span><span class="o">=</span><span class="s">"group"</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="n">group_column_name</span><span class="p">,</span>
         <span class="n">hue_order</span><span class="o">=</span><span class="n">listOfGroup</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">table_sum</span><span class="p">,</span>
     <span class="p">)</span>
@@ -278,13 +284,15 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">codebook</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">column_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">borderaxespad</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"group"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
 </code></pre></div></div>
 
 <p><strong>Input:</strong></p>
 
 <ul>
-  <li>Data: Name of the dataframe</li>
-  <li>Column_list: A list of columns for the multi-answer questions</li>
+  <li>data: Name of the dataframe</li>
+  <li>column_range: A list of columns for the multi-answer questions</li>
+  <li>group_column_name: The name of the column to identify group in the string format</li>
 </ul>
 
 <p><strong>Output:</strong></p>
@@ -295,11 +303,11 @@
 
 <p><strong>Example code:</strong></p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate a chart to visualize single-answer questions
-</span><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+</span><span class="k">def</span> <span class="nf">gen_chart_radiobutton</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">question_name</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">group_column_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">):</span>
     <span class="k">print</span><span class="p">(</span><span class="s">"Number of answers in each group: "</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="n">question_name</span><span class="p">,</span> <span class="s">"group"</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"group"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="n">question_name</span><span class="p">,</span> <span class="n">group_column_name</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_column_name</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
     <span class="n">i_counts</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">"group"</span><span class="p">])[</span><span class="n">question_name</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="n">group_column_name</span><span class="p">])[</span><span class="n">question_name</span><span class="p">]</span>
         <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">)</span>
         <span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
@@ -307,15 +315,16 @@
         <span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+    <span class="n">listOfGroup</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">group_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
     <span class="n">listOfGroup</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
     <span class="n">fig</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="s">"percentage(</span><span class="si">%</span><span class="s">)"</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="n">question_name</span><span class="p">,</span>
         <span class="n">order</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
-        <span class="n">hue</span><span class="o">=</span><span class="s">"group"</span><span class="p">,</span>
+        <span class="n">hue</span><span class="o">=</span><span class="n">group_column_name</span><span class="p">,</span>
         <span class="n">hue_order</span><span class="o">=</span><span class="n">listOfGroup</span><span class="p">,</span>
         <span class="n">data</span><span class="o">=</span><span class="n">i_counts</span><span class="p">,</span>
     <span class="p">)</span>
@@ -330,9 +339,10 @@
 <p><strong>Input:</strong></p>
 
 <ul>
-  <li>Data: Name of the dataframe</li>
-  <li>Question_name: Column name of the question</li>
-  <li>Index: a list of the categorical labels in an order that makes the most sense for understanding the chat</li>
+  <li>data: Name of the dataframe</li>
+  <li>question_name: Column name of the question</li>
+  <li>index: a list of the categorical labels in an order that makes the most sense for understanding the chat</li>
+  <li>group_column_name: The name of the column to identify group in the string format</li>
 </ul>
 
 <p><strong>Output:</strong></p>
@@ -343,8 +353,8 @@
 
 <p><strong>Example code:</strong></p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate summary data for each group
-</span><span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
-    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s">"group"</span><span class="p">]</span> <span class="o">==</span> <span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_range</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">"all"</span><span class="p">)</span>
+</span><span class="k">def</span> <span class="nf">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">):</span>
+    <span class="n">data_sub</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="n">group_column_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">group_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_range</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s">"all"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">data_sub</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
         <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_sub</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span>
             <span class="p">{</span>
@@ -368,10 +378,10 @@
     <span class="c1"># table["item_n"] = range(len(index),0,-1)
 </span>    <span class="n">table</span><span class="p">[</span><span class="s">"item_n"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">table</span>
-</code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## Generate a chart to compare the importance of missing features across two groups
-</span><span class="k">def</span> <span class="nf">compare_importance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">col_range</span><span class="p">):</span>
+
+<span class="c1"># Generate a chart to compare the importance of missing features across two groups
+</span><span class="k">def</span> <span class="nf">compare_importance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">col_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="o">=</span><span class="s">'group'</span><span class="p">):</span>
 
     <span class="n">group_name_to_describe_data</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -380,7 +390,7 @@
         <span class="n">group_name_to_describe_data</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="s">"data_describe_</span><span class="si">%</span><span class="s">s"</span> <span class="o">%</span> <span class="n">i</span>
 
     <span class="k">for</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">gen_table</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">col_range</span><span class="p">,</span> <span class="n">group_column_name</span><span class="p">)</span>
         <span class="n">group_name_to_describe_data</span><span class="p">[</span><span class="n">group_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span>
 
     <span class="c1">#Get the item list and index
@@ -391,8 +401,7 @@
 </span>    <span class="c1"># Change the figsize if you have more yticks
 </span>    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">"w"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"k"</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span>
-    <span class="c1"># print(group_name_to_describe_data)
-</span>
+
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">groups</span><span class="p">):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
             <span class="n">group_name_to_describe_data</span><span class="p">[</span><span class="n">group_name</span><span class="p">][</span><span class="s">"mean"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
@@ -424,9 +433,10 @@
 <p><strong>Input:</strong></p>
 
 <ul>
-  <li>Data: Name of the dataframe</li>
-  <li>Groups: Group names of surveys that you are interested in comparing</li>
-  <li>Col_range:  A list of columns for the matrix question</li>
+  <li>data: Name of the dataframe</li>
+  <li>groups: Group names of surveys that you are interested in comparing</li>
+  <li>col_range:  A list of columns for the matrix question</li>
+  <li>group_column_name: The name of the column to identify group in the string format</li>
 </ul>
 
 <p>Note: Here please customize the function of score_to_numeric above in order to convert the text labels in the raw data into meaningful numbers that you can interpret.</p>
