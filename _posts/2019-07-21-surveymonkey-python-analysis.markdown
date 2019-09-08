@@ -8,13 +8,16 @@ categories: [User Experience, Data Science]
 
 ## Introduction 
 
-Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey). However, if we want to compare the *same question across several different surveys*, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by programming languages like Python. 
+Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey). However, if we want to compare the *same question across several different surveys*, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using programming languages like Python. 
 
 ![alt_text](/assets/1_1.png "surveymonkey_visualization")
 
 The reason why I wrote this blog post is to share knowledge. I am still at the stage of learning python for data analysis. When I first encountered this problem of analyzing survey monkey data in python, I tried to google if there is anyone else who has shared a solution. I failed to find any direct answers on the first page of google. After trials and errors, I finally came up with some tricks and useful functions to solve the problem. Therefore, I want to share my knowledge and python functions which might help others to save some time. 
 
-This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 1) checkboxes (multi-answer question), 2) multiple choice (single-answer question), and 3) matrix table.
+This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 
+- checkboxes (multi-answer question)
+- multiple choice (single-answer question)
+- matrix table
 
 For all the codes below, I used python 3.7 and imported the following packages:
 
@@ -82,38 +85,39 @@ In order to demonstrate the use of the following functions, I created more fake 
 
 **Example code:**
 ```python
-# Prepare the summary table (please clean the data before pass in)
-def prepare_table(data, column_range):
+# Prepare the summary table (please clean the data beforehand)
+def prepare_table(data, column_range, group_column_name='group'):
     res = []
-    a = list(column_range)
-    a.append(-1)
-    series = data.iloc[:, a].groupby(["group"]).count().unstack()
+    col_range_index = list(column_range)
+    group_index = df.columns.to_list().index(group_column_name)
+    col_range_index.append(group_index)
+    series = data.iloc[:, col_range_index].groupby([group_column_name]).count().unstack()
     for group in series.index.levels[1]:
         for var in series.index.levels[0]:
             res.append(
                 [
-                    (series[var][group] / data.group.value_counts()[group] * 100).round(2),
+                    (series[var][group] / data.loc[:,group_column_name].value_counts()[group] * 100).round(2),
                     codebook.iloc[int(var[1:]), 1],
                     group,
                 ]
             )
-    return pd.DataFrame(columns=["percentage(%)", "options", "group"], data=res)
+    return pd.DataFrame(columns=["percentage(%)", "options", group_column_name], data=res)
 
 
 # Generate the checkbox chart based on the summary table
-def gen_chart_checkbox(data, column_range):
-    listOfGroup = list(data.group.unique())
+def gen_chart_checkbox(data, column_range, group_column_name='group'):
+    listOfGroup = list(data.loc[:,group_column_name].unique())
     listOfGroup.sort()
-    table_sum = prepare_table(df, column_range)
-    
+    table_sum = prepare_table(df, column_range, group_column_name)
+
     print("Number of answers in each group: ")
-    print(data.loc[:,"group"].value_counts())
-    
+    print(data.loc[:,group_column_name].value_counts())
+
     fig, ax = plt.subplots(figsize=(10, 8))
     ax = sns.barplot(
         x="percentage(%)",
         y="options",
-        hue="group",
+        hue=group_column_name,
         hue_order=listOfGroup,
         data=table_sum,
     )
@@ -122,14 +126,17 @@ def gen_chart_checkbox(data, column_range):
     plt.title(codebook.iloc[column_range[0], 0], fontsize=15)
     plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.0, title="group")
     return plt.show()
+
 ```
 
 
 **Input:**
 
 
-*   Data: Name of the dataframe
-*   Column_list: A list of columns for the multi-answer questions
+* data: Name of the dataframe
+* column_range: A list of columns for the multi-answer questions
+* group_column_name: The name of the column to identify group in the string format
+
 
 **Output:**
 
@@ -142,11 +149,11 @@ def gen_chart_checkbox(data, column_range):
 **Example code:**
 ```python
 # Generate a chart to visualize single-answer questions
-def gen_chart_radiobutton(data, question_name, index):
+def gen_chart_radiobutton(data, question_name, index, group_column_name='group'):
     print("Number of answers in each group: ")
-    print(data[[question_name, "group"]].groupby("group").count())
+    print(data[[question_name, group_column_name]].groupby(group_column_name).count())
     i_counts = (
-        data.groupby(["group"])[question_name]
+        data.groupby([group_column_name])[question_name]
         .value_counts(normalize=True)
         .rename("percentage(%)")
         .mul(100)
@@ -154,15 +161,16 @@ def gen_chart_radiobutton(data, question_name, index):
         .round(2)
     )
 
-    listOfGroup = list(df.group.unique())
+    listOfGroup = list(df.loc[:,group_column_name].unique())
     listOfGroup.sort()
 
     fig, ax = plt.subplots(figsize=(10, 8))
+
     fig = sns.barplot(
         x="percentage(%)",
         y=question_name,
         order=index,
-        hue="group",
+        hue=group_column_name,
         hue_order=listOfGroup,
         data=i_counts,
     )
@@ -178,10 +186,11 @@ def gen_chart_radiobutton(data, question_name, index):
 **Input:**
 
 
+* data: Name of the dataframe
+* question_name: Column name of the question
+* index: a list of the categorical labels in an order that makes the most sense for understanding the chat
+* group_column_name: The name of the column to identify group in the string format
 
-*   Data: Name of the dataframe
-*   Question_name: Column name of the question
-*   Index: a list of the categorical labels in an order that makes the most sense for understanding the chat
 
 **Output:**
 
@@ -194,8 +203,8 @@ def gen_chart_radiobutton(data, question_name, index):
 **Example code:**
 ```python
 # Generate summary data for each group
-def gen_table(data, group_name, col_range):
-    data_sub = data[data["group"] == group_name].iloc[:, col_range].dropna(how="all")
+def gen_table(data, group_name, col_range, group_column_name='group'):
+    data_sub = data[data[group_column_name] == group_name].iloc[:, col_range].dropna(how="all")
     for var in data_sub.columns:
         data_sub[var] = data_sub[var].map(
             {
@@ -219,11 +228,10 @@ def gen_table(data, group_name, col_range):
     # table["item_n"] = range(len(index),0,-1)
     table["item_n"] = range(0, len(index))
     return table
-```
 
-```python
-## Generate a chart to compare the importance of missing features across two groups
-def compare_importance(data, groups, col_range):
+
+# Generate a chart to compare the importance of missing features across two groups
+def compare_importance(data, groups, col_range, group_column_name='group'):
 
     group_name_to_describe_data = {}
 
@@ -232,7 +240,7 @@ def compare_importance(data, groups, col_range):
         group_name_to_describe_data[group_name] = "data_describe_%s" % i
 
     for group_name in groups:
-        table = gen_table(data, group_name, col_range)
+        table = gen_table(data, group_name, col_range, group_column_name)
         group_name_to_describe_data[group_name] = table
 
     #Get the item list and index
@@ -243,7 +251,6 @@ def compare_importance(data, groups, col_range):
     # Change the figsize if you have more yticks
     plt.figure(num=None, figsize=(12, 6), dpi=90, facecolor="w", edgecolor="k")
     ax = plt.axes()
-    # print(group_name_to_describe_data)
 
     for i, group_name in enumerate(groups):
         plt.errorbar(
@@ -273,18 +280,20 @@ def compare_importance(data, groups, col_range):
     return plt.show()
 ```
 
+
 **Input:**
 
 
+* data: Name of the dataframe
+* groups: Group names of surveys that you are interested in comparing
+* col_range:  A list of columns for the matrix question
+* group_column_name: The name of the column to identify group in the string format
 
-*   Data: Name of the dataframe
-*   Groups: Group names of surveys that you are interested in comparing
-*   Col_range:  A list of columns for the matrix question
 
 Note: Here please customize the function of score_to_numeric above in order to convert the text labels in the raw data into meaningful numbers that you can interpret.
 
-**Output:**
 
+**Output:**
 
 
 ![alt_text](/assets/1_8.png "output_compare_matrix"){:width="80%"}
