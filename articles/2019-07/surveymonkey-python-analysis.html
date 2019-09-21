@@ -162,7 +162,7 @@
       <span class="read-time" title="Estimated read time">
   
   
-    12 mins read
+    11 mins read
   
 </span>
 
@@ -179,14 +179,14 @@
 
 <p>The reason why I wrote this blog post is to share knowledge. I am still at the stage of learning python for data analysis. When I first encountered this problem of analyzing survey monkey data in python, I tried to google if there is anyone else who has shared a solution. I failed to find any direct answers on the first page of google. After trials and errors, I finally came up with some tricks and useful functions to solve the problem. Therefore, I want to share my knowledge and python functions which might help others to save some time.</p>
 
-<p>This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions:</p>
+<p>This post will show you how to analyze survey data exported from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions:</p>
 <ul>
   <li>checkboxes (multi-answer question)</li>
   <li>multiple choice (single-answer question)</li>
   <li>matrix table</li>
 </ul>
 
-<p>For all the codes below, I used python 3.7 and imported the following packages:</p>
+<p>For all the codes below, I used python 3.7 and the following packages:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#pandas==0.24.2
 </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
@@ -203,13 +203,13 @@
 
 <h2 id="import-survey-monkey-data-into-python">Import Survey Monkey data into Python</h2>
 
-<h3 id="step-1-download-from-survey-monkey">Step 1: Download from Survey Monkey</h3>
+<h3 id="step-1-export-data-from-survey-monkey">Step 1: Export data from Survey Monkey</h3>
 
 <p>I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data looks like after exporting from Survey Monkey.</p>
 
 <p><img src="/assets/1_2.png" alt="alt_text" title="example_survey" width="60%" /></p>
 
-<p>You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”…”All response data”. It is recommended to download the “Actual answer text” so that you do not need to prepare the codebook manually.</p>
+<p>You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”…”All response data”. It is recommended to export the “Actual answer text” so that you do not need to prepare the codebook manually.</p>
 
 <p><img src="/assets/1_3.png" alt="alt_text" title="download_data" /></p>
 
@@ -217,13 +217,13 @@
 
 <h3 id="step-2-import-survey-monkey-data-into-python">Step 2: Import Survey Monkey data into Python</h3>
 
-<p>We can use the pandas package to import the data as a dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.</p>
+<p>We can use the pandas package to import the data as a dataframe. Please note the data exported from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.</p>
 
 <p><img src="/assets/1_4.png" alt="alt_text" title="read_surveymonkey_data_with_header" width="80%" /></p>
 
 <p>As we can see from the screenshot above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”.</p>
 
-<p>In the following screenshot, you can see that I imported two datasets from two surveys that share the same question and merged them together into one dataframe.</p>
+<p>In the following screenshot, you can see that I imported two datasets from two surveys that share the same question and merged them into one dataframe.</p>
 
 <p><img src="/assets/1_5.png" alt="alt_text" title="read_surveymonkey_data_without_header" width="80%" /></p>
 
