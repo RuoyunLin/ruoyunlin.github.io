@@ -14,12 +14,12 @@ Survey Monkey is an online survey software that helps you to create and run onli
 
 The reason why I wrote this blog post is to share knowledge. I am still at the stage of learning python for data analysis. When I first encountered this problem of analyzing survey monkey data in python, I tried to google if there is anyone else who has shared a solution. I failed to find any direct answers on the first page of google. After trials and errors, I finally came up with some tricks and useful functions to solve the problem. Therefore, I want to share my knowledge and python functions which might help others to save some time. 
 
-This post will show you how to analyze survey data directly downloaded from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 
+This post will show you how to analyze survey data exported from Survey Monkey from multiple surveys in Python. To be more specific, I will first explain how to import Survey Monkey data into Python and automatically generate a codebook, and then share my code for visualizing the survey results for three types of survey questions: 
 - checkboxes (multi-answer question)
 - multiple choice (single-answer question)
 - matrix table
 
-For all the codes below, I used python 3.7 and imported the following packages:
+For all the codes below, I used python 3.7 and the following packages:
 
 
 ```python
@@ -40,7 +40,7 @@ You can see the complete code for all my analysis in this [notebook](https://git
 ## Import Survey Monkey data into Python
 
 
-### Step 1: Download from Survey Monkey
+### Step 1: Export data from Survey Monkey
 
 I first created an example survey on Survey Monkey including the aforementioned three types of questions. I also manually created some fake responses in order to demonstrate how the raw data looks like after exporting from Survey Monkey.
 
@@ -48,7 +48,7 @@ I first created an example survey on Survey Monkey including the aforementioned 
 ![alt_text](/assets/1_2.png "example_survey"){:width="60%"}
 
 
-You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”...”All response data”. It is recommended to download the "Actual answer text" so that you do not need to prepare the codebook manually.
+You can export data from Survey Monkey easily by going to the “Analyze results” tab in a Survey and then click ”Save as”...”All response data”. It is recommended to export the "Actual answer text" so that you do not need to prepare the codebook manually.
 
 
 
@@ -60,7 +60,7 @@ Please export all the survey data that you want to merge later in Python from Su
 
 ### Step 2: Import Survey Monkey data into Python
 
-We can use the pandas package to import the data as a dataframe. Please note the data downloaded directly from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.
+We can use the pandas package to import the data as a dataframe. Please note the data exported from Survey Monkey actually includes two rows of headers. They can be used as a codebook to better understand the meaning of each column.
 
 
 ![alt_text](/assets/1_4.png "read_surveymonkey_data_with_header"){:width="80%"}
@@ -68,7 +68,7 @@ We can use the pandas package to import the data as a dataframe. Please note the
 
 As we can see from the screenshot above, the original column names are very complicated. In order to easily refer to each column later in the data analysis process, I decided to replace the header in a dataframe using numerical values with a prefix of “Q”. 
 
-In the following screenshot, you can see that I imported two datasets from two surveys that share the same question and merged them together into one dataframe.
+In the following screenshot, you can see that I imported two datasets from two surveys that share the same question and merged them into one dataframe.
 
 
 ![alt_text](/assets/1_5.png "read_surveymonkey_data_without_header"){:width="80%"}
