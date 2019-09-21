@@ -89,7 +89,7 @@ In order to demonstrate the use of the following functions, I created more fake 
 def prepare_table(data, column_range, group_column_name='group'):
     res = []
     col_range_index = list(column_range)
-    group_index = df.columns.to_list().index(group_column_name)
+    group_index = data.columns.to_list().index(group_column_name)
     col_range_index.append(group_index)
     series = data.iloc[:, col_range_index].groupby([group_column_name]).count().unstack()
     for group in series.index.levels[1]:
@@ -108,7 +108,7 @@ def prepare_table(data, column_range, group_column_name='group'):
 def gen_chart_checkbox(data, column_range, group_column_name='group'):
     listOfGroup = list(data.loc[:,group_column_name].unique())
     listOfGroup.sort()
-    table_sum = prepare_table(df, column_range, group_column_name)
+    table_sum = prepare_table(data, column_range, group_column_name)
 
     print("Number of answers in each group: ")
     print(data.loc[:,group_column_name].value_counts())
@@ -161,7 +161,7 @@ def gen_chart_radiobutton(data, question_name, index, group_column_name='group')
         .round(2)
     )
 
-    listOfGroup = list(df.loc[:,group_column_name].unique())
+    listOfGroup = list(data.loc[:,group_column_name].unique())
     listOfGroup.sort()
 
     fig, ax = plt.subplots(figsize=(10, 8))
