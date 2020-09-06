@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Sep 2020 18:37:08 +0200</pubDate>
-    <lastBuildDate>Sun, 06 Sep 2020 18:37:08 +0200</lastBuildDate>
+    <pubDate>Sun, 06 Sep 2020 19:04:12 +0200</pubDate>
+    <lastBuildDate>Sun, 06 Sep 2020 19:04:12 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -29,15 +29,16 @@
 
 &lt;p&gt;The jupyter notebooks can be downloaded &lt;a href=&quot;https://github.com/RuoyunLin/code_snippets/tree/master/finance&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h2&gt;
+&lt;h1 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;/h1&gt;
 
 &lt;p&gt;Investing money into anything is often involved with risk. Please do your own research before investing and be responsible for your own investment decisions.&lt;/p&gt;
 
-&lt;p&gt;I am just learning investing on my own and want to share some codes that I have written that might be useful for others.&lt;/p&gt;
+&lt;p&gt;I am just learning investment on my own and want to share some codes that I have written that might be useful for others.&lt;/p&gt;
 
-&lt;p&gt;The content here is only for informational purpose (instead of taking them as investment advice).&lt;/p&gt;
+&lt;p&gt;The content here is only for informational purpose (instead of taking them as professional investment advice).&lt;/p&gt;
 
 &lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
 &lt;p&gt;This blogpost contains a function that helps you visualize your long term investment plan.&lt;/p&gt;
 
 &lt;p&gt;Step 1: Calculate how much savings do you have for now and estimate how much you can save per year&lt;/p&gt;
@@ -139,7 +140,7 @@
     &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;case-1&quot;&gt;Case 1&lt;/h1&gt;
+&lt;h2 id=&quot;case-1&quot;&gt;Case 1&lt;/h2&gt;
 
 &lt;p&gt;Imagine that you are around 30 years old and have some savings (e.g., 20k Euro), and you are determined to invest 10000 Euro each year in order to have enough money for your retirement.&lt;/p&gt;
 
@@ -403,7 +404,8 @@
 
 &lt;p&gt;Conguraturations! It seems that if you just stick to this plan, you will have enough money for your retirement.&lt;/p&gt;
 
-&lt;h1 id=&quot;case-2&quot;&gt;Case 2&lt;/h1&gt;
+&lt;h2 id=&quot;case-2&quot;&gt;Case 2&lt;/h2&gt;
+
 &lt;p&gt;Due to inflation and the increase of your salary, you might decided to save 2% more each year, let’s check how that is going to change the final value&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Each period is a year
@@ -663,7 +665,7 @@
 
 &lt;p&gt;It seems that it only takes about 26 years instead of the 30 years in order to have enough savings for retirement. However, the return rate was reduced a bit due to the investment of more money at the later stage of this plan.&lt;/p&gt;
 
-&lt;h1 id=&quot;case-3&quot;&gt;Case 3&lt;/h1&gt;
+&lt;h2 id=&quot;case-3&quot;&gt;Case 3&lt;/h2&gt;
 
 &lt;p&gt;Let’s imagine that you are at your early 20s and just got your first job recently and do not have any savings for now.&lt;/p&gt;
 
@@ -792,7 +794,7 @@
 
 &lt;p&gt;Even with little amount of savings, you can still have enough money for your retirement by 60.&lt;/p&gt;
 
-&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We can observe that, in Case 3, the rate of return looks way better than Case 1 and and Case 2. So start investing earlier is always a good idea!&lt;/p&gt;
 
@@ -805,6 +807,20 @@
         <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</link>
         <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</guid>
         
+        <category>Finance</category>
+        
+        <category>Python</category>
+        
+        <category>visualization</category>
+        
+        <category>long-term investment</category>
+        
+        <category>retirement</category>
+        
+        
+        <category>Finance</category>
+        
+        <category>Data Science</category>
         
       </item>
     
