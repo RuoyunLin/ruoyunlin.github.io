@@ -2,6 +2,8 @@
 layout: post
 title: "Financial Analysis in Python #1: How to Visualize Long Term Investment Plan"
 date: 2020-09-06T16:54:58+02:00
+tags: [Finance, Python, visualization, long-term investment, retirement]
+categories: [Finance, Data Science]
 ---
 
 # Overview
@@ -20,16 +22,17 @@ I will try to cover a few topics like:
 
 The jupyter notebooks can be downloaded [here](https://github.com/RuoyunLin/code_snippets/tree/master/finance).
 
-## Disclaimer
+# Disclaimer
 
 Investing money into anything is often involved with risk. Please do your own research before investing and be responsible for your own investment decisions.
 
-I am just learning investing on my own and want to share some codes that I have written that might be useful for others.
+I am just learning investment on my own and want to share some codes that I have written that might be useful for others.
 
-The content here is only for informational purpose (instead of taking them as investment advice).
+The content here is only for informational purpose (instead of taking them as professional investment advice).
 
 
 # Introduction
+
 This blogpost contains a function that helps you visualize your long term investment plan.
 
 Step 1: Calculate how much savings do you have for now and estimate how much you can save per year
@@ -44,9 +47,7 @@ Step 2: Think about how much money do you need after retirement
 
 Step 3: Estmiate (roughly) how much money do you need to invest per year and calculate it's long term return
 
-
 ## Define functions
-
 
 ```python
 # Import libraries
@@ -130,7 +131,7 @@ def plot_changes(df: pd.DataFrame,
     plt.show()
 ```
 
-# Case 1
+## Case 1
 
 Imagine that you are around 30 years old and have some savings (e.g., 20k Euro), and you are determined to invest 10000 Euro each year in order to have enough money for your retirement.
 
@@ -160,8 +161,6 @@ df_plan1 = calc_return_over_periods(initial_investment, investment_per_period,
                                    return_per_period, n_period)
 df_plan1
 ```
-
-
 
 
 <div>
@@ -391,7 +390,6 @@ df_plan1
 </div>
 
 
-
 ```python
 target_value = 720000
 
@@ -404,7 +402,8 @@ plot_changes(df_plan1, title='Case 1', target = target_value, xlabel='year')
 
 Conguraturations! It seems that if you just stick to this plan, you will have enough money for your retirement.
 
-# Case 2
+## Case 2
+
 Due to inflation and the increase of your salary, you might decided to save 2% more each year, let's check how that is going to change the final value
 
 
@@ -432,9 +431,6 @@ df_plan2 = calc_return_over_periods(initial_investment, investment_per_period,
 
 df_plan2
 ```
-
-
-
 
 <div>
 <table style="margin-left:auto;margin-right:auto;width:80%" border="1" class="minimalistBlack">
@@ -675,7 +671,7 @@ plot_changes(df_plan2, title='Case 2', target=target_value, xlabel='year')
 
 It seems that it only takes about 26 years instead of the 30 years in order to have enough savings for retirement. However, the return rate was reduced a bit due to the investment of more money at the later stage of this plan.
 
-# Case 3
+## Case 3
 
 Let's imagine that you are at your early 20s and just got your first job recently and do not have any savings for now. 
 
@@ -705,8 +701,6 @@ df_plan3 = calc_return_over_periods(initial_investment, investment_per_period,
 
 df_plan3
 ```
-
-
 
 
 <div>
@@ -803,8 +797,6 @@ df_plan3
 </div>
 
 
-
-
 ```python
 plot_changes(df_plan3, title='Case 3', target=target_value, xlabel='month')
 ```
@@ -815,7 +807,7 @@ plot_changes(df_plan3, title='Case 3', target=target_value, xlabel='month')
 
 Even with little amount of savings, you can still have enough money for your retirement by 60. 
 
-# Conclusion
+## Conclusion
 
 We can observe that, in Case 3, the rate of return looks way better than Case 1 and and Case 2. So start investing earlier is always a good idea! 
 
