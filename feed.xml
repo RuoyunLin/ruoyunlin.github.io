@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 13 Sep 2020 16:46:46 +0200</pubDate>
-    <lastBuildDate>Sun, 13 Sep 2020 16:46:46 +0200</lastBuildDate>
+    <pubDate>Sun, 13 Sep 2020 17:19:04 +0200</pubDate>
+    <lastBuildDate>Sun, 13 Sep 2020 17:19:04 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -55,7 +55,21 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div&gt;
-&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+&lt;/style&gt;
+
+&lt;table&gt;
   &lt;thead&gt;
     &lt;tr style=&quot;text-align: right;&quot;&gt;
       &lt;th&gt;Date&lt;/th&gt;
@@ -191,7 +205,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div&gt;
-&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+&lt;table&gt;
   &lt;thead&gt;
     &lt;tr style=&quot;text-align: right;&quot;&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -519,8 +533,6 @@ So we should not be panic if we see a drop of 30-40% in the total value in a cer
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The overall return rate is 580.19%
 The cash flow (the negative sign stands for investment):
 
-
-
 [-1200.0,
  -1200.0,
  -1200.0,
@@ -555,7 +567,6 @@ The cash flow (the negative sign stands for investment):
  -1200.0,
  261192.11446741945]
 
-
 The internal return rate (IRR) is 9.92% per period
 The compound annual growth rate (CAGR) is 6.17% per period
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -563,7 +574,7 @@ The compound annual growth rate (CAGR) is 6.17% per period
 &lt;p&gt;df1:&lt;/p&gt;
 
 &lt;div&gt;
-&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+&lt;table&gt;
   &lt;thead&gt;
     &lt;tr style=&quot;text-align: right;&quot;&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -926,9 +937,7 @@ The compound annual growth rate (CAGR) is 6.17% per period
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The overall return rate is 486.51%
 The cash flow (the negative sign stands for investment):
-
-
-
+   
 [-1200.0,
  -1224.0,
  -1248.48,
@@ -963,7 +972,6 @@ The cash flow (the negative sign stands for investment):
  -2217.106578942506,
  311273.63335198513]
 
-
 The internal return rate (IRR) is 9.91% per period
 The compound annual growth rate (CAGR) is 5.68% per period
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -971,7 +979,7 @@ The compound annual growth rate (CAGR) is 5.68% per period
 &lt;p&gt;df2:&lt;/p&gt;
 
 &lt;div&gt;
-&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+&lt;table&gt;
   &lt;thead&gt;
     &lt;tr style=&quot;text-align: right;&quot;&gt;
       &lt;th&gt;&lt;/th&gt;
@@ -1517,6 +1525,19 @@ The compound annual growth rate (CAGR) is 5.68% per period
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div&gt;
+&lt;style&gt;
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+&lt;/style&gt;
 &lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
   &lt;thead&gt;
     &lt;tr&gt;
