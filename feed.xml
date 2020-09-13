@@ -5,9 +5,1355 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Sep 2020 19:04:12 +0200</pubDate>
-    <lastBuildDate>Sun, 06 Sep 2020 19:04:12 +0200</lastBuildDate>
+    <pubDate>Sun, 13 Sep 2020 16:40:20 +0200</pubDate>
+    <lastBuildDate>Sun, 13 Sep 2020 16:40:20 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Financial Analysis in Python #2: Backtest Dollar Cost Averaging Strategy for Long-term Investment</title>
+        <description>&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;In the last notebook, we already talked about how to visualize the return of a long term investment plan.&lt;/p&gt;
+
+&lt;p&gt;We made an assumption that the annual return rate is about 5%. How can we ensure that we can invest our savings properly so that we can have a 5% annual return?&lt;/p&gt;
+
+&lt;p&gt;In this notebook, we are going to use the historical data of SP500 to do some backtesting.&lt;/p&gt;
+
+&lt;p&gt;We will calculate the overall rate of return and the internal rate of return for two dollor cost averaging methods.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Import libraries
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;datetime&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pyplot&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas_datareader&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pdr&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bmh'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filterwarnings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ignore&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;a-peak-into-the-history&quot;&gt;A peak into the history&lt;/h1&gt;
+
+&lt;p&gt;The first step here is to download data. I used a method introducted in a &lt;a href=&quot;https://www.datacamp.com/community/tutorials/finance-python-trading&quot;&gt;datacamp tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://www.investopedia.com/terms/t/total_return_index.asp#:~:text=The%20total%20return%20index%20is,representation%20of%20the%20index's%20performance&quot;&gt;total return index&lt;/a&gt; of SP500 between 1988 and 2020 is used here.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Get historical data
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;startdate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1988&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;enddate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2021&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# SP 500 Total return index
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pdr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_data_yahoo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'^SP500TR'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;startdate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enddate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# If you want to use the price index of SP500, you can use the ticker of '^GSPC'
+# SP = pdr.get_data_yahoo('^GSPC', start=startdate, end=enddate)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div&gt;
+&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;Date&lt;/th&gt;
+      &lt;th&gt;High&lt;/th&gt;
+      &lt;th&gt;Low&lt;/th&gt;
+      &lt;th&gt;Open&lt;/th&gt;
+      &lt;th&gt;Close&lt;/th&gt;
+      &lt;th&gt;Volume&lt;/th&gt;
+      &lt;th&gt;Adj Close&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1988-01-04&lt;/th&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1988-01-05&lt;/th&gt;
+      &lt;td&gt;258.769989&lt;/td&gt;
+      &lt;td&gt;258.769989&lt;/td&gt;
+      &lt;td&gt;258.769989&lt;/td&gt;
+      &lt;td&gt;258.769989&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;258.769989&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1988-01-06&lt;/th&gt;
+      &lt;td&gt;259.029999&lt;/td&gt;
+      &lt;td&gt;259.029999&lt;/td&gt;
+      &lt;td&gt;259.029999&lt;/td&gt;
+      &lt;td&gt;259.029999&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;259.029999&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1988-01-07&lt;/th&gt;
+      &lt;td&gt;261.209991&lt;/td&gt;
+      &lt;td&gt;261.209991&lt;/td&gt;
+      &lt;td&gt;261.209991&lt;/td&gt;
+      &lt;td&gt;261.209991&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;261.209991&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1988-01-08&lt;/th&gt;
+      &lt;td&gt;243.550003&lt;/td&gt;
+      &lt;td&gt;243.550003&lt;/td&gt;
+      &lt;td&gt;243.550003&lt;/td&gt;
+      &lt;td&gt;243.550003&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;243.550003&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;...&lt;/th&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+      &lt;td&gt;...&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020-08-17&lt;/th&gt;
+      &lt;td&gt;6954.669922&lt;/td&gt;
+      &lt;td&gt;6937.540039&lt;/td&gt;
+      &lt;td&gt;6940.890137&lt;/td&gt;
+      &lt;td&gt;6943.220215&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6943.220215&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020-08-18&lt;/th&gt;
+      &lt;td&gt;6971.020020&lt;/td&gt;
+      &lt;td&gt;6920.080078&lt;/td&gt;
+      &lt;td&gt;6954.689941&lt;/td&gt;
+      &lt;td&gt;6960.299805&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6960.299805&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020-08-19&lt;/th&gt;
+      &lt;td&gt;6981.410156&lt;/td&gt;
+      &lt;td&gt;6920.370117&lt;/td&gt;
+      &lt;td&gt;6967.069824&lt;/td&gt;
+      &lt;td&gt;6930.799805&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6930.799805&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020-08-20&lt;/th&gt;
+      &lt;td&gt;6963.520020&lt;/td&gt;
+      &lt;td&gt;6889.850098&lt;/td&gt;
+      &lt;td&gt;6901.520020&lt;/td&gt;
+      &lt;td&gt;6952.919922&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6952.919922&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020-08-21&lt;/th&gt;
+      &lt;td&gt;6982.970215&lt;/td&gt;
+      &lt;td&gt;6941.000000&lt;/td&gt;
+      &lt;td&gt;6954.390137&lt;/td&gt;
+      &lt;td&gt;6977.270020&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;6977.270020&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Generate group by keys
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;apply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'{d.year}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Group by year, take the adjusted close price of the first business day in each year
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Generate annual return
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'return'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pct_change&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Show annual return by the beginning of next year
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'return_next_y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'return'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'return'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div&gt;
+&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;Adj Close&lt;/th&gt;
+      &lt;th&gt;return_next_y&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;1988&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;0.115733&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;1989&lt;/td&gt;
+      &lt;td&gt;285.649994&lt;/td&gt;
+      &lt;td&gt;0.351864&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;386.160004&lt;/td&gt;
+      &lt;td&gt;-0.058836&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;363.440002&lt;/td&gt;
+      &lt;td&gt;0.320273&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;479.839996&lt;/td&gt;
+      &lt;td&gt;0.075358&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;516.000000&lt;/td&gt;
+      &lt;td&gt;0.099031&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;567.099976&lt;/td&gt;
+      &lt;td&gt;0.014848&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;1995&lt;/td&gt;
+      &lt;td&gt;575.520020&lt;/td&gt;
+      &lt;td&gt;0.386954&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;1996&lt;/td&gt;
+      &lt;td&gt;798.219971&lt;/td&gt;
+      &lt;td&gt;0.214014&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;1997&lt;/td&gt;
+      &lt;td&gt;969.049988&lt;/td&gt;
+      &lt;td&gt;0.346721&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;10&lt;/th&gt;
+      &lt;td&gt;1998&lt;/td&gt;
+      &lt;td&gt;1305.040039&lt;/td&gt;
+      &lt;td&gt;0.278520&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11&lt;/th&gt;
+      &lt;td&gt;1999&lt;/td&gt;
+      &lt;td&gt;1668.520020&lt;/td&gt;
+      &lt;td&gt;0.199932&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;12&lt;/th&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;2002.109985&lt;/td&gt;
+      &lt;td&gt;-0.108011&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;13&lt;/th&gt;
+      &lt;td&gt;2001&lt;/td&gt;
+      &lt;td&gt;1785.859985&lt;/td&gt;
+      &lt;td&gt;-0.088109&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;14&lt;/th&gt;
+      &lt;td&gt;2002&lt;/td&gt;
+      &lt;td&gt;1628.510010&lt;/td&gt;
+      &lt;td&gt;-0.199778&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;15&lt;/th&gt;
+      &lt;td&gt;2003&lt;/td&gt;
+      &lt;td&gt;1303.170044&lt;/td&gt;
+      &lt;td&gt;0.241626&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;16&lt;/th&gt;
+      &lt;td&gt;2004&lt;/td&gt;
+      &lt;td&gt;1618.050049&lt;/td&gt;
+      &lt;td&gt;0.103155&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;17&lt;/th&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;1784.959961&lt;/td&gt;
+      &lt;td&gt;0.075072&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;18&lt;/th&gt;
+      &lt;td&gt;2006&lt;/td&gt;
+      &lt;td&gt;1918.959961&lt;/td&gt;
+      &lt;td&gt;0.138075&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;19&lt;/th&gt;
+      &lt;td&gt;2007&lt;/td&gt;
+      &lt;td&gt;2183.919922&lt;/td&gt;
+      &lt;td&gt;0.040977&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;20&lt;/th&gt;
+      &lt;td&gt;2008&lt;/td&gt;
+      &lt;td&gt;2273.409912&lt;/td&gt;
+      &lt;td&gt;-0.340563&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;21&lt;/th&gt;
+      &lt;td&gt;2009&lt;/td&gt;
+      &lt;td&gt;1499.170044&lt;/td&gt;
+      &lt;td&gt;0.245396&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;22&lt;/th&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;1867.060059&lt;/td&gt;
+      &lt;td&gt;0.145277&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;23&lt;/th&gt;
+      &lt;td&gt;2011&lt;/td&gt;
+      &lt;td&gt;2138.300049&lt;/td&gt;
+      &lt;td&gt;0.025300&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;24&lt;/th&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;2192.399902&lt;/td&gt;
+      &lt;td&gt;0.171570&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;25&lt;/th&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;2568.550049&lt;/td&gt;
+      &lt;td&gt;0.279590&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;26&lt;/th&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;3286.689941&lt;/td&gt;
+      &lt;td&gt;0.146649&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;27&lt;/th&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;3768.679932&lt;/td&gt;
+      &lt;td&gt;-0.001244&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28&lt;/th&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;3763.989990&lt;/td&gt;
+      &lt;td&gt;0.146411&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;29&lt;/th&gt;
+      &lt;td&gt;2017&lt;/td&gt;
+      &lt;td&gt;4315.080078&lt;/td&gt;
+      &lt;td&gt;0.218119&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30&lt;/th&gt;
+      &lt;td&gt;2018&lt;/td&gt;
+      &lt;td&gt;5256.279785&lt;/td&gt;
+      &lt;td&gt;-0.050553&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;31&lt;/th&gt;
+      &lt;td&gt;2019&lt;/td&gt;
+      &lt;td&gt;4990.560059&lt;/td&gt;
+      &lt;td&gt;0.324358&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;32&lt;/th&gt;
+      &lt;td&gt;2020&lt;/td&gt;
+      &lt;td&gt;6609.290039&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Describe the annual return
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'return_next_y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;count    32.000000
+mean      0.120554
+std       0.169035
+min      -0.340563
+25%       0.022687
+50%       0.141676
+75%       0.242569
+max       0.386954
+Name: return_next_y, dtype: float64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When checking the annual return rate, the minimum value is  -34.1% and maximum value is 38.7%.
+So we should not be panic if we see a drop of 30-40% in the total value in a certain year. Try to buy more in the dip, and the bull market will follow in 1-3 years.&lt;/p&gt;
+
+&lt;h1 id=&quot;define-functions&quot;&gt;Define functions&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calc_dollar_cost_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                                      &lt;span class=&quot;n&quot;&gt;increase_investment_per_period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                      &lt;span class=&quot;n&quot;&gt;display_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    This function calculates the overall rate of return and the internal rate of return of dollar cost averaging method. 
+    :param df_dc: Original dataframe that contains the price at the beginning of each period
+    :param value_per_period: Investment value per period
+    :param increase_investment_per_period: Increase the investment by x each period
+    :param display_returns: Whether to display return results or not
+    :return: A dataframe that contains all the relevant info
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# amount to invest each period
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'should_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;   
+    &lt;span class=&quot;c1&quot;&gt;# total amount of investment after the investment this period
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;   
+    &lt;span class=&quot;c1&quot;&gt;# the total value by the beginning of next period
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'return_next_y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'overall_return_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'should_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increase_investment_per_period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'should_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+                                            &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'should_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+                                            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'return_next_y'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; 
+                                           &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'overall_return_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;display_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;# Calculate overall return
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;overall_return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'overall_return_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The overall return rate is {overall_return}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# Calculate IRR
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'should_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tolist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The cash flow (the negative sign stands for investment):&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;irr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;irr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The internal return rate (IRR) is {irr}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;% &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;per period&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;c1&quot;&gt;# Calculate CAGR
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;cagr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+                           &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The compound annual growth rate (CAGR) is {cagr}&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;% &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;per period&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;plot_changes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;y1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_invest'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'total_value_next'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'period'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Visualize total investment and value each year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
+    This function visualizes the total investment and the total value of the investment plan across time
+    :param df: A dataframe contains total investment and total value
+    :param y1: Column name
+    :param y2: Column name
+    :param xlabel: X label
+    :param ylabel: Y label
+    :param title: Title of the graph
+    :return: A plot
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axhline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'black'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'target value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;plan-1-yearly-dollar-cost-averaging-buying-method&quot;&gt;Plan 1: Yearly &lt;a href=&quot;https://en.wikipedia.org/wiki/Dollar_cost_averaging&quot;&gt;dollar cost averaging&lt;/a&gt; buying method&lt;/h1&gt;
+
+&lt;p&gt;Imagine we were able to invest 1200 dollar per year into a SP500 index based ETF starting from 1988.&lt;/p&gt;
+
+&lt;p&gt;What’s the overall return after 32 years?&lt;/p&gt;
+
+&lt;p&gt;What’s the average annual return?&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_dollar_cost_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The overall return rate is 580.19%
+The cash flow (the negative sign stands for investment):
+
+
+
+[-1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ -1200.0,
+ 261192.11446741945]
+
+
+The internal return rate (IRR) is 9.92% per period
+The compound annual growth rate (CAGR) is 6.17% per period
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;df1:&lt;/p&gt;
+
+&lt;div&gt;
+&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;Adj Close&lt;/th&gt;
+      &lt;th&gt;return_next_y&lt;/th&gt;
+      &lt;th&gt;should_invest&lt;/th&gt;
+      &lt;th&gt;total_invest&lt;/th&gt;
+      &lt;th&gt;total_value_next&lt;/th&gt;
+      &lt;th&gt;overall_return_next&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;1988&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;0.115733&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;1338.879804&lt;/td&gt;
+      &lt;td&gt;0.115733&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;1989&lt;/td&gt;
+      &lt;td&gt;285.649994&lt;/td&gt;
+      &lt;td&gt;0.351864&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;2400.0&lt;/td&gt;
+      &lt;td&gt;3432.220743&lt;/td&gt;
+      &lt;td&gt;0.430092&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;386.160004&lt;/td&gt;
+      &lt;td&gt;-0.058836&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;3600.0&lt;/td&gt;
+      &lt;td&gt;4359.680708&lt;/td&gt;
+      &lt;td&gt;0.211022&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;363.440002&lt;/td&gt;
+      &lt;td&gt;0.320273&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;4800.0&lt;/td&gt;
+      &lt;td&gt;7340.295930&lt;/td&gt;
+      &lt;td&gt;0.529228&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;479.839996&lt;/td&gt;
+      &lt;td&gt;0.075358&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;6000.0&lt;/td&gt;
+      &lt;td&gt;9183.879488&lt;/td&gt;
+      &lt;td&gt;0.530647&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;516.000000&lt;/td&gt;
+      &lt;td&gt;0.099031&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;7200.0&lt;/td&gt;
+      &lt;td&gt;11412.205047&lt;/td&gt;
+      &lt;td&gt;0.585028&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;567.099976&lt;/td&gt;
+      &lt;td&gt;0.014848&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;8400.0&lt;/td&gt;
+      &lt;td&gt;12799.465363&lt;/td&gt;
+      &lt;td&gt;0.523746&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;1995&lt;/td&gt;
+      &lt;td&gt;575.520020&lt;/td&gt;
+      &lt;td&gt;0.386954&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;9600.0&lt;/td&gt;
+      &lt;td&gt;19416.618801&lt;/td&gt;
+      &lt;td&gt;1.022564&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;1996&lt;/td&gt;
+      &lt;td&gt;798.219971&lt;/td&gt;
+      &lt;td&gt;0.214014&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;10800.0&lt;/td&gt;
+      &lt;td&gt;25028.857872&lt;/td&gt;
+      &lt;td&gt;1.317487&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;1997&lt;/td&gt;
+      &lt;td&gt;969.049988&lt;/td&gt;
+      &lt;td&gt;0.346721&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;12000.0&lt;/td&gt;
+      &lt;td&gt;35322.955610&lt;/td&gt;
+      &lt;td&gt;1.943580&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;10&lt;/th&gt;
+      &lt;td&gt;1998&lt;/td&gt;
+      &lt;td&gt;1305.040039&lt;/td&gt;
+      &lt;td&gt;0.278520&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;13200.0&lt;/td&gt;
+      &lt;td&gt;46695.335609&lt;/td&gt;
+      &lt;td&gt;2.537525&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11&lt;/th&gt;
+      &lt;td&gt;1999&lt;/td&gt;
+      &lt;td&gt;1668.520020&lt;/td&gt;
+      &lt;td&gt;0.199932&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;14400.0&lt;/td&gt;
+      &lt;td&gt;57471.129235&lt;/td&gt;
+      &lt;td&gt;2.991051&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;12&lt;/th&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;2002.109985&lt;/td&gt;
+      &lt;td&gt;-0.108011&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;15600.0&lt;/td&gt;
+      &lt;td&gt;52333.999013&lt;/td&gt;
+      &lt;td&gt;2.354744&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;13&lt;/th&gt;
+      &lt;td&gt;2001&lt;/td&gt;
+      &lt;td&gt;1785.859985&lt;/td&gt;
+      &lt;td&gt;-0.088109&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;16800.0&lt;/td&gt;
+      &lt;td&gt;48817.182741&lt;/td&gt;
+      &lt;td&gt;1.905785&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;14&lt;/th&gt;
+      &lt;td&gt;2002&lt;/td&gt;
+      &lt;td&gt;1628.510010&lt;/td&gt;
+      &lt;td&gt;-0.199778&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;18000.0&lt;/td&gt;
+      &lt;td&gt;40024.865577&lt;/td&gt;
+      &lt;td&gt;1.223604&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;15&lt;/th&gt;
+      &lt;td&gt;2003&lt;/td&gt;
+      &lt;td&gt;1303.170044&lt;/td&gt;
+      &lt;td&gt;0.241626&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;19200.0&lt;/td&gt;
+      &lt;td&gt;51185.872534&lt;/td&gt;
+      &lt;td&gt;1.665931&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;16&lt;/th&gt;
+      &lt;td&gt;2004&lt;/td&gt;
+      &lt;td&gt;1618.050049&lt;/td&gt;
+      &lt;td&gt;0.103155&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;20400.0&lt;/td&gt;
+      &lt;td&gt;57789.735898&lt;/td&gt;
+      &lt;td&gt;1.832830&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;17&lt;/th&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;1784.959961&lt;/td&gt;
+      &lt;td&gt;0.075072&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;21600.0&lt;/td&gt;
+      &lt;td&gt;63418.196358&lt;/td&gt;
+      &lt;td&gt;1.936028&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;18&lt;/th&gt;
+      &lt;td&gt;2006&lt;/td&gt;
+      &lt;td&gt;1918.959961&lt;/td&gt;
+      &lt;td&gt;0.138075&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;22800.0&lt;/td&gt;
+      &lt;td&gt;73540.339150&lt;/td&gt;
+      &lt;td&gt;2.225453&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;19&lt;/th&gt;
+      &lt;td&gt;2007&lt;/td&gt;
+      &lt;td&gt;2183.919922&lt;/td&gt;
+      &lt;td&gt;0.040977&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;24000.0&lt;/td&gt;
+      &lt;td&gt;77802.957039&lt;/td&gt;
+      &lt;td&gt;2.241790&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;20&lt;/th&gt;
+      &lt;td&gt;2008&lt;/td&gt;
+      &lt;td&gt;2273.409912&lt;/td&gt;
+      &lt;td&gt;-0.340563&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;25200.0&lt;/td&gt;
+      &lt;td&gt;52097.453233&lt;/td&gt;
+      &lt;td&gt;1.067359&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;21&lt;/th&gt;
+      &lt;td&gt;2009&lt;/td&gt;
+      &lt;td&gt;1499.170044&lt;/td&gt;
+      &lt;td&gt;0.245396&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;26400.0&lt;/td&gt;
+      &lt;td&gt;66376.423781&lt;/td&gt;
+      &lt;td&gt;1.514258&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;22&lt;/th&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;1867.060059&lt;/td&gt;
+      &lt;td&gt;0.145277&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;27600.0&lt;/td&gt;
+      &lt;td&gt;77393.691544&lt;/td&gt;
+      &lt;td&gt;1.804119&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;23&lt;/th&gt;
+      &lt;td&gt;2011&lt;/td&gt;
+      &lt;td&gt;2138.300049&lt;/td&gt;
+      &lt;td&gt;0.025300&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;28800.0&lt;/td&gt;
+      &lt;td&gt;80582.143634&lt;/td&gt;
+      &lt;td&gt;1.797991&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;24&lt;/th&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;2192.399902&lt;/td&gt;
+      &lt;td&gt;0.171570&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;30000.0&lt;/td&gt;
+      &lt;td&gt;95813.509570&lt;/td&gt;
+      &lt;td&gt;2.193784&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;25&lt;/th&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;2568.550049&lt;/td&gt;
+      &lt;td&gt;0.279590&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;31200.0&lt;/td&gt;
+      &lt;td&gt;124137.478352&lt;/td&gt;
+      &lt;td&gt;2.978765&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;26&lt;/th&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;3286.689941&lt;/td&gt;
+      &lt;td&gt;0.146649&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;32400.0&lt;/td&gt;
+      &lt;td&gt;143718.101728&lt;/td&gt;
+      &lt;td&gt;3.435744&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;27&lt;/th&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;3768.679932&lt;/td&gt;
+      &lt;td&gt;-0.001244&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;33600.0&lt;/td&gt;
+      &lt;td&gt;144737.758102&lt;/td&gt;
+      &lt;td&gt;3.307671&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28&lt;/th&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;3763.989990&lt;/td&gt;
+      &lt;td&gt;0.146411&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;34800.0&lt;/td&gt;
+      &lt;td&gt;167304.672506&lt;/td&gt;
+      &lt;td&gt;3.807606&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;29&lt;/th&gt;
+      &lt;td&gt;2017&lt;/td&gt;
+      &lt;td&gt;4315.080078&lt;/td&gt;
+      &lt;td&gt;0.218119&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;36000.0&lt;/td&gt;
+      &lt;td&gt;205258.694569&lt;/td&gt;
+      &lt;td&gt;4.701630&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30&lt;/th&gt;
+      &lt;td&gt;2018&lt;/td&gt;
+      &lt;td&gt;5256.279785&lt;/td&gt;
+      &lt;td&gt;-0.050553&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;37200.0&lt;/td&gt;
+      &lt;td&gt;196021.626888&lt;/td&gt;
+      &lt;td&gt;4.269399&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;31&lt;/th&gt;
+      &lt;td&gt;2019&lt;/td&gt;
+      &lt;td&gt;4990.560059&lt;/td&gt;
+      &lt;td&gt;0.324358&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;38400.0&lt;/td&gt;
+      &lt;td&gt;261192.114467&lt;/td&gt;
+      &lt;td&gt;5.801878&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;32&lt;/th&gt;
+      &lt;td&gt;2020&lt;/td&gt;
+      &lt;td&gt;6609.290039&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;1200.0&lt;/td&gt;
+      &lt;td&gt;39600.0&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot_changes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Plan 1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/asserts/3_output_14_0.png&quot; alt=&quot;png&quot; title=&quot;Plan 1&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;plan-2-increase-the-investment-each-year-by-2&quot;&gt;Plan 2: Increase the investment each year by 2%&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Assuming initial_investment is 1200, and then increase investment each year by 2%
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_dollar_cost_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;increase_investment_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.02&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Output:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The overall return rate is 486.51%
+The cash flow (the negative sign stands for investment):
+
+
+
+[-1200.0,
+ -1224.0,
+ -1248.48,
+ -1273.4496000000001,
+ -1298.918592,
+ -1324.8969638400001,
+ -1351.3949031168002,
+ -1378.422801179136,
+ -1405.991257202719,
+ -1434.1110823467732,
+ -1462.7933039937088,
+ -1492.049170073583,
+ -1521.8901534750546,
+ -1552.327956544556,
+ -1583.374515675447,
+ -1615.042005988956,
+ -1647.3428461087349,
+ -1680.2897030309098,
+ -1713.8954970915281,
+ -1748.1734070333584,
+ -1783.1368751740258,
+ -1818.7996126775063,
+ -1855.1756049310566,
+ -1892.2791170296778,
+ -1930.1246993702714,
+ -1968.7271933576767,
+ -2008.1017372248302,
+ -2048.263771969327,
+ -2089.2290474087135,
+ -2131.0136283568877,
+ -2173.633900924026,
+ -2217.106578942506,
+ 311273.63335198513]
+
+
+The internal return rate (IRR) is 9.91% per period
+The compound annual growth rate (CAGR) is 5.68% per period
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;df2:&lt;/p&gt;
+
+&lt;div&gt;
+&lt;table style=&quot;margin-left:auto;margin-right:auto;width:80%&quot; border=&quot;1&quot; class=&quot;minimalistBlack&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;year&lt;/th&gt;
+      &lt;th&gt;Adj Close&lt;/th&gt;
+      &lt;th&gt;return_next_y&lt;/th&gt;
+      &lt;th&gt;should_invest&lt;/th&gt;
+      &lt;th&gt;total_invest&lt;/th&gt;
+      &lt;th&gt;total_value_next&lt;/th&gt;
+      &lt;th&gt;overall_return_next&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;1988&lt;/td&gt;
+      &lt;td&gt;256.019989&lt;/td&gt;
+      &lt;td&gt;0.115733&lt;/td&gt;
+      &lt;td&gt;1200.000000&lt;/td&gt;
+      &lt;td&gt;1200.000000&lt;/td&gt;
+      &lt;td&gt;1338.879804&lt;/td&gt;
+      &lt;td&gt;0.115733&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;1989&lt;/td&gt;
+      &lt;td&gt;285.649994&lt;/td&gt;
+      &lt;td&gt;0.351864&lt;/td&gt;
+      &lt;td&gt;1224.000000&lt;/td&gt;
+      &lt;td&gt;2424.000000&lt;/td&gt;
+      &lt;td&gt;3464.665484&lt;/td&gt;
+      &lt;td&gt;0.429317&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;1990&lt;/td&gt;
+      &lt;td&gt;386.160004&lt;/td&gt;
+      &lt;td&gt;-0.058836&lt;/td&gt;
+      &lt;td&gt;1248.480000&lt;/td&gt;
+      &lt;td&gt;3672.480000&lt;/td&gt;
+      &lt;td&gt;4435.844184&lt;/td&gt;
+      &lt;td&gt;0.207861&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;1991&lt;/td&gt;
+      &lt;td&gt;363.440002&lt;/td&gt;
+      &lt;td&gt;0.320273&lt;/td&gt;
+      &lt;td&gt;1273.449600&lt;/td&gt;
+      &lt;td&gt;4945.929600&lt;/td&gt;
+      &lt;td&gt;7537.826024&lt;/td&gt;
+      &lt;td&gt;0.524046&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;1992&lt;/td&gt;
+      &lt;td&gt;479.839996&lt;/td&gt;
+      &lt;td&gt;0.075358&lt;/td&gt;
+      &lt;td&gt;1298.918592&lt;/td&gt;
+      &lt;td&gt;6244.848192&lt;/td&gt;
+      &lt;td&gt;9502.668090&lt;/td&gt;
+      &lt;td&gt;0.521681&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;5&lt;/th&gt;
+      &lt;td&gt;1993&lt;/td&gt;
+      &lt;td&gt;516.000000&lt;/td&gt;
+      &lt;td&gt;0.099031&lt;/td&gt;
+      &lt;td&gt;1324.896964&lt;/td&gt;
+      &lt;td&gt;7569.745156&lt;/td&gt;
+      &lt;td&gt;11899.829221&lt;/td&gt;
+      &lt;td&gt;0.572025&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;6&lt;/th&gt;
+      &lt;td&gt;1994&lt;/td&gt;
+      &lt;td&gt;567.099976&lt;/td&gt;
+      &lt;td&gt;0.014848&lt;/td&gt;
+      &lt;td&gt;1351.394903&lt;/td&gt;
+      &lt;td&gt;8921.140059&lt;/td&gt;
+      &lt;td&gt;13447.972306&lt;/td&gt;
+      &lt;td&gt;0.507428&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;7&lt;/th&gt;
+      &lt;td&gt;1995&lt;/td&gt;
+      &lt;td&gt;575.520020&lt;/td&gt;
+      &lt;td&gt;0.386954&lt;/td&gt;
+      &lt;td&gt;1378.422801&lt;/td&gt;
+      &lt;td&gt;10299.562860&lt;/td&gt;
+      &lt;td&gt;20563.532573&lt;/td&gt;
+      &lt;td&gt;0.996544&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;8&lt;/th&gt;
+      &lt;td&gt;1996&lt;/td&gt;
+      &lt;td&gt;798.219971&lt;/td&gt;
+      &lt;td&gt;0.214014&lt;/td&gt;
+      &lt;td&gt;1405.991257&lt;/td&gt;
+      &lt;td&gt;11705.554117&lt;/td&gt;
+      &lt;td&gt;26671.303126&lt;/td&gt;
+      &lt;td&gt;1.278517&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;9&lt;/th&gt;
+      &lt;td&gt;1997&lt;/td&gt;
+      &lt;td&gt;969.049988&lt;/td&gt;
+      &lt;td&gt;0.346721&lt;/td&gt;
+      &lt;td&gt;1434.111082&lt;/td&gt;
+      &lt;td&gt;13139.665200&lt;/td&gt;
+      &lt;td&gt;37850.153571&lt;/td&gt;
+      &lt;td&gt;1.880603&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;10&lt;/th&gt;
+      &lt;td&gt;1998&lt;/td&gt;
+      &lt;td&gt;1305.040039&lt;/td&gt;
+      &lt;td&gt;0.278520&lt;/td&gt;
+      &lt;td&gt;1462.793304&lt;/td&gt;
+      &lt;td&gt;14602.458504&lt;/td&gt;
+      &lt;td&gt;50262.395731&lt;/td&gt;
+      &lt;td&gt;2.442050&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;11&lt;/th&gt;
+      &lt;td&gt;1999&lt;/td&gt;
+      &lt;td&gt;1668.520020&lt;/td&gt;
+      &lt;td&gt;0.199932&lt;/td&gt;
+      &lt;td&gt;1492.049170&lt;/td&gt;
+      &lt;td&gt;16094.507674&lt;/td&gt;
+      &lt;td&gt;62101.796628&lt;/td&gt;
+      &lt;td&gt;2.858571&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;12&lt;/th&gt;
+      &lt;td&gt;2000&lt;/td&gt;
+      &lt;td&gt;2002.109985&lt;/td&gt;
+      &lt;td&gt;-0.108011&lt;/td&gt;
+      &lt;td&gt;1521.890153&lt;/td&gt;
+      &lt;td&gt;17616.397827&lt;/td&gt;
+      &lt;td&gt;56751.625622&lt;/td&gt;
+      &lt;td&gt;2.221523&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;13&lt;/th&gt;
+      &lt;td&gt;2001&lt;/td&gt;
+      &lt;td&gt;1785.859985&lt;/td&gt;
+      &lt;td&gt;-0.088109&lt;/td&gt;
+      &lt;td&gt;1552.327957&lt;/td&gt;
+      &lt;td&gt;19168.725784&lt;/td&gt;
+      &lt;td&gt;53166.862347&lt;/td&gt;
+      &lt;td&gt;1.773625&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;14&lt;/th&gt;
+      &lt;td&gt;2002&lt;/td&gt;
+      &lt;td&gt;1628.510010&lt;/td&gt;
+      &lt;td&gt;-0.199778&lt;/td&gt;
+      &lt;td&gt;1583.374516&lt;/td&gt;
+      &lt;td&gt;20752.100299&lt;/td&gt;
+      &lt;td&gt;43812.361085&lt;/td&gt;
+      &lt;td&gt;1.111225&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;15&lt;/th&gt;
+      &lt;td&gt;2003&lt;/td&gt;
+      &lt;td&gt;1303.170044&lt;/td&gt;
+      &lt;td&gt;0.241626&lt;/td&gt;
+      &lt;td&gt;1615.042006&lt;/td&gt;
+      &lt;td&gt;22367.142305&lt;/td&gt;
+      &lt;td&gt;56403.853151&lt;/td&gt;
+      &lt;td&gt;1.521728&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;16&lt;/th&gt;
+      &lt;td&gt;2004&lt;/td&gt;
+      &lt;td&gt;1618.050049&lt;/td&gt;
+      &lt;td&gt;0.103155&lt;/td&gt;
+      &lt;td&gt;1647.342846&lt;/td&gt;
+      &lt;td&gt;24014.485152&lt;/td&gt;
+      &lt;td&gt;64039.465661&lt;/td&gt;
+      &lt;td&gt;1.666702&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;17&lt;/th&gt;
+      &lt;td&gt;2005&lt;/td&gt;
+      &lt;td&gt;1784.959961&lt;/td&gt;
+      &lt;td&gt;0.075072&lt;/td&gt;
+      &lt;td&gt;1680.289703&lt;/td&gt;
+      &lt;td&gt;25694.774855&lt;/td&gt;
+      &lt;td&gt;70653.449907&lt;/td&gt;
+      &lt;td&gt;1.749721&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;18&lt;/th&gt;
+      &lt;td&gt;2006&lt;/td&gt;
+      &lt;td&gt;1918.959961&lt;/td&gt;
+      &lt;td&gt;0.138075&lt;/td&gt;
+      &lt;td&gt;1713.895497&lt;/td&gt;
+      &lt;td&gt;27408.670352&lt;/td&gt;
+      &lt;td&gt;82359.450191&lt;/td&gt;
+      &lt;td&gt;2.004869&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;19&lt;/th&gt;
+      &lt;td&gt;2007&lt;/td&gt;
+      &lt;td&gt;2183.919922&lt;/td&gt;
+      &lt;td&gt;0.040977&lt;/td&gt;
+      &lt;td&gt;1748.173407&lt;/td&gt;
+      &lt;td&gt;29156.843759&lt;/td&gt;
+      &lt;td&gt;87554.082572&lt;/td&gt;
+      &lt;td&gt;2.002866&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;20&lt;/th&gt;
+      &lt;td&gt;2008&lt;/td&gt;
+      &lt;td&gt;2273.409912&lt;/td&gt;
+      &lt;td&gt;-0.340563&lt;/td&gt;
+      &lt;td&gt;1783.136875&lt;/td&gt;
+      &lt;td&gt;30939.980634&lt;/td&gt;
+      &lt;td&gt;58912.245650&lt;/td&gt;
+      &lt;td&gt;0.904082&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;21&lt;/th&gt;
+      &lt;td&gt;2009&lt;/td&gt;
+      &lt;td&gt;1499.170044&lt;/td&gt;
+      &lt;td&gt;0.245396&lt;/td&gt;
+      &lt;td&gt;1818.799613&lt;/td&gt;
+      &lt;td&gt;32758.780247&lt;/td&gt;
+      &lt;td&gt;75634.187986&lt;/td&gt;
+      &lt;td&gt;1.308822&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;22&lt;/th&gt;
+      &lt;td&gt;2010&lt;/td&gt;
+      &lt;td&gt;1867.060059&lt;/td&gt;
+      &lt;td&gt;0.145277&lt;/td&gt;
+      &lt;td&gt;1855.175605&lt;/td&gt;
+      &lt;td&gt;34613.955851&lt;/td&gt;
+      &lt;td&gt;88746.748765&lt;/td&gt;
+      &lt;td&gt;1.563901&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;23&lt;/th&gt;
+      &lt;td&gt;2011&lt;/td&gt;
+      &lt;td&gt;2138.300049&lt;/td&gt;
+      &lt;td&gt;0.025300&lt;/td&gt;
+      &lt;td&gt;1892.279117&lt;/td&gt;
+      &lt;td&gt;36506.234969&lt;/td&gt;
+      &lt;td&gt;92932.231838&lt;/td&gt;
+      &lt;td&gt;1.545654&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;24&lt;/th&gt;
+      &lt;td&gt;2012&lt;/td&gt;
+      &lt;td&gt;2192.399902&lt;/td&gt;
+      &lt;td&gt;0.171570&lt;/td&gt;
+      &lt;td&gt;1930.124699&lt;/td&gt;
+      &lt;td&gt;38436.359668&lt;/td&gt;
+      &lt;td&gt;111137.895169&lt;/td&gt;
+      &lt;td&gt;1.891478&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;25&lt;/th&gt;
+      &lt;td&gt;2013&lt;/td&gt;
+      &lt;td&gt;2568.550049&lt;/td&gt;
+      &lt;td&gt;0.279590&lt;/td&gt;
+      &lt;td&gt;1968.727193&lt;/td&gt;
+      &lt;td&gt;40405.086861&lt;/td&gt;
+      &lt;td&gt;144730.058188&lt;/td&gt;
+      &lt;td&gt;2.581976&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;26&lt;/th&gt;
+      &lt;td&gt;2014&lt;/td&gt;
+      &lt;td&gt;3286.689941&lt;/td&gt;
+      &lt;td&gt;0.146649&lt;/td&gt;
+      &lt;td&gt;2008.101737&lt;/td&gt;
+      &lt;td&gt;42413.188598&lt;/td&gt;
+      &lt;td&gt;168257.173136&lt;/td&gt;
+      &lt;td&gt;2.967096&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;27&lt;/th&gt;
+      &lt;td&gt;2015&lt;/td&gt;
+      &lt;td&gt;3768.679932&lt;/td&gt;
+      &lt;td&gt;-0.001244&lt;/td&gt;
+      &lt;td&gt;2048.263772&lt;/td&gt;
+      &lt;td&gt;44461.452370&lt;/td&gt;
+      &lt;td&gt;170093.499961&lt;/td&gt;
+      &lt;td&gt;2.825640&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;28&lt;/th&gt;
+      &lt;td&gt;2016&lt;/td&gt;
+      &lt;td&gt;3763.989990&lt;/td&gt;
+      &lt;td&gt;0.146411&lt;/td&gt;
+      &lt;td&gt;2089.229047&lt;/td&gt;
+      &lt;td&gt;46550.681418&lt;/td&gt;
+      &lt;td&gt;197392.199679&lt;/td&gt;
+      &lt;td&gt;3.240372&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;29&lt;/th&gt;
+      &lt;td&gt;2017&lt;/td&gt;
+      &lt;td&gt;4315.080078&lt;/td&gt;
+      &lt;td&gt;0.218119&lt;/td&gt;
+      &lt;td&gt;2131.013628&lt;/td&gt;
+      &lt;td&gt;48681.695046&lt;/td&gt;
+      &lt;td&gt;243042.959525&lt;/td&gt;
+      &lt;td&gt;3.992492&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;30&lt;/th&gt;
+      &lt;td&gt;2018&lt;/td&gt;
+      &lt;td&gt;5256.279785&lt;/td&gt;
+      &lt;td&gt;-0.050553&lt;/td&gt;
+      &lt;td&gt;2173.633901&lt;/td&gt;
+      &lt;td&gt;50855.328947&lt;/td&gt;
+      &lt;td&gt;232820.204951&lt;/td&gt;
+      &lt;td&gt;3.578089&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;31&lt;/th&gt;
+      &lt;td&gt;2019&lt;/td&gt;
+      &lt;td&gt;4990.560059&lt;/td&gt;
+      &lt;td&gt;0.324358&lt;/td&gt;
+      &lt;td&gt;2217.106579&lt;/td&gt;
+      &lt;td&gt;53072.435526&lt;/td&gt;
+      &lt;td&gt;311273.633352&lt;/td&gt;
+      &lt;td&gt;4.865072&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;32&lt;/th&gt;
+      &lt;td&gt;2020&lt;/td&gt;
+      &lt;td&gt;6609.290039&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;2261.448711&lt;/td&gt;
+      &lt;td&gt;55333.884237&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+      &lt;td&gt;NaN&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;plot_changes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Plan 2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'year'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/asserts/3_output_18_0.png&quot; alt=&quot;png&quot; title=&quot;Plan 2&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;The compound annual growth rate of Plan 2 is lower than that of Plan 1. This is because Plan 2 invested more money at the later stage of the investment. But, in both plans, the compound annual growth rates are more than 5%.&lt;/p&gt;
+
+&lt;p&gt;The internal return rate of both plans are quite similiar to each other (almost 10%).&lt;/p&gt;
+
+&lt;p&gt;It seems that SP500 is a good enough index that can bring us long term return. However, the historical data cannot predict the future. Please do your own research before investing.&lt;/p&gt;
+
+&lt;p&gt;In the next notebook, we will further discuss which strategy can further increase IRR.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 13 Sep 2020 16:15:20 +0200</pubDate>
+        <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</guid>
+        
+        <category>Finance</category>
+        
+        <category>Python</category>
+        
+        <category>visualization</category>
+        
+        <category>long-term investment</category>
+        
+        <category>retirement</category>
+        
+        
+        <category>Finance</category>
+        
+        <category>Data Science</category>
+        
+      </item>
     
       <item>
         <title>Financial Analysis in Python #1: How to Visualize Long Term Investment Plan</title>
