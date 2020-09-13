@@ -1074,9 +1074,10 @@ The compound annual growth rate (CAGR) is 6.17% per period
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_changes</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'Plan 1'</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">'year'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/asserts/3_output_14_0.png" alt="png" title="Plan 1" width="80%" /></p>
+<p><img src="/assets/3_output_14_0.png" alt="png" title="Plan 1" width="80%" /></p>
 
 <h1 id="plan-2-increase-the-investment-each-year-by-2">Plan 2: Increase the investment each year by 2%</h1>
+<p>In Plan 2, let’s assume the initial_investment is 1200, and then we increase the investment each year by 2%.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Assuming initial_investment is 1200, and then increase investment each year by 2%
 </span><span class="n">df2</span> <span class="o">=</span> <span class="n">calc_dollar_cost_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value_per_period</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">increase_investment_per_period</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
@@ -1481,7 +1482,7 @@ The compound annual growth rate (CAGR) is 5.68% per period
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_changes</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'Plan 2'</span><span class="p">,</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">'year'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="/asserts/3_output_18_0.png" alt="png" title="Plan 2" width="80%" /></p>
+<p><img src="/assets/3_output_18_0.png" alt="png" title="Plan 2" width="80%" /></p>
 
 <h1 id="conclusion">Conclusion</h1>
 
