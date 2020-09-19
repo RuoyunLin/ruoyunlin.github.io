@@ -15,10 +15,9 @@ Starting from this blog post, I am going to share how I used python to set up my
 I will try to cover a few topics like:
 
 - how to visualize the long term investment plan
-- backtest dollar cost averaging strategy for long-term investment
-- backtest value average investment strategy for long-term investment
-- compare different investment strategies for short term investment
-- tbd...
+- backtest **dollar-cost averaging** strategy for **long-term** investment
+- backtest **value averaging** strategy for **long-term** investment
+- compare different investment strategies for **short-term** investment
 
 The jupyter notebooks can be downloaded [here](https://github.com/RuoyunLin/code_snippets/tree/master/finance).
 
