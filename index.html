@@ -187,7 +187,7 @@
 <p>This blog series covers topics like the following:</p>
 
 <ul>
-  <li>how to visualize the long term investment plan</li>
+  <li>how to <strong>visualize</strong> the <strong>long-term</strong> investment plan</li>
   <li>backtest <strong>dollar-cost averaging</strong> strategy for <strong>long-term</strong> investment</li>
   <li>backtest <strong>value averaging</strong> strategy for <strong>long-term</strong> investment</li>
   <li>compare different investment strategies for <strong>short-term</strong> investment</li>
@@ -526,6 +526,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_va1</span> <span class="o">=</span> <span class="n">calc_value_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value_per_period</span><span class="o">=</span><span class="mi">1200</span><span class="p">)</span>
 </code></pre></div></div>
+<p>Output:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The cash flow (the negative sign stands for investment):
 
@@ -970,6 +971,7 @@ The internal return rate is 12.12% per period
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_va2</span> <span class="o">=</span> <span class="n">calc_value_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value_per_period</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> 
                                      <span class="n">increase_investment_per_period</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 </code></pre></div></div>
+<p>Output:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The cash flow (the negative sign stands for investment):
 
@@ -1414,6 +1416,8 @@ The internal return rate is 11.21% per period
                                              <span class="n">min_investment_per_period</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
                                              <span class="n">max_investment_per_period</span><span class="o">=</span><span class="mi">6000</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p>Output:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The cash flow (the negative sign stands for investment):
 
@@ -2028,6 +2032,8 @@ The compound annual growth rate (CAGR) is 5.6% per period
 </span><span class="n">df_dc</span> <span class="o">=</span> <span class="n">calc_dollar_cost_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">value_per_period</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> 
                                           <span class="n">increase_investment_per_period</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p>Output:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The cash flow (the negative sign stands for investment):
 
@@ -2765,6 +2771,8 @@ The compound annual growth rate (CAGR) is 5.68% per period
                  <span class="s">'yearly dollar-cost-averaging'</span><span class="p">,</span> <span class="s">'adjusted version of value averaging'</span><span class="p">)</span>
 </code></pre></div></div>
 
+<p>Output:</p>
+
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>number of times yearly dollar-cost-averaging is better than adjusted version of value averaging: 10
 number of times yearly dollar-cost-averaging is equal to adjusted version of value averaging: 2
 number of times yearly dollar-cost-averaging is worse than adjusted version of value averaging: 20
@@ -2826,7 +2834,7 @@ number of times yearly dollar-cost-averaging is worse than adjusted version of v
 <p>This blog series covers topics like the following:</p>
 
 <ul>
-  <li>how to visualize the long term investment plan</li>
+  <li>how to <strong>visualize</strong> the <strong>long-term</strong> investment plan</li>
   <li>backtest <strong>dollar-cost averaging</strong> strategy for <strong>long-term</strong> investment</li>
   <li>backtest <strong>value averaging</strong> strategy for <strong>long-term</strong> investment</li>
   <li>compare different investment strategies for <strong>short-term</strong> investment</li>

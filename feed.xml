@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 19 Sep 2020 17:36:24 +0200</pubDate>
-    <lastBuildDate>Sat, 19 Sep 2020 17:36:24 +0200</lastBuildDate>
+    <pubDate>Sat, 19 Sep 2020 18:07:17 +0200</pubDate>
+    <lastBuildDate>Sat, 19 Sep 2020 18:07:17 +0200</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -18,7 +18,7 @@
 &lt;p&gt;This blog series covers topics like the following:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;how to visualize the long term investment plan&lt;/li&gt;
+  &lt;li&gt;how to &lt;strong&gt;visualize&lt;/strong&gt; the &lt;strong&gt;long-term&lt;/strong&gt; investment plan&lt;/li&gt;
   &lt;li&gt;backtest &lt;strong&gt;dollar-cost averaging&lt;/strong&gt; strategy for &lt;strong&gt;long-term&lt;/strong&gt; investment&lt;/li&gt;
   &lt;li&gt;backtest &lt;strong&gt;value averaging&lt;/strong&gt; strategy for &lt;strong&gt;long-term&lt;/strong&gt; investment&lt;/li&gt;
   &lt;li&gt;compare different investment strategies for &lt;strong&gt;short-term&lt;/strong&gt; investment&lt;/li&gt;
@@ -357,6 +357,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_va1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_value_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Output:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The cash flow (the negative sign stands for investment):
 
@@ -801,6 +802,7 @@ The internal return rate is 12.12% per period
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_va2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_value_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
                                      &lt;span class=&quot;n&quot;&gt;increase_investment_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Output:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The cash flow (the negative sign stands for investment):
 
@@ -1245,6 +1247,8 @@ The internal return rate is 11.21% per period
                                              &lt;span class=&quot;n&quot;&gt;min_investment_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
                                              &lt;span class=&quot;n&quot;&gt;max_investment_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The cash flow (the negative sign stands for investment):
 
@@ -1859,6 +1863,8 @@ The compound annual growth rate (CAGR) is 5.6% per period
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_dc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calc_dollar_cost_averaging_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
                                           &lt;span class=&quot;n&quot;&gt;increase_investment_per_period&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.02&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Output:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;The cash flow (the negative sign stands for investment):
 
@@ -2596,6 +2602,8 @@ The compound annual growth rate (CAGR) is 5.68% per period
                  &lt;span class=&quot;s&quot;&gt;'yearly dollar-cost-averaging'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'adjusted version of value averaging'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;Output:&lt;/p&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;number of times yearly dollar-cost-averaging is better than adjusted version of value averaging: 10
 number of times yearly dollar-cost-averaging is equal to adjusted version of value averaging: 2
 number of times yearly dollar-cost-averaging is worse than adjusted version of value averaging: 20
@@ -2641,7 +2649,7 @@ number of times yearly dollar-cost-averaging is worse than adjusted version of v
 &lt;p&gt;This blog series covers topics like the following:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;how to visualize the long term investment plan&lt;/li&gt;
+  &lt;li&gt;how to &lt;strong&gt;visualize&lt;/strong&gt; the &lt;strong&gt;long-term&lt;/strong&gt; investment plan&lt;/li&gt;
   &lt;li&gt;backtest &lt;strong&gt;dollar-cost averaging&lt;/strong&gt; strategy for &lt;strong&gt;long-term&lt;/strong&gt; investment&lt;/li&gt;
   &lt;li&gt;backtest &lt;strong&gt;value averaging&lt;/strong&gt; strategy for &lt;strong&gt;long-term&lt;/strong&gt; investment&lt;/li&gt;
   &lt;li&gt;compare different investment strategies for &lt;strong&gt;short-term&lt;/strong&gt; investment&lt;/li&gt;
