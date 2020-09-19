@@ -13,7 +13,7 @@ This is the second blog post of my **Finaical Analysis in Python** series.
 
 This blog series covers topics like the following:
 
-- how to visualize the long term investment plan
+- how to **visualize** the **long-term** investment plan
 - backtest **dollar-cost averaging** strategy for **long-term** investment
 - backtest **value averaging** strategy for **long-term** investment
 - compare different investment strategies for **short-term** investment
