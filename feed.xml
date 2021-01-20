@@ -3,10 +3,10 @@
   <channel>
     <title>Ruoyun Lin's Blog</title>
     <description>Welcome to my blog.</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 20 Jan 2021 15:09:45 +0100</pubDate>
-    <lastBuildDate>Wed, 20 Jan 2021 15:09:45 +0100</lastBuildDate>
+    <link>https://RuoyunLin.github.io/</link>
+    <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 20 Jan 2021 15:16:19 +0100</pubDate>
+    <lastBuildDate>Wed, 20 Jan 2021 15:16:19 +0100</lastBuildDate>
     <generator>Jekyll v4.0.1</generator>
     
       <item>
@@ -1747,8 +1747,8 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
 
 </description>
         <pubDate>Sat, 26 Sep 2020 16:47:58 +0200</pubDate>
-        <link>http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment</guid>
+        <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment</guid>
         
         <category>Finance</category>
         
@@ -4380,8 +4380,8 @@ number of times yearly dollar-cost-averaging is worse than adjusted version of v
 &lt;p&gt;In the next blogpost, we are going to examine how to invest a fixed amount of money in short term. To be more specfic, we are going to compare the dollar-cost avearging method, value averaging with all-in moethod for short term invesment.&lt;/p&gt;
 </description>
         <pubDate>Sat, 19 Sep 2020 17:16:40 +0200</pubDate>
-        <link>http://localhost:4000/articles/2020-09/financial-analysis-in-python-3-backtest-value-averaging-strategy-for-long-term-investment</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2020-09/financial-analysis-in-python-3-backtest-value-averaging-strategy-for-long-term-investment</guid>
+        <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-3-backtest-value-averaging-strategy-for-long-term-investment</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-3-backtest-value-averaging-strategy-for-long-term-investment</guid>
         
         <category>Finance</category>
         
@@ -5760,8 +5760,8 @@ The compound annual growth rate (CAGR) is 5.68% per period
 
 </description>
         <pubDate>Sun, 13 Sep 2020 16:15:20 +0200</pubDate>
-        <link>http://localhost:4000/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</guid>
+        <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-2-backtest-dollar-cost-averaging-strategy-for-long-term-investment</guid>
         
         <category>Finance</category>
         
@@ -6588,8 +6588,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 </description>
         <pubDate>Sun, 06 Sep 2020 16:54:58 +0200</pubDate>
-        <link>http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</guid>
+        <link>https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan</guid>
         
         <category>Finance</category>
         
@@ -6878,8 +6878,8 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 &lt;p&gt;&lt;img src=&quot;/assets/1_8.png&quot; alt=&quot;alt_text&quot; title=&quot;output_compare_matrix&quot; width=&quot;80%&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 21 Jul 2019 18:22:25 +0200</pubDate>
-        <link>http://localhost:4000/articles/2019-07/surveymonkey-python-analysis</link>
-        <guid isPermaLink="true">http://localhost:4000/articles/2019-07/surveymonkey-python-analysis</guid>
+        <link>https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis</link>
+        <guid isPermaLink="true">https://RuoyunLin.github.io/articles/2019-07/surveymonkey-python-analysis</guid>
         
         <category>Survey Monkey</category>
         
