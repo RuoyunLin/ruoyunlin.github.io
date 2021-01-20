@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Financial Analysis in Python #1: How to Visualize Long Term Investment Plan | Ruoyun Lin's Blog">
   <meta name="twitter:description" content="OverviewIt is always important to learn how to invest your money properly so that you do not need to worry about money after retirement.Starting from this bl...">
-  <meta name="twitter:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta name="twitter:image" content="http://localhost:4000/img/leonids-logo.png">
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="https://RuoyunLin.github.io">
+  <meta property="og:url" content="http://localhost:4000">
   <meta property="og:title" content="Financial Analysis in Python #1: How to Visualize Long Term Investment Plan | Ruoyun Lin's Blog">
   <meta property="og:description" content="OverviewIt is always important to learn how to invest your money properly so that you do not need to worry about money after retirement.Starting from this bl...">
-  <meta property="og:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta property="og:image" content="http://localhost:4000/img/leonids-logo.png">
   <title>Financial Analysis in Python #1: How to Visualize Long Term Investment Plan | Ruoyun Lin's Blog</title>
 
   <!-- CSS files -->
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/main.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
 
-  <link rel="canonical" href="https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan">
-  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="https://RuoyunLin.github.io /feed.xml " />
+  <link rel="canonical" href="http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan">
+  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="http://localhost:4000 /feed.xml " />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.ico">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
   <!-- 32x32 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.png">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.png">
 </head>
 
 
@@ -51,41 +51,41 @@
 
 <div class="cover-card table-cell table-middle">
   
-  <img src="https://RuoyunLin.github.io/img/avatar.jpg" alt="" class="avatar">
+  <img src="http://localhost:4000/img/avatar.jpg" alt="" class="avatar">
   
-  <a href="https://RuoyunLin.github.io/" class="author_name">Ruoyun Lin</a>
+  <a href="http://localhost:4000/" class="author_name">Ruoyun Lin</a>
   <span class="author_job"> </span>
-  <span class="author_bio mbm">A junior data scientist at trivago, Germany</span>
+  <span class="author_bio mbm">A data scientist at trivago, Germany</span>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/">home</a>
+        <a href="http://localhost:4000/">home</a>
         <span>/</span>
       </li>
          
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/about/">About</a>
+        <a href="http://localhost:4000/about/">About</a>
         
           <span>/</span>
         
       </li>
         
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/archive/">Archive</a>
+        <a href="http://localhost:4000/archive/">Archive</a>
         
           <span>/</span>
         
       </li>
           
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/categories/">Categories</a>
+        <a href="http://localhost:4000/categories/">Categories</a>
         
           <span>/</span>
         
       </li>
             
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/tags/">Tags</a>
+        <a href="http://localhost:4000/tags/">Tags</a>
         
           <span>/</span>
         
@@ -145,7 +145,7 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<a class="btn" href= "https://RuoyunLin.github.io/" >
+<a class="btn" href= "http://localhost:4000/" >
   Home
 </a>
 
@@ -186,6 +186,7 @@
   <li>compare different investment strategies for <strong>short-term</strong> investment</li>
 </ul>
 
+<!--more-->
 <p>The jupyter notebooks can be downloaded <a href="https://github.com/RuoyunLin/code_snippets/tree/master/finance">here</a>.</p>
 
 <h1 id="disclaimer">Disclaimer</h1>
@@ -224,13 +225,13 @@
 </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">'bmh'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'bmh'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">calc_return_over_periods</span><span class="p">(</span><span class="n">initial_investment</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">investment_per_period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                              <span class="n">return_per_period</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">n_period</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                              <span class="n">increase_investment_per_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.00</span><span class="p">,</span>
-                             <span class="n">invest_at_period_begin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+                             <span class="n">invest_at_period_begin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="s">"""
     This function calculates the overall rate of return across n periods given a certain return rate pre period
     :param initial_investment: Amount of initial investment
@@ -241,7 +242,7 @@
     :param invest_at_period_begin: whether to invest at the begining of each period or not
     :return: dataframe contains the rate of return for n periods.
     """</span>
-    <span class="n">df_result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">df_result</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_period</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -249,28 +250,28 @@
                 <span class="n">period_begin_investment</span> <span class="o">=</span> <span class="n">initial_investment</span> <span class="o">+</span> <span class="n">investment_per_period</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">invest_at_period_begin</span><span class="p">:</span>
                 <span class="n">period_begin_investment</span> <span class="o">=</span> <span class="n">initial_investment</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">period_begin_investment</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">return_per_period</span><span class="p">)</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'value_by_next_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'value_by_next_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">invest_at_period_begin</span><span class="p">:</span>
                 <span class="n">period_begin_investment</span> <span class="o">=</span> <span class="n">investment_per_period</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">increase_investment_per_period</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">invest_at_period_begin</span><span class="p">:</span>
                 <span class="n">period_begin_investment</span> <span class="o">=</span> <span class="n">investment_per_period</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">increase_investment_per_period</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
             <span class="n">value</span> <span class="o">+=</span> <span class="n">period_begin_investment</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">+</span>
-                                                    <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">])</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="n">period_begin_investment</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'total_investment'</span><span class="p">]</span> <span class="o">+</span>
+                                                    <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'period_begin_investment'</span><span class="p">])</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">return_per_period</span><span class="p">)</span>
-            <span class="n">df_result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'value_by_next_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">df_result</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">'value_by_next_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="n">df_result</span><span class="p">[</span><span class="s">'return_by_next_period'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_result</span><span class="p">[</span><span class="s">'value_by_next_period'</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_result</span><span class="p">[</span><span class="s">'total_investment'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
 
-    <span class="k">return</span> <span class="n">df_result</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_result</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">plot_changes</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">plot_changes</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span>
                  <span class="n">y1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">'total_investment'</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">'value_by_next_period'</span><span class="p">,</span>
                  <span class="n">xlabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">'period'</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">'value'</span><span class="p">,</span>
                  <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">'Visualize your saving plan and its future value'</span><span class="p">,</span>
@@ -286,17 +287,17 @@
     :param target: Final value one wants to achieve
     :return: A plot
     """</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">y2</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">target</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'target value'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y1</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="p">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">'black'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'target value'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">y1</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <h2 id="case-1">Case 1</h2>
@@ -982,19 +983,19 @@ tr:nth-child(even) {background-color: #f2f2f2;}
   <h6>Share on: </h6>
   <ul>
     <li>
-      <a href="https://twitter.com/intent/tweet?text=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
     <li>
-      <a href="https://news.ycombinator.com/submitlink?u=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+      <a href="https://news.ycombinator.com/submitlink?u=http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
     </li>
     <li>
-      <a href="https://www.reddit.com/submit?url=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+      <a href="https://www.reddit.com/submit?url=http://localhost:4000/articles/2020-09/financial-analysis-in-python-1-how-to-visualize-long-term-investment-plan" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
     </li>
   </ul>
 </div><!-- end share-buttons -->
@@ -1002,14 +1003,14 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 
 
         <footer>
-  &copy; 2020 Ruoyun Lin. Powered by <a href="http://octopress.org/">Octopress 3.0</a> and <a href="http://github.com/renyuanz/leonids/">Leonids theme</a>.
+  &copy; 2021 Ruoyun Lin. Powered by <a href="http://octopress.org/">Octopress 3.0</a> and <a href="http://github.com/renyuanz/leonids/">Leonids theme</a>.
 </footer>
 
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="https://RuoyunLin.github.io/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://RuoyunLin.github.io/js/main.js"></script>
+  <script type="text/javascript" src="http://localhost:4000/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="http://localhost:4000/js/main.js"></script>
 
 <!-- Asynchronous Google Analytics snippet -->
 <script>

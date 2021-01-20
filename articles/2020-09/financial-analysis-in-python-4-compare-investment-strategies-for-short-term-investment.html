@@ -18,28 +18,28 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Financial Analysis in Python #4: Compare Investment Strategies for Short-term Investment | Ruoyun Lin's Blog">
   <meta name="twitter:description" content="OverviewThis is the fourth blog post of my Finaical Analysis in Python series.This blog series covers topics like the following:  how to visualize the long-t...">
-  <meta name="twitter:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta name="twitter:image" content="http://localhost:4000/img/leonids-logo.png">
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
-  <meta property="og:url" content="https://RuoyunLin.github.io">
+  <meta property="og:url" content="http://localhost:4000">
   <meta property="og:title" content="Financial Analysis in Python #4: Compare Investment Strategies for Short-term Investment | Ruoyun Lin's Blog">
   <meta property="og:description" content="OverviewThis is the fourth blog post of my Finaical Analysis in Python series.This blog series covers topics like the following:  how to visualize the long-t...">
-  <meta property="og:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
+  <meta property="og:image" content="http://localhost:4000/img/leonids-logo.png">
   <title>Financial Analysis in Python #4: Compare Investment Strategies for Short-term Investment | Ruoyun Lin's Blog</title>
 
   <!-- CSS files -->
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://RuoyunLin.github.io/css/main.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
 
-  <link rel="canonical" href="https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment">
-  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="https://RuoyunLin.github.io /feed.xml " />
+  <link rel="canonical" href="http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment">
+  <link rel="alternate" type="application/rss+xml" title="Ruoyun Lin's Blog" href="http://localhost:4000 /feed.xml " />
 
   <!-- Icons -->
   <!-- 16x16 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.ico">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
   <!-- 32x32 -->
-  <link rel="shortcut icon" href="https://RuoyunLin.github.io/favicon.png">
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.png">
 </head>
 
 
@@ -51,41 +51,41 @@
 
 <div class="cover-card table-cell table-middle">
   
-  <img src="https://RuoyunLin.github.io/img/avatar.jpg" alt="" class="avatar">
+  <img src="http://localhost:4000/img/avatar.jpg" alt="" class="avatar">
   
-  <a href="https://RuoyunLin.github.io/" class="author_name">Ruoyun Lin</a>
+  <a href="http://localhost:4000/" class="author_name">Ruoyun Lin</a>
   <span class="author_job"> </span>
-  <span class="author_bio mbm">A junior data scientist at trivago, Germany</span>
+  <span class="author_bio mbm">A data scientist at trivago, Germany</span>
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/">home</a>
+        <a href="http://localhost:4000/">home</a>
         <span>/</span>
       </li>
          
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/about/">About</a>
+        <a href="http://localhost:4000/about/">About</a>
         
           <span>/</span>
         
       </li>
         
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/archive/">Archive</a>
+        <a href="http://localhost:4000/archive/">Archive</a>
         
           <span>/</span>
         
       </li>
           
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/categories/">Categories</a>
+        <a href="http://localhost:4000/categories/">Categories</a>
         
           <span>/</span>
         
       </li>
             
       <li class="nav-item">
-        <a href="https://RuoyunLin.github.io/tags/">Tags</a>
+        <a href="http://localhost:4000/tags/">Tags</a>
         
           <span>/</span>
         
@@ -145,7 +145,7 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
-<a class="btn" href= "https://RuoyunLin.github.io/" >
+<a class="btn" href= "http://localhost:4000/" >
   Home
 </a>
 
@@ -162,7 +162,7 @@
       <span class="read-time" title="Estimated read time">
   
   
-    31 mins read
+    32 mins read
   
 </span>
 
@@ -184,8 +184,9 @@
   <li>compare different investment strategies for <strong>short-term</strong> investment</li>
 </ul>
 
-<p>The jupyter notebooks can be downloaded <a href="https://github.com/RuoyunLin/code_snippets/tree/master/finance">here</a>.</p>
+<!--more-->
 
+<p>The jupyter notebooks can be downloaded <a href="https://github.com/RuoyunLin/code_snippets/tree/master/finance">here</a>.</p>
 <h1 id="disclaimer">Disclaimer</h1>
 
 <p>Investing money into anything is often involved with risk. Please do your own research before investing and be responsible for your own investment decisions.</p>
@@ -213,16 +214,16 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 <span class="kn">from</span> <span class="nn">pandas_datareader</span> <span class="kn">import</span> <span class="n">data</span> <span class="k">as</span> <span class="n">pdr</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">'bmh'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="s">'bmh'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get historical data
-</span><span class="n">startdate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1988</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">enddate</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class="n">startdate</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1988</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">enddate</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># SP 500 total return index
-</span><span class="n">SP</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_yahoo</span><span class="p">(</span><span class="s">'^SP500TR'</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">startdate</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">enddate</span><span class="p">)</span>
-<span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="o">.</span><span class="n">index</span>
+</span><span class="n">SP</span> <span class="o">=</span> <span class="n">pdr</span><span class="p">.</span><span class="n">get_data_yahoo</span><span class="p">(</span><span class="s">'^SP500TR'</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">startdate</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">enddate</span><span class="p">)</span>
+<span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">.</span><span class="n">index</span>
 </code></pre></div></div>
 
 <hr />
@@ -241,38 +242,38 @@
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plan 1: All-in
 # Group by year
-</span><span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="o">.</span><span class="n">index</span>
-<span class="n">SP</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">f</span><span class="s">'{d.year}'</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">.</span><span class="n">index</span>
+<span class="n">SP</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">d</span><span class="p">.</span><span class="n">year</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'year'</span><span class="p">).</span><span class="n">first</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">pct_change</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get a feeling of the return rate per year
-</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">].</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p><img src="/assets/5_output_6_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plan 2: Monthly dollar-cost averaging
 # Group by month
-</span><span class="n">SP</span><span class="p">[</span><span class="s">'month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">f</span><span class="s">'{d.month:02d}'</span><span class="p">)</span>
-<span class="n">df_m</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'month'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'year'</span><span class="p">,</span><span class="s">'month'</span><span class="p">])</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">df_m</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-<span class="n">df_m</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="n">SP</span><span class="p">[</span><span class="s">'month'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'date'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">d</span><span class="p">.</span><span class="n">month</span><span class="p">:</span><span class="mi">02</span><span class="n">d</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+<span class="n">df_m</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'month'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">([</span><span class="s">'year'</span><span class="p">,</span><span class="s">'month'</span><span class="p">]).</span><span class="n">first</span><span class="p">()</span>
+<span class="n">df_m</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">pct_change</span><span class="p">()</span>
+<span class="n">df_m</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'return'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plan 3: Quarterly dollar-cost averaging
 # Group by quarter
-</span><span class="n">SP</span><span class="p">[</span><span class="s">'quarter'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'month'</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">df_q</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'quarter'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'year'</span><span class="p">,</span><span class="s">'quarter'</span><span class="p">])</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-<span class="n">df_q</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-<span class="n">df_q</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="n">SP</span><span class="p">[</span><span class="s">'quarter'</span><span class="p">]</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[</span><span class="s">'month'</span><span class="p">].</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">//</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df_q</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'quarter'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">([</span><span class="s">'year'</span><span class="p">,</span><span class="s">'quarter'</span><span class="p">]).</span><span class="n">first</span><span class="p">()</span>
+<span class="n">df_q</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">pct_change</span><span class="p">()</span>
+<span class="n">df_q</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'return'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>Here is how the dataframe for the quarterly dollar-cost averaging looks like:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_q</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_q</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
 <div>
@@ -358,12 +359,12 @@ tr:nth-child(even) {background-color: #f2f2f2;}
         <span class="n">value</span> <span class="o">+=</span> <span class="n">investment_per_period_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">return_per_period_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'Peorid {i}: value = {round(value, 2)}'</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'Peorid </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">: value = </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
             
     <span class="n">return_rate</span> <span class="o">=</span> <span class="n">value</span><span class="o">/</span><span class="nb">sum</span><span class="p">(</span><span class="n">investment_per_period_list</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     
     <span class="k">if</span> <span class="n">print_values</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'The overall return rate is {round(return_rate*100,2)}</span><span class="si">%</span><span class="s">'</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'The overall return rate is </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">return_rate</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s">%'</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">return_rate</span>
 </code></pre></div></div>
@@ -373,7 +374,7 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Assuming investing 300 dollars at the beginning of each quarter
 </span><span class="n">calc_return_over_periods_list</span><span class="p">(</span>
     <span class="n">investment_per_period_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> 
-    <span class="n">return_per_period_list</span> <span class="o">=</span> <span class="n">df_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'2019'</span><span class="p">,</span><span class="s">'return_next'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
+    <span class="n">return_per_period_list</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="s">'2019'</span><span class="p">,</span><span class="s">'return_next'</span><span class="p">].</span><span class="n">tolist</span><span class="p">(),</span> 
     <span class="n">n_period</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
     <span class="n">print_values</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
@@ -390,26 +391,26 @@ The overall return rate is 15.96%.
 
 <hr />
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Join dollar-cost averaging results together into one dataframe
-</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s">'return'</span><span class="p">)</span>
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s">'return'</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">.</span><span class="n">year</span><span class="p">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
     <span class="c1"># for monthly dollar-cost averaging annual return
-</span>    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_next_m'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+</span>    <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_next_m'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">calc_return_over_periods_list</span><span class="p">(</span>
         <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">12</span><span class="p">,</span> 
-        <span class="n">df_m</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">f</span><span class="s">'{year}'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
+        <span class="n">df_m</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s">'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">].</span><span class="n">tolist</span><span class="p">(),</span> 
         <span class="mi">12</span><span class="p">)</span>
     <span class="p">)</span>
     
     <span class="c1"># for quarterly dollar-cost averaging annual return
-</span>    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_next_q'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+</span>    <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_next_q'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">calc_return_over_periods_list</span><span class="p">(</span>
         <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">,</span> 
-        <span class="n">df_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">f</span><span class="s">'{year}'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
+        <span class="n">df_q</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s">'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">].</span><span class="n">tolist</span><span class="p">(),</span> 
         <span class="mi">4</span><span class="p">)</span>
     <span class="p">)</span>
     
-<span class="n">df</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">df</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -664,7 +665,7 @@ The overall return rate is 15.96%.
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Return_next_y is the annual return for all-in method
 # Return_next_m is the annual return of the monthly dollar cost averaging method
 # Return_next_q is the annual return of the quarterly dollar cost averaging method 
-</span><span class="n">df</span><span class="p">[[</span><span class="s">'return_next_y'</span><span class="p">,</span><span class="s">'return_next_m'</span><span class="p">,</span><span class="s">'return_next_q'</span><span class="p">]]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">[[</span><span class="s">'return_next_y'</span><span class="p">,</span><span class="s">'return_next_m'</span><span class="p">,</span><span class="s">'return_next_q'</span><span class="p">]].</span><span class="n">describe</span><span class="p">().</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -730,17 +731,17 @@ The overall return rate is 15.96%.
 </table>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_q'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (quarterly)'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in vs. dollar-cost average methods'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_q'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (quarterly)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in vs. dollar-cost average methods'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="/assets/5_output_17_0.png" alt="png" /></p>
@@ -755,7 +756,7 @@ The overall return rate is 15.96%.
 
 <p>It seems that only in the following years SP500 has a negative year-over-year return.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">,:]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">,:].</span><span class="n">index</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['1990', '2000', '2001', '2002', '2008', '2015', '2018']
@@ -778,7 +779,7 @@ The overall return rate is 15.96%.
 <p>Let’s check the annual return of the value averaging method here:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># This is an adjusted version of the function that we have introduced in the last notebook for value averaging
-</span><span class="k">def</span> <span class="nf">calc_value_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">value_per_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> 
+</span><span class="k">def</span> <span class="nf">calc_value_averaging_return</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">value_per_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> 
                                 <span class="n">increase_investment_per_period</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="s">"""
     This function calculates the overall return rate of the value averaging strategy.
@@ -787,23 +788,23 @@ The overall return rate is 15.96%.
     :param increase_investment_per_period: Increase the investment by x each period
     :return: overall return rate (might be negative if the total withdraw amount is too much)
     """</span>
-    <span class="n">df_va</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df_va</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">.</span><span class="n">copy</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">value_per_period</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)):</span>
         <span class="n">value</span> <span class="o">+=</span> <span class="n">value_per_period</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">increase_investment_per_period</span><span class="p">)</span><span class="o">**</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span><span class="o">*</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span><span class="o">*</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest_or_withdraw'</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'target_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest_or_withdraw'</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Assuming fixed investment value each year
@@ -811,21 +812,21 @@ The overall return rate is 15.96%.
 <span class="n">value_per_quarter</span> <span class="o">=</span> <span class="n">value_per_year</span><span class="o">/</span><span class="mi">4</span>
 <span class="n">value_per_month</span> <span class="o">=</span> <span class="n">value_per_year</span><span class="o">/</span><span class="mi">12</span>
 
-<span class="n">df_va_m</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-<span class="n">df_va_q</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_va_m</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_va_q</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
 
 <span class="c1">### Join results together into one dataframe
-</span><span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-    <span class="n">df_va_m_sample</span> <span class="o">=</span> <span class="n">df_va_m</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">==</span><span class="n">year</span><span class="p">,:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">df_va_q_sample</span> <span class="o">=</span> <span class="n">df_va_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">==</span><span class="n">year</span><span class="p">,:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</span><span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">.</span><span class="n">year</span><span class="p">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">df_va_m_sample</span> <span class="o">=</span> <span class="n">df_va_m</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">==</span><span class="n">year</span><span class="p">,:].</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_va_q_sample</span> <span class="o">=</span> <span class="n">df_va_q</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">==</span><span class="n">year</span><span class="p">,:].</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="n">annual_return_va_m</span> <span class="o">=</span> <span class="n">calc_value_averaging_return</span><span class="p">(</span><span class="n">df_va_m_sample</span><span class="p">,</span> <span class="n">value_per_month</span><span class="p">)</span>
     <span class="n">annual_return_va_q</span> <span class="o">=</span> <span class="n">calc_value_averaging_return</span><span class="p">(</span><span class="n">df_va_q_sample</span><span class="p">,</span> <span class="n">value_per_quarter</span><span class="p">)</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_va_m'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_m</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_va_q'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_q</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_va_m'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_m</span>
+    <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_va_q'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_q</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Join value averaging with dollar cost averaging results
-</span><span class="n">df</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span class="n">df</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -1143,27 +1144,27 @@ The overall return rate is 15.96%.
 </table>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_va_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'value-averaging (monthly)'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_y'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_va_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'value-averaging (monthly)'</span><span class="p">)</span>
 <span class="c1"># plt.plot(df['return_va_q'], label='value-averaging (quarterly)')
-</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
+</span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
 <span class="c1"># plt.plot(df['return_next_q'], label='dollar-cost (quarterly)')
-</span><span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in, monthly dollar-cost averaging, and monthly value averaging methods'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span class="n">plt</span><span class="p">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in, monthly dollar-cost averaging, and monthly value averaging methods'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p><img src="/assets/5_output_26_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">compare_strategy</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">,</span> <span class="n">str1_name</span><span class="p">,</span> <span class="n">str2_name</span><span class="p">):</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'number of times {str1_name} is better than {str2_name}: {df.loc[df[str1] &gt; df[str2],:].shape[0]}'</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'number of times {str1_name} is equal to {str2_name}: {df.loc[df[str1] == df[str2],:].shape[0]}'</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'number of times {str1_name} is worse than {str2_name}: {df.loc[df[str1] &lt; df[str2],:].shape[0]}'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'number of times </span><span class="si">{</span><span class="n">str1_name</span><span class="si">}</span><span class="s"> is better than </span><span class="si">{</span><span class="n">str2_name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">str1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">[</span><span class="n">str2</span><span class="p">],:].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'number of times </span><span class="si">{</span><span class="n">str1_name</span><span class="si">}</span><span class="s"> is equal to </span><span class="si">{</span><span class="n">str2_name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">str1</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="n">str2</span><span class="p">],:].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">'number of times </span><span class="si">{</span><span class="n">str1_name</span><span class="si">}</span><span class="s"> is worse than </span><span class="si">{</span><span class="n">str2_name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">str1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">df</span><span class="p">[</span><span class="n">str2</span><span class="p">],:].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <hr />
@@ -1383,44 +1384,44 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
     <span class="n">test_months</span> <span class="o">=</span> <span class="mi">12</span><span class="o">*</span><span class="n">n_years</span>
     <span class="n">test_quarters</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">n_years</span>
 
-    <span class="n">df</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">SP</span><span class="p">[[</span><span class="s">'year'</span><span class="p">,</span> <span class="s">'Adj Close'</span><span class="p">]].</span><span class="n">groupby</span><span class="p">(</span><span class="s">'year'</span><span class="p">).</span><span class="n">first</span><span class="p">()</span>
 
     <span class="c1"># Compute all in return
-</span>    <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="n">n_years</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n_years</span><span class="p">)</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s">'return'</span><span class="p">)</span>
+</span>    <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">pct_change</span><span class="p">(</span><span class="n">periods</span><span class="o">=</span><span class="n">n_years</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">'return'</span><span class="p">].</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">n_years</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s">'return'</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="n">n_years</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">.</span><span class="n">year</span><span class="p">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="n">n_years</span><span class="p">]:</span>
         <span class="c1"># Compute monthly dollar cost averaging return
-</span>        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_next_m'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+</span>        <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_next_m'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">_calc_return_over_periods_list_simplified</span><span class="p">(</span>
             <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">test_months</span><span class="p">,</span> 
-            <span class="n">df_m</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">f</span><span class="s">'{year}'</span><span class="p">):(</span><span class="n">f</span><span class="s">'{int(year) + n_years - 1}'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
+            <span class="n">df_m</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s">'</span><span class="p">):(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s">'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">].</span><span class="n">tolist</span><span class="p">(),</span> 
             <span class="n">test_months</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># Compute quarterly dollar cost averaging return
-</span>        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_next_q'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+</span>        <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_next_q'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">_calc_return_over_periods_list_simplified</span><span class="p">(</span>
             <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">test_quarters</span><span class="p">,</span> 
-            <span class="n">df_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">f</span><span class="s">'{year}'</span><span class="p">):(</span><span class="n">f</span><span class="s">'{int(year) + n_years - 1}'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
+            <span class="n">df_q</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="n">year</span><span class="si">}</span><span class="s">'</span><span class="p">):(</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s">'</span><span class="p">),</span><span class="s">'return_next'</span><span class="p">].</span><span class="n">tolist</span><span class="p">(),</span> 
             <span class="n">test_quarters</span><span class="p">)</span>
         <span class="p">)</span>
 
     <span class="c1"># Compute value averaging returns    
-</span>    <span class="n">df_va_m</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="n">df_va_q</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</span>    <span class="n">df_va_m</span> <span class="o">=</span> <span class="n">df_m</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_va_q</span> <span class="o">=</span> <span class="n">df_q</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">].</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="c1">### Join results together into one dataframe
-</span>    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="n">n_years</span><span class="p">]:</span>
-        <span class="n">df_va_m_sample</span> <span class="o">=</span> <span class="n">df_va_m</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> 
-                                     <span class="p">(</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&lt;=</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-        <span class="n">df_va_q_sample</span> <span class="o">=</span> <span class="n">df_va_q</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> 
-                                     <span class="p">(</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&lt;=</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</span>    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">SP</span><span class="p">.</span><span class="n">year</span><span class="p">.</span><span class="n">unique</span><span class="p">()[:</span><span class="o">-</span><span class="n">n_years</span><span class="p">]:</span>
+        <span class="n">df_va_m_sample</span> <span class="o">=</span> <span class="n">df_va_m</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                     <span class="p">(</span><span class="n">df_va_m</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&lt;=</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),:].</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">df_va_q_sample</span> <span class="o">=</span> <span class="n">df_va_q</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">year</span><span class="p">)</span> <span class="o">&amp;</span> 
+                                     <span class="p">(</span><span class="n">df_va_q</span><span class="p">[</span><span class="s">'year'</span><span class="p">]</span><span class="o">&lt;=</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_years</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)),:].</span><span class="n">reset_index</span><span class="p">()</span>
         <span class="n">annual_return_va_m</span> <span class="o">=</span> <span class="n">_calc_value_averaging_return_simplified</span><span class="p">(</span><span class="n">df_va_m_sample</span><span class="p">)</span>
         <span class="n">annual_return_va_q</span> <span class="o">=</span> <span class="n">_calc_value_averaging_return_simplified</span><span class="p">(</span><span class="n">df_va_q_sample</span><span class="p">)</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_va_m'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_m</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="s">'{int(year)}'</span><span class="p">,</span> <span class="s">'return_va_q'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_q</span>
+        <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_va_m'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_m</span>
+        <span class="n">df</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s">'</span><span class="p">,</span> <span class="s">'return_va_q'</span><span class="p">]</span> <span class="o">=</span> <span class="n">annual_return_va_q</span>
     
     <span class="k">return</span> <span class="n">df</span>
 
@@ -1442,36 +1443,36 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
 
 <span class="k">def</span> <span class="nf">_calc_value_averaging_return_simplified</span><span class="p">(</span><span class="n">df_va</span><span class="p">,</span> <span class="n">value_per_period</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
-    <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
+    <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)):</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span><span class="o">*</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
-        <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)):</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value_per_period</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'shares_should_have_in_total'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'shares_to_buy_or_sell'</span><span class="p">]</span><span class="o">*</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'Adj Close'</span><span class="p">]</span>
+        <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s">'should_invest'</span><span class="p">]</span>
     
-    <span class="k">return</span> <span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_value'</span><span class="p">]</span><span class="o">/</span><span class="n">df_va</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df_va</span><span class="p">.</span><span class="n">index</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s">'total_invest'</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_changes</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_va_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'value-averaging (monthly)'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'all-in'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_va_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'value-averaging (monthly)'</span><span class="p">)</span>
     <span class="c1"># plt.plot(df['return_va_q'], label='value-averaging (quarterly)')
-</span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
+</span>    <span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s">'return_next_m'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'dollar-cost (monthly)'</span><span class="p">)</span>
     <span class="c1"># plt.plot(df['return_next_q'], label='dollar-cost (quarterly)')
-</span>    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in, monthly dollar-cost averaging, and monthly value averaging methods'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span>    <span class="n">plt</span><span class="p">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s">'-'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'year'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'return rate'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Annual return rate of the all-in, monthly dollar-cost averaging, and monthly value averaging methods'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
 <hr />
@@ -1481,7 +1482,7 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
 <span class="n">df_2</span> <span class="o">=</span> <span class="n">compare_returns</span><span class="p">(</span><span class="n">SP</span><span class="p">,</span> <span class="n">test_years</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_2</span><span class="o">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_2</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -1912,19 +1913,19 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
   <h6>Share on: </h6>
   <ul>
     <li>
-      <a href="https://twitter.com/intent/tweet?text=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
     <li>
-      <a href="https://news.ycombinator.com/submitlink?u=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+      <a href="https://news.ycombinator.com/submitlink?u=http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
     </li>
     <li>
-      <a href="https://www.reddit.com/submit?url=https://RuoyunLin.github.io/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+      <a href="https://www.reddit.com/submit?url=http://localhost:4000/articles/2020-09/financial-analysis-in-python-4-compare-investment-strategies-for-short-term-investment" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
     </li>
   </ul>
 </div><!-- end share-buttons -->
@@ -1932,14 +1933,14 @@ number of times all-in is worse than monthly dollar-cost-averaging: 6
 
 
         <footer>
-  &copy; 2020 Ruoyun Lin. Powered by <a href="http://octopress.org/">Octopress 3.0</a> and <a href="http://github.com/renyuanz/leonids/">Leonids theme</a>.
+  &copy; 2021 Ruoyun Lin. Powered by <a href="http://octopress.org/">Octopress 3.0</a> and <a href="http://github.com/renyuanz/leonids/">Leonids theme</a>.
 </footer>
 
       </div>
     </div>
   </div>
-  <script type="text/javascript" src="https://RuoyunLin.github.io/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="https://RuoyunLin.github.io/js/main.js"></script>
+  <script type="text/javascript" src="http://localhost:4000/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="http://localhost:4000/js/main.js"></script>
 
 <!-- Asynchronous Google Analytics snippet -->
 <script>
