@@ -10,6 +10,8 @@ categories: [User Experience, Data Science]
 
 Survey Monkey is an online survey software that helps you to create and run online surveys. It is also possible to visualize the survey results in Survey Monkey (for a single survey). However, if we want to compare the *same question across several different surveys*, it is difficult to do so directly in Survey Monkey. Luckily, we can solve the problem by using programming languages like Python. 
 
+<!--more-->
+
 ![alt_text](/assets/1_1.png "surveymonkey_visualization")
 
 The reason why I wrote this blog post is to share knowledge. I am still at the stage of learning python for data analysis. When I first encountered this problem of analyzing survey monkey data in python, I tried to google if there is anyone else who has shared a solution. I failed to find any direct answers on the first page of google. After trials and errors, I finally came up with some tricks and useful functions to solve the problem. Therefore, I want to share my knowledge and python functions which might help others to save some time. 

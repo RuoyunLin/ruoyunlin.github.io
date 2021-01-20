@@ -17,8 +17,9 @@ This blog series covers topics like the following:
 - backtest **value averaging** strategy for **long-term** investment
 - compare different investment strategies for **short-term** investment
 
-The jupyter notebooks can be downloaded [here](https://github.com/RuoyunLin/code_snippets/tree/master/finance).
+<!--more-->
 
+The jupyter notebooks can be downloaded [here](https://github.com/RuoyunLin/code_snippets/tree/master/finance).
 # Disclaimer
 
 Investing money into anything is often involved with risk. Please do your own research before investing and be responsible for your own investment decisions.

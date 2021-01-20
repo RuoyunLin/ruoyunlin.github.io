@@ -37,4 +37,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem 'jekyll-admin', group: :jekyll_plugins
 
 # Windows 
-gem 'wdm', '>= 0.1.0'
+# gem 'wdm', '>= 0.1.0'
