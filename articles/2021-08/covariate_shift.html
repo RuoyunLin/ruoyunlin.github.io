@@ -10,23 +10,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="IntroductionTime flies, two years have passed since I posted my first blog.Here I am again, to announce the topic of this year’s first post will be (drumroll...">
   <meta name="keywords" content="Data Analyst, Data Scientist, User Researcher, Quantitative Research, and Business Analyst">
-  <meta name="author" content="Covariate shift: A hidden problem in real-world data science | Ruoyun Lin's Blog">
+  <meta name="author" content="Covariate shift -- Demos for understanding the concept and showing the fix | Ruoyun Lin's Blog">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#f5f5f5">
 
   <!-- Twitter Tags -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Covariate shift: A hidden problem in real-world data science | Ruoyun Lin's Blog">
+  <meta name="twitter:title" content="Covariate shift -- Demos for understanding the concept and showing the fix | Ruoyun Lin's Blog">
   <meta name="twitter:description" content="IntroductionTime flies, two years have passed since I posted my first blog.Here I am again, to announce the topic of this year’s first post will be (drumroll...">
   <meta name="twitter:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
 
   <!-- Open Graph Tags -->
   <meta property="og:type" content="blog">
   <meta property="og:url" content="https://RuoyunLin.github.io">
-  <meta property="og:title" content="Covariate shift: A hidden problem in real-world data science | Ruoyun Lin's Blog">
+  <meta property="og:title" content="Covariate shift -- Demos for understanding the concept and showing the fix | Ruoyun Lin's Blog">
   <meta property="og:description" content="IntroductionTime flies, two years have passed since I posted my first blog.Here I am again, to announce the topic of this year’s first post will be (drumroll...">
   <meta property="og:image" content="https://RuoyunLin.github.io/img/leonids-logo.png">
-  <title>Covariate shift: A hidden problem in real-world data science | Ruoyun Lin's Blog</title>
+  <title>Covariate shift -- Demos for understanding the concept and showing the fix | Ruoyun Lin's Blog</title>
 
   <!-- CSS files -->
   <link rel="stylesheet" href="https://RuoyunLin.github.io/css/font-awesome.min.css">
@@ -153,7 +153,7 @@
 
 <div id="post">
   <header class="post-header">
-    <h1 title="Covariate shift: A hidden problem in real-world data science">Covariate shift: A hidden problem in real-world data science</h1>
+    <h1 title="Covariate shift -- Demos for understanding the concept and showing the fix">Covariate shift -- Demos for understanding the concept and showing the fix</h1>
     <span class="post-meta">
       <span class="post-date">
         11 AUG 2021
@@ -162,7 +162,7 @@
       <span class="read-time" title="Estimated read time">
   
   
-    60 mins read
+    24 mins read
   
 </span>
 
@@ -193,25 +193,27 @@ autoNumber: "AMS"
 
 <p>Here I am again, to announce the topic of this year’s first post will be (drumroll, please)…COVARIATE SHIFT!</p>
 
-<p>It is actually inspired by a recent task I had at work. After a couple of weeks of researching and implementing the covariate shift correction in production, I would like to share a few learnings.</p>
+<p>This was actually inspired by a recent task I had at work. After a couple of weeks of researching, I would like to share a few learnings.</p>
 
 <!--more-->
 
 <h3 id="outline">Outline</h3>
 
-<p>In this notebook, <strong>two demos</strong> are used to explain the issue of <strong>covariate shift</strong> and to show how to <strong>fix</strong> it.</p>
+<p>In this post, <strong>two demos</strong> are used to explain the issue of <strong>covariate shift</strong> and to show how to <strong>fix</strong> it.</p>
 
-<p>In addition, there are <strong>two easy quizs</strong> throughout this post to help you check you understanding of the key concepts. You can find the answers to the quizs at the end of the post.</p>
+<p>In addition, there are <strong>two easy quizzes</strong> throughout this post to help you check your understanding of the key concepts. You can find the answers to the quizzes at the end of the post.</p>
 
 <p>I have also added a few <strong>advanced topics and FAQs</strong> (yes, after the summary section, which is prepared for advanced learners).</p>
 
+<p>The source code of all the simulations in the blog post can be found <a href="https://github.com/RuoyunLin/code_snippets/blob/master/covariate_shift/covariate_shift_correction.ipynb">here</a>.</p>
+
 <h3 id="a-few-more-words">A few more words</h3>
 
-<p>Covariate shift is a common issue that data scientists often encounter in real world, however, not enough attention has been paid.</p>
+<p>Covariate shift is a common issue that data scientists often encounter in the real world. However, not enough attention was paid to it.</p>
 
-<p>At least I was not paying enough attention to this issue before my colleague Alex brought it up. He shared this concept with us using an easy demo (similar to the demo 1 in this post), which helps quite a lot for us to understand the potential issue that we might have at work. So a big thanks to my colleague.</p>
+<p>At least I was not paying enough attention to this issue before my colleague Alex brought it up. He shared this concept with us using an easy demo (similar to Demo 1 in this post), which helps quite a lot for us to understand the potential issue that we might have at work. So a big thanks to my colleague.</p>
 
-<p>As a machine learning beginner, it is fine if you can grasp the idea of covariate shift and have a basic understanding of how to fix it (as indicated in Demo 1 and 2). The key takeaways will be addressed in the summary as well.</p>
+<p>As a machine learning beginner, it is fine if you can grasp the idea of covariate shift and have a basic understanding of how to fix it (as indicated in Demo 1 and 2). The key takeaways will be addressed in the Summary as well.</p>
 
 <p>For those data scientists who already have some hands-on experiences, it is important to have a deeper understanding of this issue:</p>
 
@@ -224,7 +226,7 @@ autoNumber: "AMS"
 <p>Hence, it is recommended to read through the section of the advanced topics and FAQs and check out the simulations.</p>
 
 <p>The FAQs are actually the questions that popped up during the implementation of the covariate shift correction.
-I was trying to think deeper about questions like 1) whether my dataset indeed has the issue of covariate shift and 2) whether my correction is going to improve the model or make it worse. Hence, I ran a few siumulation to solve my own doubts. This part contains my main learnings. I hope it can also help you with your work.</p>
+I was trying to think deeper about questions like 1) whether my dataset indeed has the issue of covariate shift and 2) whether my correction is going to improve the model or make it worse. Hence, I ran a few simulations to solve my own doubts. This part contains my main learnings. I hope it can also help you with your work.</p>
 
 <p>Now, let’s begin the journey!</p>
 
@@ -232,7 +234,7 @@ I was trying to think deeper about questions like 1) whether my dataset indeed h
 
 <p><strong>Covariate shift</strong> refers to <strong>changes in the distribution of features in the training and test dataset</strong>.</p>
 
-<p>For those who still has no idea after reading the sentence above, please read the background knowledge session below. Otherwise, please directly go to the first quiz :)</p>
+<p>For those who still have no idea after reading the sentence above, please read the background knowledge session below. Otherwise, please directly go to the first quiz :)</p>
 
 <h2 id="background-knowledge">Background knowledge</h2>
 
@@ -249,11 +251,11 @@ I was trying to think deeper about questions like 1) whether my dataset indeed h
 
 <h3 id="what-is-linear-regression">What is linear regression?</h3>
 
-<p>A simple example of model is a linear regression model:</p>
+<p>A simple example of a machine learning model is a linear regression model:</p>
 
 <p><img src="https://datascience.foundation/img/pdf_images/understanding_of_linear_regression_with_python_1.png" alt="image.png" /></p>
 
-<p>One way to validate linear regression model is to use <a href="https://en.wikipedia.org/wiki/Root-mean-square_deviation">Root-Mean-Square-Error</a>, which is also called as RMSE.</p>
+<p>One way to validate a linear regression model is to use <a href="https://en.wikipedia.org/wiki/Root-mean-square_deviation">Root-Mean-Square-Error</a>, which is also called as RMSE.</p>
 
 <p><strong>The smaller the RMSE, the better the model fits the data.</strong></p>
 
@@ -287,19 +289,22 @@ I was trying to think deeper about questions like 1) whether my dataset indeed h
 
 <p>In the image below (left), we can see that the input density are different between the train and test dataset.</p>
 
-<p>If we tried to train a model using the training samples (i.e., blue dots in the right pic), we will get an inaccurate model for predicint the test sample (i.e., black dots in the right pic).</p>
+<p>If we train a model using the training samples (i.e., blue dots in the right pic), we will get an inaccurate model for predicting the test sample (i.e., black dots in the right pic).</p>
 
 <p><img src="https://i.ibb.co/5410vjZ/covariate-shift-example.png" width="1000" /></p>
 
+<hr />
 <h4 id="quiz-1-which-example-below-left-vs-right-is-more-likely-to-have-the-issue-of-covariate-shift"><strong>Quiz 1</strong>: Which example below (left vs. right) is more likely to have the issue of covariate shift?</h4>
 
-<p>You can find the answer in the end of this post.</p>
+<p>You can find the answer at the end of this post.</p>
 
 <p><img src="/assets/img/posts/covariate_shift/quiz1.png" alt="image.png" /></p>
 
+<hr />
+
 <h3 id="what-is-covariate-shift-correction">What is covariate shift correction?</h3>
 
-<p>The key idea behind the covariate shift correction is to train a <strong>reweighted</strong> model.</p>
+<p>The key idea behind the covariate shift correction is to train a <strong>re-weighted</strong> model.</p>
 
 <p>It puts <strong>more weight on the samples with feature values that are more frequently shown in the test set</strong>, and vice versa.</p>
 
@@ -312,53 +317,24 @@ I was trying to think deeper about questions like 1) whether my dataset indeed h
 
 <h2 id="demo-1-an-intuitive-example-with-one-feature-only">Demo 1: An intuitive example with one feature only</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># import library
-</span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="n">sm</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">mplot3d</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span> <span class="k">as</span> <span class="n">rmse</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span>
-
-<span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-
-<span class="o">%</span><span class="n">load_ext</span> <span class="n">watermark</span>
-</code></pre></div></div>
-
-<p>The following packages were used:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">watermark</span> <span class="o">--</span><span class="n">iversions</span>
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>numpy      : 1.20.2
-seaborn    : 0.11.1
-statsmodels: 0.12.2
-matplotlib : 3.4.1
-pandas     : 1.2.4
-</code></pre></div></div>
-
 <h3 id="data-preparation">Data Preparation</h3>
 <h4 id="prepare-a-target-function-with-only-1-feature">Prepare a target function with only 1 feature</h4>
 
 <p>Let us assume the relationship between x and y is as following:
 \[f(x) = -x^2 + x + 1\]</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+<!-- ```python
+def target_func(x, eps=-1):
+    return eps * x ** 2 + x + 1
 
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+x = np.linspace(0, 10, 100)
 
-<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">"target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">);</span>
-</code></pre></div></div>
+plt.xlabel("$X$", fontsize=15)
+plt.ylabel("$Y$", fontsize=15)
+plt.plot(x, target_func(x))
+plt.title("target function", fontsize=15);
+``` -->
 
 <p><img src="/assets/img/posts/covariate_shift/output_13_1.png" alt="png" /></p>
 
@@ -368,93 +344,9 @@ pandas     : 1.2.4
 
 <p>Hence, the train and test data were generated by adding some random error on top of the expected y value for each x.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_obs_y</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">target_func</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">obs_x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<h4 id="visualize-covariate-shift">Visualize covariate shift</h4>
 
-
-<span class="c1"># set parameters
-</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">max_x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x</span><span class="p">))</span>
-
-<span class="c1"># prepare different probability distribution for train and test data
-</span><span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># generate x, y, and best fitting line for train data
-</span><span class="n">x_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_train_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-<span class="n">linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># generate x, y, and best fitting line for test data
-</span><span class="n">x_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_test_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">linreg_test</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_test_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># prepare distribution plot for train and test set
-</span><span class="k">def</span> <span class="nf">prepare_distribution</span><span class="p">(</span><span class="n">x_list</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">x_list</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"x"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"x"</span><span class="p">).</span><span class="n">agg</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="s">"count"</span><span class="p">})</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-
-<span class="n">dist_test</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">dist_train</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h4 id="visualize-results">Visualize results</h4>
-
-<p>Now we can see that the best fitting line from the training and the test set are different from each other (see in the last chart below for an comparison).</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># visualize data
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in train set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in test set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Train data with best fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">y_train_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Test data with best fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">,</span> <span class="n">y_test_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Compare fitted lines from train and test"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
+<p>Let’s try to find the besting fitting line for the train and test data respectively. In the last chart below, we can see that the best fitting lines from the training and the test set are different from each other.</p>
 
 <p><img src="/assets/img/posts/covariate_shift/output_19_0.png" alt="png" /></p>
 
@@ -468,13 +360,9 @@ pandas     : 1.2.4
 
 <p><strong>Intuitively speaking, we should use the ratio of the probability distribution of x: P_test(x)/P_train(x)</strong></p>
 
-<p>We already know the probability distribution of the feature in the train and test dataset</p>
+<p>We already know the probability distribution of the feature in the train and test dataset.</p>
 
 <p>P_train(x):</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">dist_train</span>
-</code></pre></div></div>
 
 <div>
 <style scoped="">
@@ -490,7 +378,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:50%" border="1" class="minimalistBlack">
 
   <thead>
     <tr style="text-align: right;">
@@ -567,9 +455,11 @@ pandas     : 1.2.4
 
 <p>P_test(x):</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">dist_test</span>
-</code></pre></div></div>
+<!-- 
+```python
+dist_test["p"] = dist_test["frequency"] / (dist_test["frequency"].sum())
+dist_test
+``` -->
 
 <div>
 <style scoped="">
@@ -585,7 +475,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:50%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -659,14 +549,17 @@ pandas     : 1.2.4
 </table>
 </div>
 
-<h4 id="quiz-2-which-weight-below-is-the-correct-one"><strong>Quiz 2</strong>: which weight below is the correct one?</h4>
+<hr />
+<h4 id="quiz-2-which-weight-below-is-the-correct-one"><strong>Quiz 2</strong>: Which weight below is the correct one?</h4>
 
 <p><strong>Option A: putting more weights when x is smaller</strong></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Option A:
-</span><span class="n">weight</span> <span class="o">=</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="n">weight</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="s">"weight"</span><span class="p">:</span> <span class="n">weight</span><span class="p">.</span><span class="n">values</span><span class="p">})</span>
-</code></pre></div></div>
+<!-- 
+```python
+# Option A:
+weight = dist_train["p"] / dist_test["p"]
+pd.DataFrame({"x": weight.index, "weight": weight.values})
+``` -->
 
 <div>
 <style scoped="">
@@ -682,7 +575,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:30%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -747,10 +640,13 @@ pandas     : 1.2.4
 
 <p><strong>Option B: putting more weights when x is larger</strong></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Option B:
-</span><span class="n">weight</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="n">weight</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="s">"weight"</span><span class="p">:</span> <span class="n">weight</span><span class="p">.</span><span class="n">values</span><span class="p">})</span>
-</code></pre></div></div>
+<!-- 
+```python
+# Option B:
+weight = dist_test["p"] / dist_train["p"]
+pd.DataFrame({"x": weight.index, "weight": weight.values})
+```
+ -->
 
 <div>
 <style scoped="">
@@ -766,7 +662,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:30%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -828,165 +724,26 @@ pandas     : 1.2.4
   </tbody>
 </table>
 </div>
+<hr />
 
-<h4 id="fit-the-best-line-in-the-train-set-after-re-weighting">Fit the best line in the train set after re-weighting</h4>
+<h4 id="fit-the-best-line-in-the-train-set-after-re-weighting-and-visualize">Fit the best line in the train set after re-weighting and visualize</h4>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">weight_dict</span> <span class="o">=</span> <span class="n">weight</span><span class="p">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="n">weight_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">weight_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_train_list</span><span class="p">]</span>
+<p>Now we can see the best fitting line after re-weighting (the black line in the left bottom chart) is overlapping with the best fitting line for the test data (the orange line in the right bottom chart).</p>
 
-<span class="c1"># retrain the model using re-weighted sample
-</span><span class="n">weighted_linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">WLS</span><span class="p">(</span>
-    <span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">),</span> <span class="n">weight_list</span>
-<span class="p">).</span><span class="n">fit</span><span class="p">()</span>
-</code></pre></div></div>
-
-<h4 id="visualize-the-results">Visualize the results</h4>
-
-<p>Now we can see the best fitting line after re-weighting (the black line in the left bottom chart) is overlapping with the orange line (in the right bottom chart).</p>
-
-<p>The reweighted model performs better than before regarding the test sample.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># visualize data
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in train set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in test set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Train data with the re-weighted fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">y_train_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Test data with best fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">,</span> <span class="n">y_test_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Compare fitted lines from train and test"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span>
-    <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
-</code></pre></div></div>
+<p>The re-weighted model performs better than before regarding the test sample.</p>
 
 <p><img src="/assets/img/posts/covariate_shift/output_33_0.png" alt="png" /></p>
 
-<h2 id="demo-2-what-shall-we-do-if-there-are-more-than-1-feature">Demo 2: What shall we do if there are more than 1 feature?</h2>
+<h2 id="demo-2-what-shall-we-do-if-there-is-more-than-1-feature">Demo 2: What shall we do if there is more than 1 feature?</h2>
 
 <h3 id="data-preparation-1">Data Preparation</h3>
 <h4 id="prepare-a-target-function-with-2-features">Prepare a target function with 2 features</h4>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">target_func_2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">x1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">x2</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">+</span> <span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">get_obs_y_2</span><span class="p">(</span><span class="n">obs_x1</span><span class="p">,</span> <span class="n">obs_x2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">target_func_2</span><span class="p">(</span><span class="n">obs_x1</span><span class="p">,</span> <span class="n">obs_x2</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span>
-        <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">obs_x1</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="p">)</span>
-
-
-<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">outer</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span><span class="p">.</span><span class="n">copy</span><span class="p">().</span><span class="n">T</span>
-
-<span class="n">y</span> <span class="o">=</span> <span class="n">target_func_2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
-<span class="n">y_obs</span> <span class="o">=</span> <span class="n">get_obs_y_2</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">"3d"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"viridis"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"green"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"3D target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X1$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$X2$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
-</code></pre></div></div>
-
 <p><img src="/assets/img/posts/covariate_shift/output_36_0.png" alt="png" /></p>
 
-<h4 id="prepare-train-and-test-data">Prepare train and test data</h4>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_x1</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x1_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x1</span><span class="p">))</span>
-
-<span class="c1"># prepare different probability distribution for train and test data
-</span><span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x1_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">x1_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x1_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">x1_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x1_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-
-<span class="n">max_x2</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x2_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x2</span><span class="p">))</span>
-
-<span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x2_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="n">x2_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x2_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">x2_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x2_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">df_train</span><span class="p">[</span><span class="s">"x1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1_train_list</span>
-<span class="n">df_train</span><span class="p">[</span><span class="s">"x2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2_train_list</span>
-<span class="n">df_train</span><span class="p">[</span><span class="s">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_obs_y_2</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s">"x1"</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"x2"</span><span class="p">])</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">"3d"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
-    <span class="n">df_train</span><span class="p">[</span><span class="s">"x1"</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"x2"</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"y"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"viridis"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"green"</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Observed y in train set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X1$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$X2$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
-</code></pre></div></div>
+<h4 id="prepare-train-and-test-data-n1000-and-visualize">Prepare train and test data (n=1000) and visualize</h4>
 
 <p><img src="/assets/img/posts/covariate_shift/output_39_0.png" alt="png" /></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_train</span>
-</code></pre></div></div>
 
 <div>
 <style scoped="">
@@ -1002,7 +759,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:50%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1083,27 +840,7 @@ pandas     : 1.2.4
 <p>1000 rows × 3 columns</p>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">df_test</span><span class="p">[</span><span class="s">"x1"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1_test_list</span>
-<span class="n">df_test</span><span class="p">[</span><span class="s">"x2"</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2_test_list</span>
-<span class="n">df_test</span><span class="p">[</span><span class="s">"y"</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_obs_y_2</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s">"x1"</span><span class="p">],</span> <span class="n">df_test</span><span class="p">[</span><span class="s">"x2"</span><span class="p">])</span>
-
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">"3d"</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
-    <span class="n">df_test</span><span class="p">[</span><span class="s">"x1"</span><span class="p">],</span> <span class="n">df_test</span><span class="p">[</span><span class="s">"x2"</span><span class="p">],</span> <span class="n">df_test</span><span class="p">[</span><span class="s">"y"</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"viridis"</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s">"green"</span>
-<span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Observed y in test set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X1$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$X2$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">();</span>
-</code></pre></div></div>
-
 <p><img src="/assets/img/posts/covariate_shift/output_41_0.png" alt="png" /></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_test</span>
-</code></pre></div></div>
 
 <div>
 <style scoped="">
@@ -1119,7 +856,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:50%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1202,6 +939,8 @@ pandas     : 1.2.4
 
 <h3 id="covariate-shift-correction-in-four-steps">Covariate shift correction in four steps</h3>
 
+<p>With the following four steps, you can easily do the covariate shift correction.</p>
+
 <p>Step 1: concatenate train (label 0) and test data (label 1)</p>
 
 <p>Step 2: train a classifier between train and test (could be logistic regression or multilayer perceptron classifier)</p>
@@ -1222,9 +961,8 @@ pandas     : 1.2.4
 </span><span class="n">df_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">(</span>
     <span class="p">[</span><span class="n">df_train</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">,</span> <span class="s">"label"</span><span class="p">]],</span> <span class="n">df_test</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">,</span> <span class="s">"label"</span><span class="p">]]]</span>
 <span class="p">)</span>
-</code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_combined</span>
+<span class="n">df_combined</span>
 </code></pre></div></div>
 
 <div>
@@ -1241,7 +979,7 @@ pandas     : 1.2.4
         text-align: right;
     }
 </style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
+<table style="margin-left:auto;margin-right:auto;width:40%" border="1" class="minimalistBlack">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1324,20 +1062,7 @@ pandas     : 1.2.4
 
 <h4 id="step-2-train-a-classifier-between-train-and-test">Step 2: train a classifier between train and test</h4>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">check_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_y_pred</span><span class="p">,</span> <span class="n">col_y_true</span><span class="o">=</span><span class="s">"label"</span><span class="p">):</span>
-    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
-    <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
-    <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
-    <span class="k">print</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s">"""
-    accuracy: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
-    precision: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">precision</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
-    recall: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
-    """</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span>
-</code></pre></div></div>
-
+<p>Train the classifier:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Step 2: train the classifier using the combined dataset
 </span><span class="n">X</span> <span class="o">=</span> <span class="n">df_combined</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">]]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df_combined</span><span class="p">[</span><span class="s">"label"</span><span class="p">]</span>
@@ -1345,22 +1070,35 @@ pandas     : 1.2.4
 <span class="c1">## Train logistic regression
 </span><span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">().</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="n">df_combined</span><span class="p">[</span><span class="s">"label_hat_lr"</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_combined</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">]])</span>
-
-<span class="k">print</span><span class="p">(</span><span class="s">"Check the accuracy of the classifier: logistic regression"</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="n">check_accuracy</span><span class="p">(</span><span class="n">df_combined</span><span class="p">,</span> <span class="s">"label_hat_lr"</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Check the accuracy of the classifier: logistic regression
+<p>Check the accuracy of the classifier:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">check_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_y_pred</span><span class="p">,</span> <span class="n">col_y_true</span><span class="o">=</span><span class="s">"label"</span><span class="p">):</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col_y_true</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col_y_pred</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s">"""
+            accuracy: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
+            precision: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">precision</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
+            recall: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="n">recall</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s">
+    """</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span>
 
-    accuracy: 0.794
-    precision: 0.799
-    recall: 0.786
+<span class="n">check_accuracy</span><span class="p">(</span><span class="n">df_combined</span><span class="p">,</span> <span class="s">"label_hat_lr"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Results:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>accuracy: 0.794
+precision: 0.799
+recall: 0.786
 </code></pre></div></div>
 
 <h4 id="step-3-calculate-the-density-ratio-p1p0-for-the-train-set">Step 3: calculate the density ratio (p1/p0) for the train set</h4>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Step 3: get the density ratio for training set
-# prepare the correct bersion of density ratio using the logistic regression model
 </span><span class="n">df_train</span><span class="p">[</span><span class="s">"density_ratio"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">clf</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">]])</span>
 <span class="p">]</span>
@@ -1545,38 +1283,7 @@ RMSE for test set:
 
 <h4 id="adjusting-the-intensity-of-the-density_ratio">Adjusting the intensity of the density_ratio</h4>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">compute_rmse_by_strength</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s">"density_ratio"</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">]]</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"y"</span><span class="p">]</span>
-    <span class="n">df_train</span><span class="p">[</span><span class="s">"new_weight"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">weight</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">strength</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">().</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"new_weight"</span><span class="p">])</span>
-    <span class="n">df_train</span><span class="p">[</span><span class="s">"y_hat_new_weight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="n">df_test</span><span class="p">[</span><span class="s">"y_hat_new_weight"</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">,</span> <span class="s">"x2"</span><span class="p">]])</span>
-    <span class="n">rmse_train</span> <span class="o">=</span> <span class="n">rmse</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="s">"y"</span><span class="p">],</span> <span class="n">df_train</span><span class="p">[</span><span class="s">"y_hat_new_weight"</span><span class="p">])</span>
-    <span class="n">rmse_test</span> <span class="o">=</span> <span class="n">rmse</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s">"y"</span><span class="p">],</span> <span class="n">df_test</span><span class="p">[</span><span class="s">"y_hat_new_weight"</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">i</span><span class="p">,</span> <span class="n">rmse_train</span><span class="p">,</span> <span class="n">rmse_test</span>
-
-
-<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span>
-    <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
-    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s">"strength"</span><span class="p">,</span> <span class="s">"rmse_train"</span><span class="p">,</span> <span class="s">"rmse_test"</span><span class="p">],</span>
-    <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
-    <span class="p">(</span>
-        <span class="n">df_results</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">"strength"</span><span class="p">],</span>
-        <span class="n">df_results</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">"rmse_train"</span><span class="p">],</span>
-        <span class="n">df_results</span><span class="p">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s">"rmse_test"</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">compute_rmse_by_strength</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">strength</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">"strength"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"rmse_train"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"train"</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_results</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">"strength"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">"rmse_test"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">"test"</span><span class="p">)</span>
-<span class="n">_</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"RMSE"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">_</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Strength of density ratio (0-1)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">_</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"RMSE of test and train set"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-</code></pre></div></div>
+<p>The results above indicated that making the correction will increase error in the training set, but reduce error in the test set. What if we adjust the strength of the density ratio as a weight for the main model. You can find the simulation result below:</p>
 
 <p><img src="/assets/img/posts/covariate_shift/output_61_1.png" alt="png" /></p>
 
@@ -1613,17 +1320,16 @@ RMSE for test set:
   <li>Need to have some knowledge of the target function</li>
   <li>Need to identify if there is a covariate shift or not</li>
   <li>Training the classifier is very time consuming for high-dimension dataset</li>
-  <li>Uncertain results: It is possible that using a modeling method which can account for covariate shift may produce worse results than a standard model on data for which no shift occurs.</li>
+  <li>Uncertain results: It is possible that using a modeling method that accounts for covariate shift may produce worse results than not doing it. It is recommended to use AB test to double-check.</li>
 </ul>
 
 <h2 id="advanced-topics">Advanced topics</h2>
 
 <h3 id="more-background-knowledge">More background knowledge:</h3>
 
-<p><strong>Types of dataset shift:</strong></p>
-
+<p><strong>Types of dataset shift:</strong>
+Covariate shift (the shift of feature distributions) is not the only dataset shift we are likely to encounter, there are more types of dataset shift:</p>
 <ul>
-  <li><strong>covariate shift</strong>: the shift of the feature(s) distribution</li>
   <li><strong>prior probability shift</strong>: the shift of the target distribution</li>
   <li><strong>concept shift</strong>:  the shift of the relationship between the target and the feature(s)</li>
   <li><strong>domain shift</strong>: involves changes in measurement</li>
@@ -1662,7 +1368,7 @@ RMSE for test set:
 
 <p><strong>Simulation</strong>:</p>
 
-<p>Train a less accurate classifier by reducing the number of features</p>
+<p>In this simulation, we are going to reuse the datasets in Demo 2 and train a less accurate classifier by reducing the number of features.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Bonus test: train a "poor" classifier using less features
 </span><span class="n">X1</span> <span class="o">=</span> <span class="n">df_combined</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">]]</span>
@@ -1674,132 +1380,39 @@ RMSE for test set:
 
 <span class="k">print</span><span class="p">(</span><span class="s">"Check the accuracy of the calssifier: logistic regression with only 1 feature"</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">_</span><span class="o">=</span><span class="n">check_accuracy</span><span class="p">(</span><span class="n">df_combined</span><span class="p">,</span> <span class="s">"label_hat_lr_1"</span><span class="p">))</span>
+</code></pre></div></div>
 
-<span class="c1"># prepare the correct bersion of density ratio using the logistic regression model
+<p>Check the accuracy of the classifier: logistic regression with only 1 feature</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    accuracy: 0.706
+    precision: 0.709
+    recall: 0.696
+</code></pre></div></div>
+
+<p>Make correction and check RMSE for train and test data:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># prepare the correct version of density ratio using the logistic regression model
 </span><span class="n">df_train</span><span class="p">[</span><span class="s">"density_ratio_1"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">clf1</span><span class="p">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="s">"x1"</span><span class="p">]])</span>
 <span class="p">]</span>
 
 <span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="n">weighted_lr_1</span> <span class="o">=</span> <span class="n">compute_rmse</span><span class="p">(</span><span class="n">df_train</span><span class="p">,</span> <span class="n">df_test</span><span class="p">,</span> <span class="s">"density_ratio_1"</span><span class="p">)</span>
 </code></pre></div></div>
+<p>RMSE result with a poor classifier (trained with 1 feature):
+    RMSE for train set:
+    219.39</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Check the accuracy of the calssifier: logistic regression with only 1 feature
-
-    accuracy: 0.706
-    precision: 0.709
-    recall: 0.696
-    
-RMSE for train set:
-219.39
-
-RMSE for test set:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RMSE for test set:
 240.58
 </code></pre></div></div>
 
-<p>We can compare the results of a poor classifier (above: with 1 feature) with the results of a good classifier (below: with 2 features):</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_results</span><span class="p">.</span><span class="nb">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div></div>
-
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table style="margin-left:auto;margin-right:auto;width:60%" border="1" class="minimalistBlack">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>strength</th>
-      <th>rmse_train</th>
-      <th>rmse_test</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0.0</th>
-      <td>0.0</td>
-      <td>167.65</td>
-      <td>352.05</td>
-    </tr>
-    <tr>
-      <th>0.1</th>
-      <td>0.1</td>
-      <td>170.26</td>
-      <td>277.23</td>
-    </tr>
-    <tr>
-      <th>0.2</th>
-      <td>0.2</td>
-      <td>174.39</td>
-      <td>243.16</td>
-    </tr>
-    <tr>
-      <th>0.3</th>
-      <td>0.3</td>
-      <td>178.42</td>
-      <td>224.36</td>
-    </tr>
-    <tr>
-      <th>0.4</th>
-      <td>0.4</td>
-      <td>182.28</td>
-      <td>212.35</td>
-    </tr>
-    <tr>
-      <th>0.5</th>
-      <td>0.5</td>
-      <td>186.30</td>
-      <td>203.62</td>
-    </tr>
-    <tr>
-      <th>0.6</th>
-      <td>0.6</td>
-      <td>191.08</td>
-      <td>196.44</td>
-    </tr>
-    <tr>
-      <th>0.7</th>
-      <td>0.7</td>
-      <td>197.74</td>
-      <td>189.80</td>
-    </tr>
-    <tr>
-      <th>0.8</th>
-      <td>0.8</td>
-      <td>208.69</td>
-      <td>183.05</td>
-    </tr>
-    <tr>
-      <th>0.9</th>
-      <td>0.9</td>
-      <td>229.90</td>
-      <td>175.76</td>
-    </tr>
-    <tr>
-      <th>1.0</th>
-      <td>1.0</td>
-      <td>280.07</td>
-      <td>168.52</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<p>When we compare this result with the RMSE values above, we can see the weak classifier did the correction somehow, but the result is not as good as the result of a good classifier.</p>
 
 <h4 id="q2-what-if-the-sample-size-in-the-train-set-does-not-equal-to-the-sample-size-in-the-test-set">Q2: What if the sample size in the train set does not equal to the sample size in the test set?</h4>
 
 <p>**Answer: **</p>
 
-<p>It is no problem when using the approach in the first demo (see simulation below).</p>
+<p>It is no problem when using the approach in the first demo (see simulation below).
+<img src="/assets/img/posts/covariate_shift/output_73_0.png" alt="png" /></p>
 
 <p>However, when training the classifer as in the second approach, it is not recommended to use p_test(x)/p_train(x) directly, as it will result in a list of density ratios that are not centered at the value of 1.</p>
 
@@ -1808,131 +1421,6 @@ RMSE for test set:
   <li>resample the training or test set to make the sample sizes equal</li>
   <li>after getting the density ratio, adjust it based on the sample size ratio (n_test/n_train)</li>
 </ul>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># No difference if we use the approach in demo 1
-# customize sample size
-</span><span class="n">train_sample_size</span> <span class="o">=</span> <span class="mi">3000</span>
-<span class="n">test_sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-
-<span class="c1"># set other parameters
-</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">max_x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x</span><span class="p">))</span>
-
-<span class="c1"># define functions
-</span><span class="k">def</span> <span class="nf">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">get_obs_y</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">target_func</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">obs_x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-
-<span class="c1"># prepare different probability distribution for train and test data
-</span><span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># generate x, y, and best fitting line for train data
-</span><span class="n">x_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">train_sample_size</span><span class="p">)</span>
-<span class="n">y_train_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-<span class="n">linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># generate x, y, and best fitting line for test data
-</span><span class="n">x_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">test_sample_size</span><span class="p">)</span>
-<span class="n">y_test_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">linreg_test</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_test_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># prepare distribution plot for train and test set
-</span><span class="k">def</span> <span class="nf">prepare_distribution</span><span class="p">(</span><span class="n">x_list</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">x_list</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"x"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"x"</span><span class="p">).</span><span class="n">agg</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="s">"count"</span><span class="p">})</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-
-<span class="n">dist_test</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">dist_train</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-
-<span class="c1"># prepare density ratio
-</span>
-<span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">weight</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">weight_dict</span> <span class="o">=</span> <span class="n">weight</span><span class="p">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="n">weight_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">weight_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_train_list</span><span class="p">]</span>
-
-<span class="c1"># retrain the model using re-weighted sample
-</span><span class="n">weighted_linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">WLS</span><span class="p">(</span>
-    <span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">),</span> <span class="n">weight_list</span>
-<span class="p">).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># visualize data
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="sa">f</span><span class="s">"Distribution of x in train set (n=</span><span class="si">{</span><span class="n">train_sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in test set (n=</span><span class="si">{</span><span class="n">test_sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Train data with the re-weighted fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">y_train_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Test data with best fitting line"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">,</span> <span class="n">y_test_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Compare fitted lines from train and test"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span>
-    <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="/assets/img/posts/covariate_shift/output_73_0.png" alt="png" /></p>
 
 <h4 id="q3-what-if-the-target-function-is-perfectly-linear">Q3: What if the target function is perfectly linear?</h4>
 
@@ -1947,248 +1435,9 @@ RMSE for test set:
 
 <p><strong>Simulation for Situation 1</strong>: relative small error term when generating the simulation data</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Prepare data: small error
-</span><span class="n">error</span> <span class="o">=</span> <span class="mi">10</span>
-
-<span class="c1"># set other parameters
-</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">max_x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x</span><span class="p">))</span>
-
-<span class="c1"># define functions
-</span><span class="k">def</span> <span class="nf">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">get_obs_y</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">):</span>
-    <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">target_func</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">obs_x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-
-<span class="c1"># prepare different probability distribution for train and test data
-</span><span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># generate x, y, and best fitting line for train data
-</span><span class="n">x_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_train_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-<span class="n">linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># generate x, y, and best fitting line for test data
-</span><span class="n">x_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_test_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">linreg_test</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_test_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># prepare distribution plot for train and test set
-</span><span class="k">def</span> <span class="nf">prepare_distribution</span><span class="p">(</span><span class="n">x_list</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">x_list</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"x"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"x"</span><span class="p">).</span><span class="n">agg</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="s">"count"</span><span class="p">})</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-
-<span class="n">dist_test</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">dist_train</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-
-<span class="c1"># prepare density ratio
-</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">weight</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">weight_dict</span> <span class="o">=</span> <span class="n">weight</span><span class="p">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="n">weight_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">weight_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_train_list</span><span class="p">]</span>
-
-<span class="c1"># retrain the model using re-weighted sample
-</span><span class="n">weighted_linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">WLS</span><span class="p">(</span>
-    <span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">),</span> <span class="n">weight_list</span>
-<span class="p">).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># visualize data
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in train set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in test set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="s">"Train data with the re-weighted fitting line (small error)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">y_train_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Test data with best fitting line (small error)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">,</span> <span class="n">y_test_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Compare fitted lines from train and test"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span>
-    <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
 <p><img src="/assets/img/posts/covariate_shift/output_77_0.png" alt="png" /></p>
 
 <p><strong>Simulation for Situation 2</strong>: relative large error term when generating the simulation data</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Prepare data: large error
-</span><span class="n">error</span> <span class="o">=</span> <span class="mi">100</span>
-
-<span class="c1"># set other parameters
-</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">max_x</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">max_x</span><span class="p">))</span>
-
-<span class="c1"># define functions
-</span><span class="k">def</span> <span class="nf">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">eps</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
-
-
-<span class="k">def</span> <span class="nf">get_obs_y</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error</span><span class="p">):</span>
-    <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">target_func</span><span class="p">(</span><span class="n">obs_x</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">obs_x</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-
-<span class="c1"># prepare different probability distribution for train and test data
-</span><span class="n">test_weights</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">max_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">max_x</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_range</span><span class="p">]</span>
-<span class="n">train_weights</span> <span class="o">=</span> <span class="n">test_weights</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># generate x, y, and best fitting line for train data
-</span><span class="n">x_train_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">train_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_train_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-<span class="n">linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># generate x, y, and best fitting line for test data
-</span><span class="n">x_test_list</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">test_weights</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">sample_size</span><span class="p">)</span>
-<span class="n">y_test_list</span> <span class="o">=</span> <span class="n">get_obs_y</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">linreg_test</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y_test_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># prepare distribution plot for train and test set
-</span><span class="k">def</span> <span class="nf">prepare_distribution</span><span class="p">(</span><span class="n">x_list</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">x_list</span><span class="p">)</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"x"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"x"</span><span class="p">).</span><span class="n">agg</span><span class="p">({</span><span class="s">"x"</span><span class="p">:</span> <span class="s">"count"</span><span class="p">})</span>
-    <span class="n">df</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-
-<span class="n">dist_test</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)</span>
-<span class="n">dist_train</span> <span class="o">=</span> <span class="n">prepare_distribution</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)</span>
-
-<span class="c1"># prepare density ratio
-</span>
-<span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span>
-<span class="n">weight</span> <span class="o">=</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span> <span class="o">/</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"p"</span><span class="p">]</span>
-<span class="n">weight_dict</span> <span class="o">=</span> <span class="n">weight</span><span class="p">.</span><span class="n">to_dict</span><span class="p">()</span>
-<span class="n">weight_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">weight_dict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_train_list</span><span class="p">]</span>
-
-<span class="c1"># retrain the model using re-weighted sample
-</span><span class="n">weighted_linreg_train</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">WLS</span><span class="p">(</span>
-    <span class="n">y_train_list</span><span class="p">,</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">),</span> <span class="n">weight_list</span>
-<span class="p">).</span><span class="n">fit</span><span class="p">()</span>
-
-<span class="c1"># visualize data
-</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in train set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_train</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_train</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s">"Distribution of x in test set (n=</span><span class="si">{</span><span class="n">sample_size</span><span class="si">}</span><span class="s">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">bar</span><span class="p">(</span><span class="n">dist_test</span><span class="p">[</span><span class="s">"x"</span><span class="p">],</span> <span class="n">dist_test</span><span class="p">[</span><span class="s">"frequency"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"count"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Target function"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">target_func</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span>
-    <span class="s">"Train data with the re-weighted fitting line (large error)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">y_train_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Test data with best fitting line (large error)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">,</span> <span class="n">y_test_list</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s">"x"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span> <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s">"orange"</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">].</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">].</span><span class="n">get_ylim</span><span class="p">())</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Compare fitted lines from train and test"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">,</span> <span class="n">linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)))</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_train_list</span><span class="p">,</span>
-    <span class="n">weighted_linreg_train</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_train_list</span><span class="p">)),</span>
-    <span class="n">color</span><span class="o">=</span><span class="s">"black"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">x_test_list</span><span class="p">,</span>
-    <span class="n">linreg_test</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x_test_list</span><span class="p">)),</span>
-    <span class="n">c</span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">rlin</span><span class="o">/</span><span class="n">workspace</span><span class="o">/</span><span class="n">repo</span><span class="o">/</span><span class="n">Ruoyun_blog</span> <span class="n">olor</span><span class="o">=</span><span class="s">"orange"</span><span class="p">,</span>
-    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"$X$"</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">5</span><span class="p">].</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"$Y$"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
 
 <p><img src="/assets/img/posts/covariate_shift/output_79_0.png" alt="png" /></p>
 
