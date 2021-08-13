@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 Aug 2021 13:12:01 +0200</pubDate>
-    <lastBuildDate>Fri, 13 Aug 2021 13:12:01 +0200</lastBuildDate>
+    <pubDate>Fri, 13 Aug 2021 13:24:26 +0200</pubDate>
+    <lastBuildDate>Fri, 13 Aug 2021 13:24:26 +0200</lastBuildDate>
     <generator>Jekyll v4.0.1</generator>
     
       <item>
@@ -1202,8 +1202,8 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 
 &lt;p&gt;&lt;strong&gt;Answer:&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;Situation 1: not too much signal in distinguishing train and test set  –&amp;gt; no need to do covariate shift correction&lt;/li&gt;
-  &lt;li&gt;Situation 2: the classifier is not good enough to describe the feature difference between test and train set  –&amp;gt; improve the classifier (logistic regression -&amp;gt; MLP)&lt;/li&gt;
+  &lt;li&gt;Situation 1: There is not too much signal in distinguishing train and test set  –&amp;gt; no need to do covariate shift correction&lt;/li&gt;
+  &lt;li&gt;Situation 2: The classifier is not good enough to describe the feature difference between test and train set  –&amp;gt; improve the classifier (e.g., instead of using logistic regression, use Multi-Layer Percepton)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;strong&gt;Simulation&lt;/strong&gt;:&lt;/p&gt;
@@ -1222,7 +1222,7 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 &lt;span class=&quot;n&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check_accuracy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_combined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;label_hat_lr_1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Check the accuracy of the classifier: logistic regression with only 1 feature&lt;/p&gt;
+&lt;p&gt;Check the accuracy of the “poor” classifier:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    accuracy: 0.706
     precision: 0.709
@@ -1230,6 +1230,7 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Make correction and check RMSE for train and test data:&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# prepare the correct version of density ratio using the logistic regression model
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;density_ratio_1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clf1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;predict_proba&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
@@ -1237,12 +1238,14 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 
 &lt;span class=&quot;n&quot;&gt;df_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weighted_lr_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compute_rmse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_train&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;density_ratio_1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;RMSE result with a poor classifier (trained with 1 feature):
-    RMSE for train set:
-    219.39&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;RMSE for test set:
-240.58
+&lt;p&gt;RMSE result with a poor classifier (trained with 1 feature):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  RMSE for train set:
+  219.39
+  
+  RMSE for test set:
+  240.58
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;When we compare this result with the RMSE values above, we can see the weak classifier did the correction somehow, but the result is not as good as the result of a good classifier.&lt;/p&gt;
@@ -1251,15 +1254,16 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 
 &lt;p&gt;**Answer: **&lt;/p&gt;
 
-&lt;p&gt;It is no problem when using the approach in the first demo (see simulation below).
-&lt;img src=&quot;/assets/img/posts/covariate_shift/output_73_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;It is no problem when using the approach in the first demo (see simulation below).&lt;/p&gt;
 
-&lt;p&gt;However, when training the classifer as in the second approach, it is not recommended to use p_test(x)/p_train(x) directly, as it will result in a list of density ratios that are not centered at the value of 1.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/posts/covariate_shift/output_73_0.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;However, when training the classifier as in the second approach, it is not recommended to use p_test(x)/p_train(x) directly, as it will result in a list of density ratios that are not centered at the value of 1.&lt;/p&gt;
 
 &lt;p&gt;Two solutions:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;resample the training or test set to make the sample sizes equal&lt;/li&gt;
-  &lt;li&gt;after getting the density ratio, adjust it based on the sample size ratio (n_test/n_train)&lt;/li&gt;
+  &lt;li&gt;Resample the training or test set to make the sample sizes equal&lt;/li&gt;
+  &lt;li&gt;After getting the density ratio, adjust it based on the sample size ratio (n_test/n_train)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;q3-what-if-the-target-function-is-perfectly-linear&quot;&gt;Q3: What if the target function is perfectly linear?&lt;/h4&gt;
