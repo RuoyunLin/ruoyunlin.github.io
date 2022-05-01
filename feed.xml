@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 13 Aug 2021 13:24:26 +0200</pubDate>
-    <lastBuildDate>Fri, 13 Aug 2021 13:24:26 +0200</lastBuildDate>
+    <pubDate>Sun, 01 May 2022 21:00:58 +0200</pubDate>
+    <lastBuildDate>Sun, 01 May 2022 21:00:58 +0200</lastBuildDate>
     <generator>Jekyll v4.0.1</generator>
     
       <item>
@@ -78,7 +78,7 @@ I was trying to think deeper about questions like 1) whether my dataset indeed h
 
 &lt;h2 id=&quot;background-knowledge&quot;&gt;Background knowledge&lt;/h2&gt;
 
-&lt;h3 id=&quot;warning-dragons-ahead&quot;&gt;Warning: dragons ahead&lt;/h3&gt;
+&lt;h3 id=&quot;warning-jargon-ahead&quot;&gt;Warning: Jargon ahead&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;Training dataset&lt;/strong&gt;: A set of examples used to fit the parameters of a model.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Test dataset&lt;/strong&gt;: Dataset used to provide an unbiased evaluation of the model fit on the training data set.&lt;/p&gt;
@@ -1180,7 +1180,7 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
   &lt;li&gt;visualize feature distribution&lt;/li&gt;
   &lt;li&gt;train a classifier for the combined data method (check for each feature)
     &lt;ul&gt;
-      &lt;li&gt;if AUC-ROC is larger than 0.8 –&amp;gt; drifting feature (see “Steps to identify drift” section in the first reference &lt;a href=&quot;https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/&quot;&gt;link&lt;/a&gt;)&lt;/li&gt;
+      &lt;li&gt;if AUC-ROC is larger than 0.8 –&amp;gt; drifting feature (see “Steps to identify drift” section in the first reference &lt;a href=&quot;https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/&quot;&gt;link&lt;/a&gt; or simply use the code in this &lt;a href=&quot;https://www.kaggle.com/georsara1/covariate-shift-check-up-updated&quot;&gt;notebook&lt;/a&gt;)&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
