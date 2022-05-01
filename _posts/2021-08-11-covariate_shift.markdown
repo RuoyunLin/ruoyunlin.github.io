@@ -70,7 +70,7 @@ For those who still have no idea after reading the sentence above, please read t
 
 ## Background knowledge
 
-### Warning: dragons ahead
+### Warning: Jargon ahead
 **Training dataset**: A set of examples used to fit the parameters of a model.
 
 **Test dataset**: Dataset used to provide an unbiased evaluation of the model fit on the training data set.
@@ -1201,7 +1201,7 @@ Although the demos in this notebook seem promising and easy to implement, the ap
 - Need to have some knowledge of the target function
 - Need to identify if there is a covariate shift or not
 - Training the classifier is very time consuming for high-dimension dataset
-- Uncertain results: It is possible that using a modeling method that accounts for covariate shift may produce worse results than not doing it. It is recommended to use AB test to double-check.
+- Uncertain results: It is possible that using a model that corrects for covariate shift may produce worse results than using a standard model without the correction.
 
 ## Advanced topics
 
@@ -1217,7 +1217,7 @@ Covariate shift (the shift of feature distributions) is not the only dataset shi
 **How to identify covariate shift?**
 - visualize feature distribution 
 - train a classifier for the combined data method (check for each feature) 
-    - if AUC-ROC is larger than 0.8 --> drifting feature (see "Steps to identify drift" section in the first reference [link](https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/))
+    - if AUC-ROC is larger than 0.8 --> drifting feature (see "Steps to identify drift" section in the first reference [link](https://www.analyticsvidhya.com/blog/2017/07/covariate-shift-the-hidden-problem-of-real-world-data-science/) or simply use the code in this [notebook](https://www.kaggle.com/georsara1/covariate-shift-check-up-updated)) 
 
 
 **Two methods of dealing with covariate shift:** 
