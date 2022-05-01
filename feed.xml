@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 01 May 2022 21:00:58 +0200</pubDate>
-    <lastBuildDate>Sun, 01 May 2022 21:00:58 +0200</lastBuildDate>
+    <pubDate>Sun, 01 May 2022 21:28:38 +0200</pubDate>
+    <lastBuildDate>Sun, 01 May 2022 21:28:38 +0200</lastBuildDate>
     <generator>Jekyll v4.0.1</generator>
     
       <item>
@@ -1160,7 +1160,7 @@ RMSE for test set:
   &lt;li&gt;Need to have some knowledge of the target function&lt;/li&gt;
   &lt;li&gt;Need to identify if there is a covariate shift or not&lt;/li&gt;
   &lt;li&gt;Training the classifier is very time consuming for high-dimension dataset&lt;/li&gt;
-  &lt;li&gt;Uncertain results: It is possible that using a modeling method that accounts for covariate shift may produce worse results than not doing it. It is recommended to use AB test to double-check.&lt;/li&gt;
+  &lt;li&gt;Uncertain results: It is possible that using a model that corrects for covariate shift may produce worse results than using a standard model without the correction.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;advanced-topics&quot;&gt;Advanced topics&lt;/h2&gt;
