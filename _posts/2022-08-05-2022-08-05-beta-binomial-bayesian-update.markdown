@@ -11,6 +11,8 @@ It is a very easy-to-use technique that can help us overcome the issue of data s
 
 In the context of e-Business, we can use this technique to predict the conversion rate or click-through-rate (number of clicks/number of impressions).
 
+<!--more-->
+
 ## Context for the demo
 
 In the demo below, we will use the **click-through-rate (CTR)** as an example. 
