@@ -1,3 +1,5 @@
+- name: Predicting value per click for bidding
+  descr: This is my main work since I joined the bidding models team. In the past year, I have learned how to build a robust and reliable model for predicting value per click, including how to handle data spasity, how to iterate and deploy a model in production, how to monitor the performance of a model by dashboarding, and how to use offline evaluationa and AB testing for choosing the right model.
 - name: Predicting users booking intent
   descr: At trivago, my first project is to predict users booking intent. We asked users to report their booking intent when they landed on our webpage. More than 10200 users responded. The behavioral data of those users were extracted and merged with the attitudinal data for further analysis. Methods like logistic regression were used to find out the most important predictors of user intent. Various machine learning techniques (e.g., GradientBoosting) were also used to predict user intent. 
 - name: Redefining tie strength
