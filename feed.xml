@@ -5,8 +5,8 @@
     <description>Welcome to my blog.</description>
     <link>https://RuoyunLin.github.io/</link>
     <atom:link href="https://RuoyunLin.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 Aug 2022 15:15:44 +0200</pubDate>
-    <lastBuildDate>Fri, 05 Aug 2022 15:15:44 +0200</lastBuildDate>
+    <pubDate>Fri, 05 Aug 2022 15:27:58 +0200</pubDate>
+    <lastBuildDate>Fri, 05 Aug 2022 15:27:58 +0200</lastBuildDate>
     <generator>Jekyll v4.0.1</generator>
     
       <item>
@@ -18,6 +18,8 @@
 &lt;p&gt;It is a very easy-to-use technique that can help us overcome the issue of data sparsity and give us a realistic estimation of a probability.&lt;/p&gt;
 
 &lt;p&gt;In the context of e-Business, we can use this technique to predict the conversion rate or click-through-rate (number of clicks/number of impressions).&lt;/p&gt;
+
+&lt;!--more--&gt;
 
 &lt;h2 id=&quot;context-for-the-demo&quot;&gt;Context for the demo&lt;/h2&gt;
 
