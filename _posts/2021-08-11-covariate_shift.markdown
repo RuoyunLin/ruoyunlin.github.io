@@ -84,11 +84,7 @@ For those who still have no idea after reading the sentence above, please read t
 
 ### What is linear regression?
 
-A simple example of a machine learning model is a linear regression model:
-
-
-![image.png](https://datascience.foundation/img/pdf_images/understanding_of_linear_regression_with_python_1.png)
-
+A simple example of a machine learning model is a linear regression model.
 
 One way to validate a linear regression model is to use [Root-Mean-Square-Error](https://en.wikipedia.org/wiki/Root-mean-square_deviation), which is also called as RMSE. 
 
